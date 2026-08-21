@@ -1,0 +1,10 @@
+node_modules
+dist
+dist-ssr
+*.local
+.DS_Store
+.vite
+
+# Chrome の一時プロファイル（検証用スクショで生成されることがある）
+.chrometmp/
+prof_*/

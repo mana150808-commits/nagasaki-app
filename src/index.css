@@ -1,0 +1,140 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  color: theme('colors.ink');
+  font-family: theme('fontFamily.hand');
+  background-color: #eef1f6;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* 補助テキスト（本文と同じフォント） */
+.font-jp {
+  font-family: theme('fontFamily.hand');
+}
+
+@layer components {
+  /* クリーンなカード（白ベース・柔らかい影・均一な角丸） */
+  .card-hand {
+    @apply relative bg-white border border-black/5 shadow-hand;
+    border-radius: 18px;
+  }
+
+  /* タップ時のフィードバック */
+  .press {
+    @apply transition-all duration-150 active:scale-[0.98];
+  }
+
+  .dash-hand {
+    border-bottom: 2px solid rgba(255, 255, 255, 0.4);
+  }
+}
+
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* ===== ホーム画面の表示アニメーション ===== */
+
+/* 灯りが点る（0→その要素本来の明るさ --lit-o へ。個々の灯りの暗さを保つ） */
+@keyframes lightOn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: var(--lit-o, 1);
+  }
+}
+
+/* タイトル演出：中央に大きく現れて少し留まり、左上の定位置へ移動して収まる。
+   translate の 50% は要素自身の幅/高さ基準なので、画面中央に正確に配置できる
+   （h1 は inline-block にして箱幅＝文字幅にしておくこと）。 */
+/* --hero-tx / --hero-ty は JS で実測して設定（要素中心を画面中央へ運ぶ px 量）。 */
+@keyframes titleHero {
+  0% {
+    opacity: 0;
+    transform: translate(var(--hero-tx, 0), var(--hero-ty, 0)) scale(1.6);
+    filter: blur(8px);
+  }
+  16%,
+  52% {
+    opacity: 1;
+    filter: blur(0);
+    transform: translate(var(--hero-tx, 0), var(--hero-ty, 0)) scale(1.6);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(0, 0) scale(1);
+    filter: blur(0);
+  }
+}
+
+/* 内容が下からふわっと現れる */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* アニメは導入再生時（ルートに .intro が付くとき）のみ動作する。
+   .intro が無ければ各クラスは無効＝要素は最終状態でそのまま表示される
+   （＝アプリ起動時に一度だけ再生し、アプリ内でホームに戻っても再生しない）。 */
+.intro .anim-title {
+  animation: titleHero 1.6s cubic-bezier(0.6, 0, 0.3, 1) both;
+  transform-origin: center;
+  will-change: transform, filter, opacity;
+}
+
+.intro .anim-fade-up {
+  animation: fadeUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* SVG内の灯り点灯（NightView で inline animationDelay を付与） */
+.intro .lit {
+  animation: lightOn 0.5s ease-out both;
+}
+
+/* ページを開いたときの登場（フェード＋スライドアップ）。
+   店舗ページ・料理ページを開いた瞬間に軽く動かす。 */
+@keyframes pageEnter {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.page-enter {
+  animation: pageEnter 0.35s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* 動きが苦手な人向け：アニメを無効化して即・最終表示に */
+@media (prefers-reduced-motion: reduce) {
+  .intro .anim-title,
+  .intro .anim-fade-up,
+  .intro .lit,
+  .page-enter {
+    animation: none !important;
+  }
+}
