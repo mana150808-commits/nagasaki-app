@@ -501,6 +501,74 @@ export const shops = [
       },
     ],
   },
+
+  {
+    id: 'shunsai-nagaya',
+    name: 'Shunsai Nagaya',
+    nameJa: '',
+    category: 'Izakaya',
+    area: 'Near Shianbashi & Doza',
+    areaJa: '思案橋・銅座周辺',
+
+    // 現・仮マップ用の位置（%座標）※思案橋・銅座エリア
+    map: { x: 70, y: 90 },
+    geo: { lat: null, lng: null },
+
+    photoBase: '/shops/shunsai-nagaya',
+    exterior: 'exterior.jpg',
+
+    description:
+      'Shunsai Nagaya is a refined yet accessible Japanese izakaya located near the ' +
+      'Shianbashi and Doza nightlife districts. Celebrated for its creative Japanese ' +
+      'cuisine, the restaurant highlights local Nagasaki seafood, top-grade Wagyu, ' +
+      'and unique regional ingredients in a modern, welcoming atmosphere. It is an ' +
+      'exceptional spot for international travelers seeking an authentic, ' +
+      'high-quality Japanese dining experience paired with fine local sake.',
+
+    menu: [
+      {
+        id: 'wagyu-tempura',
+        name: 'Nagasaki Kuroge Wagyu Beef Tempura',
+        price: '¥1,380',
+        img: 'menu1.jpg',
+        description:
+          'Luxurious tempura featuring top-tier Nagasaki Kuroge Wagyu beef. ' +
+          'Deep-fried with a light, crispy batter that locks in the rich Umami and ' +
+          'juicy texture of the Wagyu, offering a novel twist on traditional tempura.',
+      },
+      {
+        id: 'shimaaji-shabu',
+        name: 'Yukou Shima-Aji Shabu-Shabu with Goto Udon Finish',
+        price: '¥2,500',
+        img: 'menu2.jpg',
+        description:
+          'Striped Jack (Shima-Aji) raised in Toishi, Nagasaki, fed with "Yukou" — a ' +
+          'rare, traditional Nagasaki citrus. Swished briefly in hot broth, this ' +
+          'firm, flavorful fish loses all fishiness while retaining its rich fat. ' +
+          'Served with famous Goto Udon noodles to finish the meal.',
+      },
+      {
+        id: 'pork-lemon-butter',
+        name: 'Pork Shoulder Roast Lemon Butter Steak on Hot Plate',
+        price: '¥1,280',
+        img: 'menu3.jpg',
+        description:
+          'Juicy pork shoulder roast cooked on a ceramic hot plate (Toban) with a ' +
+          'savory lemon-butter sauce. The refreshing citrus notes cut through the ' +
+          'richness of the pork, creating an irresistible aroma and taste.',
+      },
+      {
+        id: 'sake-tasting',
+        name: "Shunsai Nagaya's Selected Sake Tasting Set",
+        price: '¥1,980',
+        img: 'menu4.jpg',
+        description:
+          'A carefully curated flight of fine Japanese sakes chosen by the ' +
+          'restaurant. A perfect option for international guests who want to sample, ' +
+          'compare, and discover different flavor profiles of premium Japanese sake.',
+      },
+    ],
+  },
 ]
 
 // id から店舗を取得
