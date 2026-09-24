@@ -1,14 +1,17 @@
 import { useParams, useNavigate, Link } from 'react-router-dom'
 import { getShopById, shopImageUrl } from '../data/shops.js'
 import ShopImage from '../components/ShopImage.jsx'
+import { useLanguage, pickText } from '../LanguageContext.jsx'
 
 // お店の詳細ページ。
 // ルート /shop/:shopId の id を受け、shops データから該当店を描画する。
 // 構成：上=外観 / 中=説明 / 下=代表メニュー写真(3〜5枚)。
 // マップ実装には依存しない（マップを差し替えてもこのページは不変）。
+// 説明文は、マップで選んだ言語（LanguageContext）に連動して切り替わる。
 export default function ShopPage() {
   const { shopId } = useParams()
   const navigate = useNavigate()
+  const { lang } = useLanguage()
   const shop = getShopById(shopId)
 
   // 該当店が無い場合
@@ -68,7 +71,7 @@ export default function ShopPage() {
           {shop.category} · {shop.area}
         </p>
         <p className="mt-1 text-sm text-ink/50">{shop.areaJa}</p>
-        <p className="mt-4 leading-relaxed text-ink/90">{shop.description}</p>
+        <p className="mt-4 leading-relaxed text-ink/90">{pickText(shop.description, lang)}</p>
       </section>
 
       {/* 下：代表メニュー（写真3〜5枚） */}

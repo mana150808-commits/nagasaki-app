@@ -1,332 +1,257 @@
-import { useRef, useState, useLayoutEffect, useCallback } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { ChurchIcon, TramIcon, PortIcon, SlopeIcon, LanternIcon } from './icons/NagasakiIcons.jsx'
+import maplibregl from 'maplibre-gl'
+import 'maplibre-gl/dist/maplibre-gl.css'
 import { shops } from '../data/shops.js'
+import { LANGUAGES, useLanguage } from '../LanguageContext.jsx'
 
-// 長崎市の「仮マップ」。
-// 見える枠（ビューポート）は従来どおりの正方形のまま、その中の「地図（ワールド）」を
-// 一回り大きく描き、指でスワイプ／ドラッグして上下左右にパンできるようにする。
-// これによりピンの間隔を広げても枠内に収まらなくならない。
-// 見える範囲の外にあるピンは、枠の縁に「方向マーカー」を出して知らせる
-// （マーカーを押すと、そのお店が中央に来るようにマップが移動する）。
-//
-// ▼ 将来 Google Maps 等に差し替える場合はこのコンポーネントの中身だけを
-//   置き換えればよい：地名スポット(LANDMARKS)は装飾なので任意。
-//   店舗ピンは shops(data/shops.js) を map して描画しており、
-//   実地図化では shop.geo(lat/lng) を使ってピンを置き、
-//   クリックで navigate(`/shop/${shop.id}`) する点だけ踏襲すればよい。
+// 長崎によく来る海外観光客の言語＋日本語。アプリ全体（店舗の説明文など）と共通の言語リストを使う。
+// （長崎港は中国発クルーズ船の寄港が多く、地理的に韓国・台湾からの観光客も多いという
+// 一般的な傾向にもとづく選定で、公式統計での裏付けはしていない）
+const MAP_LANGS = LANGUAGES
 
-// 地図（ワールド）は枠の何倍か。1 より大きいほど広く、パンできる余地が増える。
-const WORLD_SCALE = 1.7
-// 画面外ピンの方向マーカーを縁からどれだけ内側に置くか（px）
-const EDGE_PAD = 18
-// クリックとドラッグを区別するしきい値（px）
-const DRAG_THRESHOLD = 5
+// OpenStreetMapの地名データにある言語別フィールド(name:xx)を、優先順位つきで参照する。
+// データが無い言語・場所ではより上位の候補（英語→現地語）にフォールバックする。
+const NAME_FIELD_CHAINS = {
+  en: ['name:en', 'name_en', 'name:latin', 'name'],
+  zhCN: ['name:zh-Hans', 'name:zh', 'name:en', 'name'],
+  zhTW: ['name:zh-Hant', 'name:zh', 'name:en', 'name'],
+  ko: ['name:ko', 'name:en', 'name'],
+  ja: ['name:ja', 'name'],
+}
 
-// 地名スポット（装飾・非クリック）
-const LANDMARKS = [
-  { id: 'port', name: 'Nagasaki Port', x: 26, y: 30, Icon: PortIcon, color: 'text-navy' },
-  { id: 'dejima', name: 'Dejima', x: 40, y: 40, Icon: LanternIcon, color: 'text-vermilion' },
-  { id: 'church', name: 'Oura Church', x: 30, y: 66, Icon: ChurchIcon, color: 'text-terracotta' },
-  { id: 'glover', name: 'Glover Garden', x: 52, y: 88, Icon: SlopeIcon, color: 'text-pine' },
-  { id: 'tram', name: 'Tram Line', x: 76, y: 52, Icon: TramIcon, color: 'text-navy' },
+function buildTextField(lang) {
+  const expr = ['coalesce']
+  NAME_FIELD_CHAINS[lang].forEach((f) => expr.push(['get', f]))
+  return expr
+}
+
+// 実地図（MapLibre GL + OpenFreeMap、APIキー不要）。
+// もう一つのプロトタイプアプリ（NagaGo/Dejima Dish）で使っている地図の実装方式を移植したもの:
+//   ・OpenFreeMapの「positron」スタイル（シンプルな配色の地図）に、建物データから3D押し出しを追加
+//   ・店舗ピンはカテゴリー別の線画アイコンを乗せた丸バッジ
+//   ・パン/ズームは長崎駅〜思案橋のエリアだけに制限
+// レイアウト・サイズ（aspect-square, rounded-2xl 等）は元のMapViewを踏襲し、
+// Home/MapPageなど呼び出し側の見た目は変えていない。
+
+const CATEGORY_ICON_PATHS = {
+  Izakaya: '<path d="M3 11h18a9 9 0 0 1-18 0Z"/><path d="M9 4.2c-.9.9-.9 2 0 2.9M12.3 3.4c-.9.9-.9 2 0 2.9M15.6 4.2c-.9.9-.9 2 0 2.9"/>',
+  Bar: '<path d="M5 4h14l-6.2 7.4V18h3"/><path d="M9 18h4"/><path d="M5.8 7.2h12.4"/>',
+  Yakiniku: '<path d="M12 21c4 0 6-2.5 6-6 0-3-2-4.5-2-4.5.3 2-1 3-1 3 .3-3.5-2.5-5-2.5-8.5-1.5 1.5-3 3.5-3 6 0 1-1 1.7-1 1.7C7 14 6 15.5 6 17c0 2.5 2 4 6 4Z"/>',
+  'Cafe & Bar': '<path d="M5 9h11v6a5 5 0 0 1-5 5H10a5 5 0 0 1-5-5V9Z"/><path d="M16 10.2h1.3a2.4 2.4 0 0 1 0 4.8H16"/><path d="M8.2 5.2c-.8.8-.8 1.8 0 2.6M11.7 4.4c-.8.8-.8 1.8 0 2.6"/>',
+}
+const DEFAULT_ICON_PATH =
+  '<path d="M3 11h18a9 9 0 0 1-18 0Z"/><path d="M9 4.2c-.9.9-.9 2 0 2.9M12.3 3.4c-.9.9-.9 2 0 2.9M15.6 4.2c-.9.9-.9 2 0 2.9"/>'
+
+function iconSvg(category, size = 17) {
+  const path = CATEGORY_ICON_PATHS[category] || DEFAULT_ICON_PATH
+  return `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" width="${size}" height="${size}">${path}</svg>`
+}
+
+// 実際にshopsデータへ登場する順番で、カテゴリーの一覧を作る
+// （新しいカテゴリーのお店を追加するだけで、この凡例にも自動で反映される）
+const CATEGORIES = shops.reduce((list, shop) => {
+  if (!list.includes(shop.category)) list.push(shop.category)
+  return list
+}, [])
+
+// 長崎駅〜思案橋・銅座・新地中華街をひとつのエリアとしてカバーする範囲に制限する。
+// 東西幅が南北幅よりかなり狭いと、maxBoundsに収めるためのズーム制約で
+// 東西にはほぼパンできず上下方向だけ動かせる状態になってしまう。
+// そのため東西方向に余裕を持たせ、南北とほぼ同じくらいの広さにしてある。
+const MAP_BOUNDS = [
+  [129.8595, 32.7365], // 南西
+  [129.8815, 32.756], // 北東
 ]
-
-const LAND_D =
-  'M14 18 C14 10 22 8 34 8 C50 8 62 6 76 10 C88 13 92 22 90 34 C92 50 92 64 88 76 C85 88 74 92 62 92 C48 93 32 93 22 90 C12 87 8 76 10 64 C8 50 8 32 14 18 Z'
-
-// カテゴリ別のピン絵柄。新カテゴリは1行足すだけ。未定義は 🍴。
-const CATEGORY_ICON = {
-  Izakaya: '🍶',
-  Bar: '🍺',
-  Yakiniku: '🍖',
-  'Cafe & Bar': '🍸',
-  Cafe: '☕',
-  Restaurant: '🍴',
-  Ramen: '🍜',
-  Sushi: '🍣',
-  Sweets: '🍡',
-}
-const iconForCategory = (category) => CATEGORY_ICON[category] ?? '🍴'
-
-// offset をワールドが必ず枠を覆う範囲にクランプ
-const clampOffset = (o, w, h) => {
-  const minX = w - w * WORLD_SCALE // 負値（左に寄せられる限界）
-  const minY = h - h * WORLD_SCALE
-  return {
-    x: Math.min(0, Math.max(minX, o.x)),
-    y: Math.min(0, Math.max(minY, o.y)),
-  }
-}
 
 export default function MapView({ className = '' }) {
   const navigate = useNavigate()
-  const viewportRef = useRef(null)
-  const dragRef = useRef(null) // { startX, startY, baseX, baseY, moved }
-  const movedRef = useRef(false) // 直近の操作がドラッグだったか（ピンの誤クリック防止）
-  const userPannedRef = useRef(false) // ユーザーが一度でも動かしたか（＝以後は中央寄せしない）
+  const containerRef = useRef(null)
+  const mapRef = useRef(null)
+  const labelLayerIdsRef = useRef([])
+  const markersRef = useRef([]) // { shop, el }[]
+  const { lang, setLang } = useLanguage() // アプリ全体と共有の言語（店舗の説明文もこれに連動する）
+  const [activeCategory, setActiveCategory] = useState(null) // nullは「すべて」
+  const activeCategoryRef = useRef(null)
 
-  const [size, setSize] = useState({ w: 0, h: 0 }) // 枠のピクセルサイズ
-  const [offset, setOffset] = useState(null) // ワールドの平行移動(px)。中央位置が決まるまで null
-  const [dragging, setDragging] = useState(false)
+  // ピンの絞り込みを、既に作成済みのマーカーの表示/非表示だけで行う（作り直さない）
+  const applyCategoryFilter = () => {
+    markersRef.current.forEach(({ shop, el }) => {
+      const show = !activeCategoryRef.current || shop.category === activeCategoryRef.current
+      el.style.display = show ? 'flex' : 'none'
+    })
+  }
 
-  const worldW = size.w * WORLD_SCALE
-  const worldH = size.h * WORLD_SCALE
-  const ready = offset !== null
-  const off = offset ?? { x: 0, y: 0 }
+  useEffect(() => {
+    let cancelled = false
 
-  // 枠サイズを測り、初回は「地図の中央」が枠の中央に来るよう offset を決める。
-  // useLayoutEffect なので描画（ペイント）前に確定 → 左上からのチラつきなく中央表示。
-  // ユーザーが動かした後のリサイズでは中央へ戻さず、現在位置を再クランプするだけ。
-  useLayoutEffect(() => {
-    const el = viewportRef.current
-    if (!el) return
-    const measure = () => {
-      const w = el.clientWidth
-      const h = el.clientHeight
-      if (w === 0 || h === 0) return
-      setSize({ w, h })
-      setOffset((prev) => {
-        if (prev === null || !userPannedRef.current) {
-          // 中央：ワールドの中心を枠の中心に合わせる
-          return clampOffset({ x: (w - w * WORLD_SCALE) / 2, y: (h - h * WORLD_SCALE) / 2 }, w, h)
+    async function init() {
+      const style = await fetch('https://tiles.openfreemap.org/styles/positron').then((r) => r.json())
+      if (cancelled || !containerRef.current) return
+
+      // 地名・道路名などのラベルレイヤーを見つけて、初期言語のテキストに差し替えておく
+      const labelLayerIds = []
+      style.layers.forEach((layer) => {
+        const tf = layer.layout && layer.layout['text-field']
+        if (tf && JSON.stringify(tf).includes('"name')) {
+          labelLayerIds.push(layer.id)
+          layer.layout['text-field'] = buildTextField(lang)
         }
-        return clampOffset(prev, w, h)
+      })
+      labelLayerIdsRef.current = labelLayerIds
+
+      // 建物データにrender_height/render_min_heightがあるため、3D押し出しレイヤーを追加する
+      const buildingIndex = style.layers.findIndex((l) => l.id === 'building')
+      if (buildingIndex !== -1) {
+        style.layers.splice(buildingIndex + 1, 0, {
+          id: 'building-3d',
+          type: 'fill-extrusion',
+          source: 'openmaptiles',
+          'source-layer': 'building',
+          minzoom: 14,
+          paint: {
+            'fill-extrusion-color': ['coalesce', ['get', 'colour'], '#d9d3c6'],
+            'fill-extrusion-height': ['coalesce', ['get', 'render_height'], 5],
+            'fill-extrusion-base': ['coalesce', ['get', 'render_min_height'], 0],
+            'fill-extrusion-opacity': 0.85,
+          },
+        })
+      }
+
+      const map = new maplibregl.Map({
+        container: containerRef.current,
+        style,
+        center: [129.8712, 32.7455],
+        zoom: 14.6,
+        pitch: 50,
+        bearing: -14,
+        maxBounds: MAP_BOUNDS,
+        attributionControl: true,
+      })
+      mapRef.current = map
+      map.addControl(new maplibregl.NavigationControl({ showCompass: false }), 'top-right')
+      // 現在地ボタン。押すと現在地の許可を求め、許可されれば地図上に自分の位置を表示する
+      const geolocate = new maplibregl.GeolocateControl({
+        positionOptions: { enableHighAccuracy: true },
+        trackUserLocation: true,
+        showUserHeading: true,
+        showAccuracyCircle: true,
+      })
+      map.addControl(geolocate, 'top-right')
+      // ボタンを押させず、地図を開いた瞬間に位置情報の許可ダイアログを出す
+      // （trigger()はボタンを押したのと同じ動作をコードから呼び出すメソッド）
+      map.on('load', () => geolocate.trigger())
+
+      map.on('load', () => {
+        markersRef.current = []
+        shops.forEach((shop) => {
+          if (shop.geo?.lat == null || shop.geo?.lng == null) return
+
+          const el = document.createElement('button')
+          el.type = 'button'
+          el.setAttribute('aria-label', `${shop.name} (${shop.category})`)
+          el.className =
+            'flex h-[38px] w-[38px] items-center justify-center rounded-full bg-white text-vermilion shadow-hand ring-2 ring-white'
+          el.innerHTML = iconSvg(shop.category)
+          el.addEventListener('click', (e) => {
+            e.stopPropagation()
+            navigate(`/shop/${shop.id}`)
+          })
+
+          new maplibregl.Marker({ element: el, anchor: 'bottom' })
+            .setLngLat([shop.geo.lng, shop.geo.lat])
+            .addTo(map)
+
+          markersRef.current.push({ shop, el })
+        })
+        // 凡例で既に選ばれている種類があれば、マーカー作成直後にも反映する
+        applyCategoryFilter()
       })
     }
-    measure()
-    const ro = new ResizeObserver(measure)
-    ro.observe(el)
-    return () => ro.disconnect()
-  }, [])
 
-  // お店を枠の中央へ運ぶ（方向マーカーを押したとき）
-  const focusPin = useCallback(
-    (shop) => {
-      userPannedRef.current = true
-      setOffset(
-        clampOffset(
-          {
-            x: size.w / 2 - (shop.map.x / 100) * worldW,
-            y: size.h / 2 - (shop.map.y / 100) * worldH,
-          },
-          size.w,
-          size.h,
-        ),
-      )
-    },
-    [size.w, size.h, worldW, worldH],
-  )
+    init()
 
-  // ▼ ドラッグ（パン）操作
-  const onPointerDown = (e) => {
-    const el = viewportRef.current
-    el?.setPointerCapture?.(e.pointerId)
-    dragRef.current = {
-      startX: e.clientX,
-      startY: e.clientY,
-      baseX: off.x,
-      baseY: off.y,
-      moved: false,
+    return () => {
+      cancelled = true
+      mapRef.current?.remove()
+      mapRef.current = null
     }
-    movedRef.current = false
-    setDragging(true)
-  }
-  const onPointerMove = (e) => {
-    const d = dragRef.current
-    if (!d) return
-    const dx = e.clientX - d.startX
-    const dy = e.clientY - d.startY
-    if (!d.moved && (Math.abs(dx) > DRAG_THRESHOLD || Math.abs(dy) > DRAG_THRESHOLD)) {
-      d.moved = true
-      movedRef.current = true
-      userPannedRef.current = true
-    }
-    setOffset(clampOffset({ x: d.baseX + dx, y: d.baseY + dy }, size.w, size.h))
-  }
-  const onPointerUp = (e) => {
-    const wasTap = dragRef.current && !dragRef.current.moved
-    dragRef.current = null
-    setDragging(false)
-    if (!wasTap) return
-    // ポインタをキャプチャしていると click がピンに届かないため、
-    // タップ（ドラッグしていない指離し）は指の真下の要素を自前で判定して遷移する。
-    const target = document.elementFromPoint(e.clientX, e.clientY)
-    const focus = target?.closest?.('[data-focus-id]')
-    if (focus) {
-      const shop = shops.find((s) => s.id === focus.getAttribute('data-focus-id'))
-      if (shop) focusPin(shop)
-      return
-    }
-    const pin = target?.closest?.('[data-shop-id]')
-    if (pin) navigate(`/shop/${pin.getAttribute('data-shop-id')}`)
+  }, [navigate])
+
+  // 言語ボタンが押されたら、地図上の地名ラベルだけを差し替える（ピン・店舗データには影響しない）
+  const handleLangChange = (code) => {
+    setLang(code)
+    const map = mapRef.current
+    if (!map) return
+    const expr = buildTextField(code)
+    labelLayerIdsRef.current.forEach((id) => {
+      if (map.getLayer(id)) map.setLayoutProperty(id, 'text-field', expr)
+    })
   }
 
-  // 画面外ピンの方向マーカーを計算
-  const cx = size.w / 2
-  const cy = size.h / 2
-  const offscreen =
-    ready && size.w > 0
-      ? shops
-          .map((shop) => {
-            const vx = (shop.map.x / 100) * worldW + off.x // 枠内でのピン位置(px)
-            const vy = (shop.map.y / 100) * worldH + off.y
-            const isOff = vx < 0 || vx > size.w || vy < 0 || vy > size.h
-            if (!isOff) return null
-            const ix = Math.min(size.w - EDGE_PAD, Math.max(EDGE_PAD, vx)) // 縁に貼り付ける
-            const iy = Math.min(size.h - EDGE_PAD, Math.max(EDGE_PAD, vy))
-            const angle = (Math.atan2(vy - cy, vx - cx) * 180) / Math.PI // 外向き矢印の角度
-            return { shop, ix, iy, angle }
-          })
-          .filter(Boolean)
-      : []
+  // 凡例のアイコンが押されたら、その種類のピンだけを表示する（もう一度押すと解除）
+  const handleCategoryClick = (category) => {
+    const next = activeCategory === category ? null : category
+    activeCategoryRef.current = next
+    setActiveCategory(next)
+    applyCategoryFilter()
+  }
 
   return (
-    <div className={`relative ${className}`}>
-      {/* 枠（ビューポート）：この中でワールドをパンする。枠外はクリップ。 */}
-      <div
-        ref={viewportRef}
-        onPointerDown={onPointerDown}
-        onPointerMove={onPointerMove}
-        onPointerUp={onPointerUp}
-        onPointerCancel={onPointerUp}
-        className={`relative aspect-square w-full touch-none select-none overflow-hidden rounded-2xl ring-1 ring-white/10 ${
-          dragging ? 'cursor-grabbing' : 'cursor-grab'
-        }`}
-      >
-        {/* ワールド（枠より一回り大きい地図本体） */}
+    <div className={className}>
+      {/* この内側のrelativeが地図カードそのもの。言語ボタンをこの角に重ねるので、
+          凡例（この下に続く別要素）の高さに影響されず常に地図の左下に留まる。 */}
+      <div className="relative">
         <div
-          className="absolute left-0 top-0"
-          style={{
-            width: worldW,
-            height: worldH,
-            transform: `translate3d(${off.x}px, ${off.y}px, 0)`,
-            // 初期の中央寄せ・ドラッグ中はアニメさせない（マーカー押下の移動だけ滑らかに）
-            transition: dragging || !ready ? 'none' : 'transform 0.4s ease-out',
-            visibility: ready ? 'visible' : 'hidden',
-          }}
-        >
-          <svg
-            viewBox="0 0 100 100"
-            className="absolute inset-0 h-full w-full"
-            preserveAspectRatio="none"
-            aria-hidden="true"
-          >
-            <defs>
-              {/* 陸地：夜になじむよう砂色を大きくミュート。外周は背景の夜ネイビーへ。 */}
-              <radialGradient id="land" cx="50%" cy="48%" r="72%">
-                <stop offset="0%" stopColor="#7c7358" />
-                <stop offset="40%" stopColor="#5f5a44" />
-                <stop offset="66%" stopColor="#3a3f45" />
-                <stop offset="85%" stopColor="#182740" />
-                <stop offset="100%" stopColor="#0a1830" />
-              </radialGradient>
-              <linearGradient id="bay" x1="0" y1="0" x2="1" y2="1">
-                <stop offset="0%" stopColor="#2c4655" />
-                <stop offset="100%" stopColor="#1e3546" />
-              </linearGradient>
-              <filter id="soften" x="-20%" y="-20%" width="140%" height="140%">
-                <feGaussianBlur stdDeviation="1.6" />
-              </filter>
-            </defs>
+          ref={containerRef}
+          className="aspect-square w-full overflow-hidden rounded-2xl ring-1 ring-white/10"
+        />
 
-            {/* 陸地（中心=砂色 → 外周=背景色。外周は軽くぼかして境界を目立たなくする） */}
-            <path d={LAND_D} fill="url(#land)" filter="url(#soften)" />
-
-            {/* 等高線（丘の街・長崎の坂をうっすら表現） */}
-            {['M20 40 Q40 30 62 38', 'M22 56 Q44 48 68 58', 'M60 66 Q74 70 82 82'].map((d, i) => (
-              <path key={i} d={d} fill="none" stroke="#8a8163" strokeOpacity="0.45" strokeWidth="0.5" />
-            ))}
-
-            {/* 湾（長崎港の細長い入り江。陸地を切り込む＝海岸線はくっきり） */}
-            <path
-              d="M52 6 C48 22 40 34 30 46 C22 56 16 70 14 88 L30 90 C32 74 40 60 50 46 C58 34 62 20 60 8 C58 4 54 3 52 6 Z"
-              fill="url(#bay)"
-            />
-            {/* 水面のきらめき */}
-            {['M24 78 q3 -2 6 0', 'M28 66 q3 -2 6 0', 'M34 54 q3 -2 6 0', 'M42 40 q3 -2 6 0'].map(
-              (d, i) => (
-                <path key={i} d={d} fill="none" stroke="#9fb6c2" strokeOpacity="0.45" strokeWidth="0.6" />
-              ),
-            )}
-
-            {/* 路面電車ライン（赤の点線ルート） */}
-            <path
-              d="M26 34 Q40 44 46 44 Q60 46 70 56 Q78 64 74 78"
-              fill="none"
-              stroke="#c0553b"
-              strokeWidth="1"
-              strokeDasharray="1.8 2.2"
-              strokeLinecap="round"
-            />
-          </svg>
-
-          {/* 地名スポット（装飾・非クリック） */}
-          {LANDMARKS.map(({ id, name, x, y, Icon, color }) => (
-            <div
-              key={id}
-              className="pointer-events-none absolute flex -translate-x-1/2 -translate-y-1/2 flex-col items-center"
-              style={{ left: `${x}%`, top: `${y}%` }}
-            >
-              <div
-                className={`flex h-9 w-9 items-center justify-center rounded-full bg-white shadow-hand ring-2 ring-white ${color}`}
-              >
-                <Icon size={20} />
-              </div>
-              <span className="mt-1 whitespace-nowrap text-[10px] font-semibold text-ink drop-shadow-[0_1px_2px_rgba(255,255,255,0.85)]">
-                {name}
-              </span>
-            </div>
-          ))}
-
-          {/* 店舗ピン（タップで詳細ページへ）。遷移は onPointerUp 側で data-shop-id を見て行う。
-              shops を map するので追加は data だけで反映 */}
-          {shops.map((shop) => (
+        {/* 地図上の地名の表示言語切り替え */}
+        <div className="absolute bottom-3 left-3 z-10 flex gap-1 rounded-full bg-white/95 p-1 shadow-hand">
+          {MAP_LANGS.map((l) => (
             <button
-              key={shop.id}
+              key={l.code}
               type="button"
-              data-shop-id={shop.id}
-              aria-label={`${shop.name} (${shop.category})`}
-              className="absolute flex -translate-x-1/2 -translate-y-full flex-col items-center"
-              style={{ left: `${shop.map.x}%`, top: `${shop.map.y}%` }}
+              onClick={() => handleLangChange(l.code)}
+              className={`press flex h-6 w-6 items-center justify-center rounded-full font-hand text-[11px] font-bold ${
+                lang === l.code ? 'bg-vermilion text-white' : 'text-navy/70'
+              }`}
+              aria-pressed={lang === l.code}
+              aria-label={`Map labels: ${l.label}`}
             >
-              {/* 朱色の雫型ピン */}
-              <span className="relative flex h-7 w-7 items-center justify-center rounded-full rounded-br-none bg-vermilion text-white shadow-hand ring-2 ring-white [rotate:45deg]">
-                <span className="text-sm [rotate:-45deg]">{iconForCategory(shop.category)}</span>
-              </span>
-              <span className="mt-1 whitespace-nowrap rounded-full bg-white/95 px-1.5 text-[10px] font-bold text-vermilion shadow-hand">
-                {shop.name}
-              </span>
+              {l.label}
             </button>
           ))}
         </div>
+      </div>
 
-        {/* 画面外ピンの方向マーカー（枠に固定・ワールドとは独立） */}
-        {offscreen.map(({ shop, ix, iy, angle }) => (
+      {/* 種類別の凡例。押すとその種類のピンだけが地図上に残る */}
+      <div className="mt-3 flex flex-wrap justify-center gap-2">
+        <button
+          type="button"
+          onClick={() => handleCategoryClick(null)}
+          className={`press flex items-center gap-1.5 rounded-full px-3 py-1.5 font-hand text-xs font-semibold shadow-hand ${
+            activeCategory === null ? 'bg-vermilion text-white' : 'bg-white text-navy/70'
+          }`}
+          aria-pressed={activeCategory === null}
+        >
+          All
+        </button>
+        {CATEGORIES.map((category) => (
           <button
-            key={`off-${shop.id}`}
+            key={category}
             type="button"
-            data-focus-id={shop.id}
-            aria-label={`Show ${shop.name} on the map`}
-            className="press absolute z-20 flex h-7 w-7 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-vermilion text-white shadow-hand ring-2 ring-white"
-            style={{ left: ix, top: iy }}
-          >
-            <span className="text-xs">{iconForCategory(shop.category)}</span>
-            {/* 外向きの矢印（ピンの方向を指す） */}
-            <span
-              className="pointer-events-none absolute text-[13px] leading-none text-vermilion drop-shadow-[0_0_1px_rgba(255,255,255,0.9)]"
-              style={{ transform: `rotate(${angle}deg) translateX(15px)` }}
-              aria-hidden="true"
-            >
-              ➤
-            </span>
-          </button>
+            onClick={() => handleCategoryClick(category)}
+            className={`press flex items-center gap-1.5 rounded-full px-3 py-1.5 font-hand text-xs font-semibold shadow-hand ${
+              activeCategory === category ? 'bg-vermilion text-white' : 'bg-white text-navy/70'
+            }`}
+            aria-pressed={activeCategory === category}
+            dangerouslySetInnerHTML={{
+              __html: `${iconSvg(category, 14)}<span>${category}</span>`,
+            }}
+          />
         ))}
-
-        {/* 操作ヒント */}
-        <div className="pointer-events-none absolute bottom-2 left-1/2 -translate-x-1/2 rounded-full bg-black/40 px-2.5 py-0.5 text-[10px] font-medium tracking-wide text-white/80 backdrop-blur-sm">
-          Drag to explore
-        </div>
       </div>
     </div>
   )

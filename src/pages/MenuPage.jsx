@@ -1,14 +1,17 @@
 import { useParams, useNavigate } from 'react-router-dom'
 import { getShopById, getMenuItem, shopImageUrl } from '../data/shops.js'
 import ShopImage from '../components/ShopImage.jsx'
+import { useLanguage, pickText } from '../LanguageContext.jsx'
 
 // 料理の詳細ページ。
 // ルート /shop/:shopId/menu/:menuId の id を受け、店舗→メニュー項目を取得して描画。
 // 構成：上=料理写真（店舗ページと同じ画像）／下=料理名・日本語名/ローマ字・価格・説明。
 // 価格・日本語名などは存在する時だけ表示（未入力のデータでも壊れない）。
+// 説明文は、マップで選んだ言語（LanguageContext）に連動して切り替わる。
 export default function MenuPage() {
   const { shopId, menuId } = useParams()
   const navigate = useNavigate()
+  const { lang } = useLanguage()
   const shop = getShopById(shopId)
   const item = getMenuItem(shop, menuId)
 
@@ -85,7 +88,7 @@ export default function MenuPage() {
 
         {/* 説明 */}
         {item.description && (
-          <p className="mt-4 leading-relaxed text-ink/90">{item.description}</p>
+          <p className="mt-4 leading-relaxed text-ink/90">{pickText(item.description, lang)}</p>
         )}
       </section>
     </main>
