@@ -1,6 +1,7 @@
 import { useParams, useNavigate, Link } from 'react-router-dom'
 import { getShopById, shopImageUrl } from '../data/shops.js'
 import ShopImage from '../components/ShopImage.jsx'
+import OpeningHours from '../components/OpeningHours.jsx'
 import { useLanguage, pickText } from '../LanguageContext.jsx'
 
 // お店の詳細ページ。
@@ -72,6 +73,12 @@ export default function ShopPage() {
         </p>
         <p className="mt-1 text-sm text-ink/50">{shop.areaJa}</p>
         <p className="mt-4 leading-relaxed text-ink/90">{pickText(shop.description, lang)}</p>
+
+        {/* 住所（日本語のまま。タクシーや店員に見せて使えるようにするため翻訳しない） */}
+        {shop.address && <p className="mt-4 text-sm text-ink/70">{shop.address}</p>}
+
+        {/* 営業時間（ボタンを押すと日〜土の一覧が開く） */}
+        <OpeningHours hours={shop.hours} />
       </section>
 
       {/* 下：代表メニュー（写真3〜5枚） */}
