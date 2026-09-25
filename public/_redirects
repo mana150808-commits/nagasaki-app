@@ -1,0 +1,3 @@
+# react-router を使ったSPAのため、どのURLを直接開いても index.html を返す。
+# これが無いと /map や /shop/asa をリロード・直接アクセスしたときに404になる。
+/*    /index.html   200
