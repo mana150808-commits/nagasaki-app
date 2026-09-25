@@ -1,0 +1,38 @@
+# main への push で、自動的にビルドして Cloudflare Pages に公開する。
+#
+# 必要な設定（GitHubリポジトリの Settings → Secrets and variables → Actions）:
+#   CLOUDFLARE_API_TOKEN … Cloudflareで発行するAPIトークン（権限: Cloudflare Pages - Edit）
+#   CLOUDFLARE_ACCOUNT_ID … ffdcb4b9aec8d617cd3018f2137a7a4c
+#   VITE_SURVEY_URL … アンケート送信先（Apps Script のウェブアプリURL）
+#
+# これらが未設定のうちは、このワークフローは失敗する（公開中のサイトには影響しない）。
+
+name: Deploy to Cloudflare Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch: # GitHubの画面から手動でも実行できる
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - run: npm ci
+
+      - run: npm run build
+        env:
+          VITE_SURVEY_URL: ${{ secrets.VITE_SURVEY_URL }}
+
+      - uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy dist --project-name=nagasaki-app --branch=main

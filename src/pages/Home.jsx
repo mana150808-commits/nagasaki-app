@@ -2,6 +2,7 @@ import { useRef, useState, useLayoutEffect } from 'react'
 import HomeCard from '../components/HomeCard.jsx'
 import NightView from '../components/NightView.jsx'
 import MapView from '../components/MapView.jsx'
+import InstallPrompt from '../components/InstallPrompt.jsx'
 import { FeedbackIcon } from '../components/icons/NagasakiIcons.jsx'
 import { shouldPlayIntro } from '../introState.js'
 
@@ -80,6 +81,9 @@ export default function Home() {
           <HomeCard to="/survey" variant="mini" title="Feedback" icon={<FeedbackIcon size={18} />} />
         </div>
       </div>
+
+      {/* 「ホーム画面に追加」の案内（ホーム画面から起動済み・一度閉じた場合は出ない） */}
+      <InstallPrompt />
     </main>
   )
 }
