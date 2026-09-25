@@ -55,14 +55,49 @@ const CATEGORIES = shops.reduce((list, shop) => {
   return list
 }, [])
 
-// 長崎駅〜思案橋・銅座・新地中華街をひとつのエリアとしてカバーする範囲に制限する。
+// 長崎市中心部の観光エリア全体をカバーする範囲に制限する。
+// （グラバー園・大浦天主堂〜長崎駅〜平和公園、西は稲佐山まで）
+// 掲載店舗は思案橋・銅座・新地中華街に集中しているが、観光客は平和公園や稲佐山にも
+// 足を運ぶため、そこで開いても現在地が地図に入るだけの広さを確保している。
 // 東西幅が南北幅よりかなり狭いと、maxBoundsに収めるためのズーム制約で
-// 東西にはほぼパンできず上下方向だけ動かせる状態になってしまう。
-// そのため東西方向に余裕を持たせ、南北とほぼ同じくらいの広さにしてある。
+// 東西にはほぼパンできず上下方向だけ動かせる状態になってしまうため、
+// 東西方向にも南北と同程度の広さを持たせてある。
 const MAP_BOUNDS = [
-  [129.8595, 32.7365], // 南西
-  [129.8815, 32.756], // 北東
+  [129.835, 32.72], // 南西
+  [129.905, 32.79], // 北東
 ]
+
+// 現在地が地図の範囲内かどうか
+function isInsideBounds(lng, lat) {
+  const [[west, south], [east, north]] = MAP_BOUNDS
+  return lng >= west && lng <= east && lat >= south && lat <= north
+}
+
+// 現在地が取れない・範囲外のときに地図の上に出す一言。
+// 表示中の言語（LanguageContext）に合わせて切り替える。
+const NOTE_TEXT = {
+  outside: {
+    en: 'You are outside this map area.',
+    zhCN: '您当前位置在本地图范围之外。',
+    zhTW: '您目前位置在本地圖範圍之外。',
+    ko: '현재 위치가 이 지도 범위 밖입니다.',
+    ja: '現在地はこの地図の範囲外です。',
+  },
+  denied: {
+    en: 'Location is off. Turn it on in your browser settings.',
+    zhCN: '定位已关闭，请在浏览器设置中开启。',
+    zhTW: '定位已關閉，請在瀏覽器設定中開啟。',
+    ko: '위치 정보가 꺼져 있습니다. 브라우저 설정에서 켜 주세요.',
+    ja: '位置情報がオフです。ブラウザの設定でオンにしてください。',
+  },
+  unavailable: {
+    en: 'Could not get your location.',
+    zhCN: '无法获取您的位置。',
+    zhTW: '無法取得您的位置。',
+    ko: '위치를 가져올 수 없습니다.',
+    ja: '現在地を取得できませんでした。',
+  },
+}
 
 export default function MapView({ className = '' }) {
   const navigate = useNavigate()
@@ -72,6 +107,7 @@ export default function MapView({ className = '' }) {
   const markersRef = useRef([]) // { shop, el }[]
   const { lang, setLang } = useLanguage() // アプリ全体と共有の言語（店舗の説明文もこれに連動する）
   const [activeCategory, setActiveCategory] = useState(null) // nullは「すべて」
+  const [note, setNote] = useState(null) // 'outside' | 'denied' | 'unavailable' | null
   const activeCategoryRef = useRef(null)
 
   // ピンの絞り込みを、既に作成済みのマーカーの表示/非表示だけで行う（作り直さない）
@@ -138,6 +174,17 @@ export default function MapView({ className = '' }) {
         showAccuracyCircle: true,
       })
       map.addControl(geolocate, 'top-right')
+
+      // 現在地が取れたとき：地図の範囲外なら青い点が画面に入ってこないので、その旨を知らせる
+      // （範囲外でも位置情報自体は取れているため、何も出さないと「壊れている」ように見える）
+      geolocate.on('geolocate', (e) => {
+        setNote(isInsideBounds(e.coords.longitude, e.coords.latitude) ? null : 'outside')
+      })
+      // 許可されなかった／取得できなかったとき
+      geolocate.on('error', (err) => {
+        setNote(err?.code === 1 ? 'denied' : 'unavailable')
+      })
+
       // ボタンを押させず、地図を開いた瞬間に位置情報の許可ダイアログを出す
       // （trigger()はボタンを押したのと同じ動作をコードから呼び出すメソッド）
       map.on('load', () => geolocate.trigger())
@@ -206,6 +253,17 @@ export default function MapView({ className = '' }) {
           ref={containerRef}
           className="aspect-square w-full overflow-hidden rounded-2xl ring-1 ring-white/10"
         />
+
+        {/* 現在地についての一言（範囲外・許可なし・取得失敗）。押すと消える。 */}
+        {note && (
+          <button
+            type="button"
+            onClick={() => setNote(null)}
+            className="press absolute left-1/2 top-3 z-10 max-w-[85%] -translate-x-1/2 rounded-full bg-white/95 px-3 py-1.5 font-hand text-[11px] font-semibold leading-snug text-navy/80 shadow-hand"
+          >
+            {NOTE_TEXT[note][lang] || NOTE_TEXT[note].en}
+          </button>
+        )}
 
         {/* 地図上の地名の表示言語切り替え */}
         <div className="absolute bottom-3 left-3 z-10 flex gap-1 rounded-full bg-white/95 p-1 shadow-hand">
