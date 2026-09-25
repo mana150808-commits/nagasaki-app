@@ -5,7 +5,6 @@ import MapPage from './pages/MapPage.jsx'
 import SurveyPage from './pages/SurveyPage.jsx'
 import ShopPage from './pages/ShopPage.jsx'
 import MenuPage from './pages/MenuPage.jsx'
-import AdminResults from './pages/AdminResults.jsx'
 import { markNavigated } from './introState.js'
 
 // スマホ画面を想定した縦長レイアウト。max-width で中央寄せし、
@@ -30,10 +29,10 @@ export default function App() {
         <Route path="/shop/:shopId/menu/:menuId" element={<MenuPage />} />
         <Route path="/survey" element={<SurveyPage />} />
         {/*
-          開発者専用の隠しルート。
-          ホーム等のUIからは一切リンクを張らず、URLを知っている人だけがアクセスできる。
+          アンケート結果の閲覧ページ（/admin-results）は削除した。
+          回答はGoogleスプレッドシートに集約しており、集計はそちらで行う。
+          アプリ側に閲覧画面を持たないことで、公開後に誰でも回答を見られる状態を避けている。
         */}
-        <Route path="/admin-results" element={<AdminResults />} />
       </Routes>
     </div>
   )
