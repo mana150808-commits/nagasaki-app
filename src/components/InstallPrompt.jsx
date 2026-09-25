@@ -36,13 +36,36 @@ const TEXT = {
     ko: '설치',
     ja: 'インストール',
   },
-  // iOSは自分で操作してもらうので、手順を短く示す
-  iosStep: {
-    en: 'Tap the Share button, then "Add to Home Screen".',
-    zhCN: '点按「分享」按钮，然后选择「添加到主屏幕」。',
-    zhTW: '點一下「分享」按鈕，然後選擇「加入主畫面」。',
-    ko: '공유 버튼을 누른 뒤 "홈 화면에 추가"를 선택하세요.',
-    ja: '共有ボタンを押して「ホーム画面に追加」を選びます。',
+  // iOSはブラウザ側にインストール機能が無く、必ず自分で操作してもらう必要がある。
+  // 「押せるボタンが無い」と誤解されないよう、手動である旨を見出しで明示し、
+  // 3ステップに分けて示す。
+  iosLead: {
+    en: 'Add it yourself — 3 steps',
+    zhCN: '请手动添加 — 3 个步骤',
+    zhTW: '請手動加入 — 3 個步驟',
+    ko: '직접 추가하세요 — 3단계',
+    ja: '手動で追加します（3ステップ）',
+  },
+  iosStep1: {
+    en: 'Tap the Share button at the bottom of the screen',
+    zhCN: '点按屏幕下方的「分享」按钮',
+    zhTW: '點一下螢幕下方的「分享」按鈕',
+    ko: '화면 아래의 공유 버튼을 누르세요',
+    ja: '画面下の共有ボタンを押す',
+  },
+  iosStep2: {
+    en: 'Scroll down and choose "Add to Home Screen"',
+    zhCN: '向下滑动，选择「添加到主屏幕」',
+    zhTW: '向下捲動，選擇「加入主畫面」',
+    ko: '아래로 스크롤해 "홈 화면에 추가"를 선택',
+    ja: '下にスクロールして「ホーム画面に追加」を選ぶ',
+  },
+  iosStep3: {
+    en: 'Tap "Add" in the top right',
+    zhCN: '点按右上角的「添加」',
+    zhTW: '點右上角的「加入」',
+    ko: '오른쪽 위의 "추가"를 누르세요',
+    ja: '右上の「追加」を押す',
   },
   close: {
     en: 'Not now',
@@ -154,39 +177,62 @@ export default function InstallPrompt() {
 
   return (
     <div className="pointer-events-auto fixed inset-x-0 bottom-0 z-30 flex justify-center px-4 pb-4">
-      <div className="w-full max-w-sm rounded-2xl bg-paper/95 p-4 text-navy shadow-hand backdrop-blur">
-        <p className="font-display text-lg leading-tight">{pick(TEXT.title, lang)}</p>
-        <p className="mt-1 text-sm text-ink/80">{pick(TEXT.body, lang)}</p>
+      {/* 夜景の上に重なるため、背景は半透明にせず読みやすさを優先する */}
+      <div className="w-full max-w-sm rounded-2xl bg-cream p-5 text-navy shadow-handlg ring-1 ring-navy/10">
+        <p className="font-display text-xl leading-tight">{pick(TEXT.title, lang)}</p>
+        <p className="mt-1.5 text-[15px] leading-relaxed text-navy/80">{pick(TEXT.body, lang)}</p>
 
         {deferred ? (
-          <div className="mt-3 flex items-center gap-2">
+          <div className="mt-4 flex items-center gap-2">
             <button
               type="button"
               onClick={install}
-              className="press flex-1 rounded-full bg-vermilion px-4 py-2 font-hand text-sm font-bold text-white shadow-hand"
+              className="press flex-1 rounded-full bg-vermilion px-4 py-3 font-hand text-base font-bold text-white shadow-hand"
             >
               {pick(TEXT.install, lang)}
             </button>
             <button
               type="button"
               onClick={close}
-              className="press rounded-full px-3 py-2 font-hand text-sm text-navy/60"
+              className="press rounded-full px-3 py-3 font-hand text-[15px] text-navy/70"
             >
               {pick(TEXT.close, lang)}
             </button>
           </div>
         ) : (
-          <div className="mt-3">
-            <p className="flex items-center gap-1.5 text-sm text-ink/90">
-              <span className="inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-white text-navy shadow-hand">
-                <ShareIcon />
-              </span>
-              {pick(TEXT.iosStep, lang)}
+          <div className="mt-4">
+            {/* 押せるボタンが無く、自分で操作する必要があることを最初に伝える */}
+            <p className="font-hand text-[15px] font-bold text-vermilion">
+              {pick(TEXT.iosLead, lang)}
             </p>
+
+            <ol className="mt-2.5 space-y-2.5">
+              {[TEXT.iosStep1, TEXT.iosStep2, TEXT.iosStep3].map((step, i) => (
+                <li key={i} className="flex items-start gap-2.5">
+                  <span className="mt-0.5 inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-navy font-hand text-[13px] font-bold text-white">
+                    {i + 1}
+                  </span>
+                  <span className="flex items-center gap-1.5 text-[15px] leading-snug text-navy">
+                    {step === TEXT.iosStep1 && (
+                      <span className="inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-md bg-white text-navy ring-1 ring-navy/15">
+                        <ShareIcon size={15} />
+                      </span>
+                    )}
+                    {pick(step, lang)}
+                  </span>
+                </li>
+              ))}
+            </ol>
+
+            {/* 共有ボタンは画面下にあるので、その方向を指し示す */}
+            <p className="mt-2 text-center text-lg leading-none text-vermilion" aria-hidden="true">
+              ↓
+            </p>
+
             <button
               type="button"
               onClick={close}
-              className="press mt-2 w-full rounded-full px-3 py-2 font-hand text-sm text-navy/60"
+              className="press mt-1 w-full rounded-full px-3 py-2.5 font-hand text-[15px] text-navy/70"
             >
               {pick(TEXT.close, lang)}
             </button>
