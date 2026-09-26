@@ -1435,6 +1435,172 @@ export const shops = [
       },
     ],
   },
+
+  {
+    id: 'kairakuen',
+    name: 'Kairakuen',
+    nameJa: '会楽園',
+    category: 'Chinese',
+    area: 'Shinchi Chinatown',
+    areaJa: '長崎市新地町',
+
+    map: { x: 42, y: 48 },
+    geo: { lat: 32.741982, lng: 129.875717 },
+    address: '〒850-0842 長崎県長崎市新地町10-16',
+    hours: {
+      sun: ['11:00–14:30', '17:00–19:50'],
+      mon: ['11:00–14:30', '17:00–19:50'],
+      tue: ['11:00–14:30', '17:00–19:50'],
+      wed: ['11:00–14:30', '17:00–19:50'],
+      thu: ['11:00–14:30', '17:00–19:50'],
+      fri: ['11:00–14:30', '17:00–19:50'],
+      sat: ['11:00–14:30', '17:00–19:50'],
+    },
+
+    photoBase: '/shops/kairakuen',
+    exterior: 'exterior.jpg',
+
+    description: {
+      en:
+        'Kairakuen is one of the historic Chinese restaurants in Nagasaki Shinchi ' +
+        'Chinatown, founded in the early Showa period. Its signature Champon broth ' +
+        'features a perfected 7:3 ratio of chicken bones to pork bones, developed ' +
+        'through years of trial and error. Flash-cooked over high heat, the dish ' +
+        'combines a deeply flavorful soup with perfectly crisp, fresh vegetables. ' +
+        'It offers a warm, comfortable atmosphere where international travelers can ' +
+        'taste the fine fusion of traditional Chinese techniques and Nagasaki’s rich ' +
+        'food culture.',
+      ja:
+        '会楽園は、昭和初期に創業した長崎新地中華街の老舗中華料理店です。看板のちゃんぽん' +
+        'スープは、長年の試行錯誤の末にたどり着いた鶏ガラと豚骨の7対3の配合。強火で一気に' +
+        '仕上げることで、旨みの濃いスープとシャキシャキの野菜が見事に調和します。' +
+        '中国伝統の技と長崎の豊かな食文化の融合を、海外からのお客様が落ち着いた雰囲気の中で' +
+        '味わえる一軒です。',
+      zhCN:
+        '会乐园是创业于昭和初期的长崎新地中华街老字号中餐厅。招牌什锦面汤底采用历经多年' +
+        '钻研调配出的鸡骨与猪骨7比3的黄金比例，以猛火快炒一气呵成，让浓郁的汤头与爽脆的' +
+        '蔬菜完美融合。店内气氛温馨舒适，外国游客可在此品尝中国传统技艺与长崎饮食文化的' +
+        '精彩结合。',
+      zhTW:
+        '會樂園是創業於昭和初期的長崎新地中華街老字號中餐廳。招牌什錦麵湯底採用歷經多年' +
+        '鑽研調配出的雞骨與豬骨7比3的黃金比例，以猛火快炒一氣呵成，讓濃郁的湯頭與爽脆的' +
+        '蔬菜完美融合。店內氣氛溫馨舒適，外國旅客可在此品嚐中國傳統技藝與長崎飲食文化的' +
+        '精彩結合。',
+      ko:
+        '가이라쿠엔(会楽園)은 쇼와 초기에 문을 연 나가사키 신치 차이나타운의 노포 중식당입니다. ' +
+        '간판 짬뽕 육수는 오랜 시행착오 끝에 완성한 닭뼈와 돼지뼈 7대 3의 배합이 특징입니다. ' +
+        '센 불에서 단숨에 볶아내어 진한 국물과 아삭한 채소가 훌륭하게 어우러집니다. ' +
+        '중국 전통 기법과 나가사키의 풍부한 식문화가 어우러진 맛을 편안한 분위기에서 ' +
+        '즐길 수 있습니다.',
+    },
+
+    menu: [
+      {
+        id: 'nagasaki-champon',
+        name: 'Nagasaki Champon',
+        nameJa: '長崎ちゃんぽん',
+        romaji: 'Nagasaki champon',
+        price: '¥1,200',
+        img: 'menu1.jpg',
+        description: {
+          en:
+            'The iconic noodle dish of Nagasaki. Features chewy noodles in a signature ' +
+            'chicken-and-pork blend broth, topped with crisp vegetables and rich seafood ' +
+            'and pork.',
+          ja:
+            '長崎を代表する名物麺。鶏ガラと豚骨を合わせた看板スープに、もちもちの麺と' +
+            'シャキシャキの野菜、海鮮や豚肉がたっぷり入ります。',
+          zhCN:
+            '长崎最具代表性的面食。以鸡骨与猪骨调配的招牌汤底，搭配弹牙面条、爽脆蔬菜' +
+            '以及丰富的海鲜和猪肉。',
+          zhTW:
+            '長崎最具代表性的麵食。以雞骨與豬骨調配的招牌湯底，搭配彈牙麵條、爽脆蔬菜' +
+            '以及豐富的海鮮與豬肉。',
+          ko:
+            '나가사키를 대표하는 명물 면 요리. 닭뼈와 돼지뼈를 함께 우린 간판 육수에 ' +
+            '쫄깃한 면과 아삭한 채소, 해산물과 돼지고기가 듬뿍 들어갑니다.',
+        },
+      },
+      {
+        id: 'chili-crab',
+        name: 'Deep-Fried Crab in Chili Sauce',
+        nameJa: 'カニのチリソース',
+        romaji: 'Kani no chili sauce',
+        price: '¥1,700',
+        img: 'menu2.jpg',
+        description: {
+          en:
+            'Crispy deep-fried crab tossed in a sweet, savory, and spicy chili sauce. ' +
+            'A luxurious dish with an irresistible aroma that pairs perfectly with a cold ' +
+            'beer or a bowl of rice.',
+          ja:
+            'カラッと揚げたカニを、甘辛いチリソースで絡めた一品。食欲をそそる香りで、' +
+            '冷えたビールにもご飯にもよく合う贅沢な料理です。',
+          zhCN:
+            '将螃蟹酥炸后裹上甜辣可口的辣酱。香气诱人，无论配冰啤酒还是白饭都十分对味的' +
+            '豪华料理。',
+          zhTW:
+            '將螃蟹酥炸後裹上甜辣可口的辣醬。香氣誘人，無論配冰啤酒或白飯都十分對味的' +
+            '豪華料理。',
+          ko:
+            '바삭하게 튀긴 게에 달콤하고 매콤한 칠리소스를 버무렸습니다. 식욕을 돋우는 ' +
+            '향으로 시원한 맥주에도 밥에도 잘 어울리는 호화로운 요리입니다.',
+        },
+      },
+      {
+        id: 'yurinchi',
+        name: 'Crispy Chicken with Sweet Soy Sauce',
+        nameJa: '油淋鶏',
+        romaji: 'Yurinchi',
+        price: '¥1,600',
+        img: 'menu3.jpg',
+        description: {
+          en:
+            'Crispy, deep-fried chicken topped with a savory sweet-and-sour soy sauce, ' +
+            'scallions, and a touch of chili. Juicy on the inside and crunchy on the ' +
+            'outside, it is a crowd-pleasing Chinese classic.',
+          ja:
+            'カリッと揚げた鶏肉に、甘酸っぱい醤油だれとねぎ、少しの唐辛子をかけた一品。' +
+            '外はサクサク、中はジューシーで、幅広く好まれる中華の定番です。',
+          zhCN:
+            '酥炸鸡肉淋上酸甜酱油汁，再撒上葱花与少许辣椒。外酥内嫩，是老少咸宜的中华' +
+            '经典菜。',
+          zhTW:
+            '酥炸雞肉淋上酸甜醬油汁，再撒上蔥花與少許辣椒。外酥內嫩，是老少咸宜的中華' +
+            '經典菜。',
+          ko:
+            '바삭하게 튀긴 닭고기에 새콤달콤한 간장 소스와 파, 약간의 고추를 곁들였습니다. ' +
+            '겉은 바삭하고 속은 촉촉한, 누구나 좋아하는 중식 대표 요리입니다.',
+        },
+      },
+      {
+        id: 'mapo-tofu',
+        name: 'Mapo Tofu',
+        nameJa: '麻婆豆腐',
+        romaji: 'Mabo dofu',
+        price: '¥1,000',
+        img: 'menu4.jpg',
+        description: {
+          en:
+            'Smooth tofu simmered with minced pork in a flavorful, spicy sauce balanced ' +
+            'with Sichuan peppers and rich soybean paste. A comforting and satisfying dish ' +
+            'that goes exceptionally well with steamed rice.',
+          ja:
+            'なめらかな豆腐と豚ひき肉を、花椒とコクのある豆板醤のきいたピリ辛のたれで' +
+            '煮込んだ一品。白いご飯が進む、満足感のある味わいです。',
+          zhCN:
+            '滑嫩豆腐与猪肉末，以花椒与浓郁豆瓣酱调和的麻辣酱汁炖煮而成。下饭又满足的' +
+            '经典家常味。',
+          zhTW:
+            '滑嫩豆腐與豬絞肉，以花椒與濃郁豆瓣醬調和的麻辣醬汁燉煮而成。下飯又滿足的' +
+            '經典家常味。',
+          ko:
+            '부드러운 두부와 다진 돼지고기를 산초와 진한 두반장이 어우러진 매콤한 소스에 ' +
+            '끓였습니다. 흰밥과 특히 잘 어울리는 든든한 요리입니다.',
+        },
+      },
+    ],
+  },
 ]
 
 // id から店舗を取得

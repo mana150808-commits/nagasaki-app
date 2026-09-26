@@ -44,9 +44,10 @@ const CATEGORY_ICON_PATHS = {
 }
 
 // ピンの見た目をカテゴリーごとに変える。
-// 中華街は「別のマーク」として分かるよう、白地ではなく朱色の塗りにしている。
+// 中華街は「別のマーク」として分かるよう、白地ではなく塗りにしている。
+// 色は朱色(#e0453e)そのままだと強すぎるため、少し淡い赤にしている。
 const CATEGORY_BADGE = {
-  Chinese: 'bg-vermilion text-white ring-2 ring-white',
+  Chinese: 'bg-[#ef8b84] text-white ring-2 ring-white',
 }
 const DEFAULT_BADGE = 'bg-white text-vermilion ring-2 ring-white'
 const DEFAULT_ICON_PATH =
