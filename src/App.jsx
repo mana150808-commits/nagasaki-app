@@ -6,6 +6,7 @@ import SurveyPage from './pages/SurveyPage.jsx'
 import ShopPage from './pages/ShopPage.jsx'
 import MenuPage from './pages/MenuPage.jsx'
 import { markNavigated } from './introState.js'
+import { trackVisit } from './services/trackVisit.js'
 
 // スマホ画面を想定した縦長レイアウト。max-width で中央寄せし、
 // PCブラウザで開いても破綻しないようにしている。
@@ -17,6 +18,11 @@ export default function App() {
   useEffect(() => {
     if (location.pathname !== initialPath.current) markNavigated()
   }, [location])
+
+  // 利用者数を数えるための記録（1端末につき1回だけ送られる）
+  useEffect(() => {
+    trackVisit()
+  }, [])
 
   return (
     <div className="mx-auto flex min-h-full w-full max-w-md flex-col">
