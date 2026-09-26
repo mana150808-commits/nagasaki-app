@@ -1601,6 +1601,176 @@ export const shops = [
       },
     ],
   },
+
+  {
+    id: 'kyokaen',
+    name: 'Kyokaen',
+    nameJa: '京香園',
+    category: 'Chinese',
+    area: 'Shinchi Chinatown',
+    areaJa: '長崎市新地町',
+
+    map: { x: 40, y: 47 },
+    geo: { lat: 32.741905, lng: 129.875595 },
+    address: '〒850-0842 長崎県長崎市新地町9-7',
+    hours: {
+      sun: ['11:00–14:30', '17:00–19:30'],
+      mon: ['11:00–14:30', '17:00–19:30'],
+      tue: ['11:00–14:30', '17:00–19:30'],
+      wed: ['11:00–14:30', '17:00–19:30'],
+      thu: ['11:00–14:30', '17:00–19:30'],
+      fri: ['11:00–14:30', '17:00–19:30'],
+      sat: ['11:00–14:30', '17:00–19:50'],
+    },
+
+    photoBase: '/shops/kyokaen',
+    exterior: 'exterior.jpg',
+
+    description: {
+      en:
+        'Kyokaen is a historic Chinese restaurant conveniently located right at the ' +
+        'entrance of Nagasaki Shinchi Chinatown. Its signature Champon broth features ' +
+        'a 1:2 blend of pork bones to chicken bones, creating a light, smooth, and ' +
+        'refreshing soup flavor. Unlike traditional methods, the noodles are boiled ' +
+        'separately in a different pot, ensuring the vegetables retain their fresh, ' +
+        'crisp texture. Offering a spacious dining room and comfortable atmosphere, ' +
+        'Kyokaen provides an authentic Nagasaki-Chinese dining experience for ' +
+        'international visitors.',
+      ja:
+        '京香園は、長崎新地中華街の入口すぐという便利な場所にある老舗の中華料理店です。' +
+        '看板のちゃんぽんスープは豚骨と鶏ガラを1対2で合わせたもので、軽やかでまろやか、' +
+        'すっきりとした味わいに仕上がっています。麺を別の鍋で茹でる独自の作り方により、' +
+        '野菜のシャキシャキとした食感が保たれているのも特徴です。ゆったりとした客席と' +
+        '落ち着いた雰囲気で、海外からのお客様も本場の長崎中華を楽しめます。',
+      zhCN:
+        '京香园是位于长崎新地中华街入口处的老字号中餐厅，交通十分便利。招牌什锦面汤底' +
+        '以猪骨与鸡骨1比2的比例调配，口感清爽顺滑。与传统做法不同，面条以另一锅单独煮制，' +
+        '因此蔬菜能保持爽脆新鲜的口感。店内空间宽敞、气氛舒适，让外国游客也能享受道地的' +
+        '长崎中华料理。',
+      zhTW:
+        '京香園是位於長崎新地中華街入口處的老字號中餐廳，交通十分便利。招牌什錦麵湯底' +
+        '以豬骨與雞骨1比2的比例調配，口感清爽順滑。與傳統做法不同，麵條以另一鍋單獨煮製，' +
+        '因此蔬菜能保持爽脆新鮮的口感。店內空間寬敞、氣氛舒適，讓外國旅客也能享受道地的' +
+        '長崎中華料理。',
+      ko:
+        '교카엔(京香園)은 나가사키 신치 차이나타운 입구 바로 앞에 자리한 역사 깊은 중식당입니다. ' +
+        '간판 짬뽕 육수는 돼지뼈와 닭뼈를 1대 2로 배합해 가볍고 부드러우며 깔끔한 맛을 냅니다. ' +
+        '전통적인 방식과 달리 면을 다른 냄비에서 따로 삶아, 채소의 아삭한 식감이 그대로 ' +
+        '살아 있습니다. 넓은 홀과 편안한 분위기에서 해외 여행객도 정통 나가사키 중화요리를 ' +
+        '즐길 수 있습니다.',
+    },
+
+    menu: [
+      {
+        id: 'nagasaki-champon',
+        name: 'Nagasaki Champon',
+        nameJa: '長崎ちゃんぽん',
+        romaji: 'Nagasaki champon',
+        price: '¥1,200',
+        img: 'menu1.jpg',
+        description: {
+          en:
+            "Kyokaen's signature noodle dish. Served in a lighter, clean broth made with " +
+            'a 1:2 blend of pork and chicken bones. The noodles are boiled separately, ' +
+            'keeping the colorful topping of seafood, pork, and seasonal vegetables ' +
+            'beautifully crisp and fresh.',
+          ja:
+            '京香園の看板の麺料理。豚骨と鶏ガラを1対2で合わせた、軽やかで澄んだスープが' +
+            '特徴です。麺を別に茹でているため、海鮮や豚肉、旬の野菜の彩りと食感が' +
+            'そのまま生きています。',
+          zhCN:
+            '京香园的招牌面食。汤底以猪骨与鸡骨1比2调配，清爽不腻。由于面条单独煮制，' +
+            '海鲜、猪肉与时令蔬菜都保持着鲜艳的色泽与爽脆口感。',
+          zhTW:
+            '京香園的招牌麵食。湯底以豬骨與雞骨1比2調配，清爽不膩。由於麵條單獨煮製，' +
+            '海鮮、豬肉與時令蔬菜都保持著鮮豔的色澤與爽脆口感。',
+          ko:
+            '교카엔의 간판 면 요리. 돼지뼈와 닭뼈를 1대 2로 배합한 가볍고 깔끔한 육수가 ' +
+            '특징입니다. 면을 따로 삶아 해산물과 돼지고기, 제철 채소의 색과 아삭한 식감이 ' +
+            '그대로 살아 있습니다.',
+        },
+      },
+      {
+        id: 'kourou-fan',
+        name: 'Braised Pork Belly Rice Bowl',
+        nameJa: '角煮飯',
+        romaji: 'Kakuni meshi',
+        price: 'Approx. ¥1,200',
+        img: 'menu2.jpg',
+        description: {
+          en:
+            'A specialty rice bowl topped with thick, melt-in-your-mouth braised pork belly ' +
+            '(Dongpo pork) smothered in a rich, savory-sweet soy glaze. A comforting and ' +
+            'satisfying option for lovers of braised meats.',
+          ja:
+            'とろけるように柔らかい厚切りの角煮を、甘辛い醤油だれごとご飯にのせた名物丼。' +
+            '煮込み料理が好きな方にはたまらない、満足感のある一杯です。',
+          zhCN:
+            '将入口即化的厚切东坡肉连同甜咸酱汁一起盖在米饭上的招牌盖饭。喜爱炖煮肉类的人' +
+            '一定会满足。',
+          zhTW:
+            '將入口即化的厚切東坡肉連同甜鹹醬汁一起蓋在米飯上的招牌蓋飯。喜愛燉煮肉類的人' +
+            '一定會滿足。',
+          ko:
+            '입에서 녹을 정도로 부드러운 두툼한 동파육을 달콤짭짤한 간장 소스와 함께 밥 위에 ' +
+            '올린 명물 덮밥. 조림 요리를 좋아하는 분께 안성맞춤인 든든한 한 그릇입니다.',
+        },
+      },
+      {
+        id: 'suanlatang',
+        name: 'Hot and Sour Soup',
+        nameJa: '酸辣湯',
+        romaji: 'Sanratan',
+        price: 'Approx. ¥1,100',
+        img: 'menu3.jpg',
+        description: {
+          en:
+            'A hearty, flavorful soup characterized by its perfect balance of spicy chili ' +
+            'heat and refreshing acidity. Packed with bamboo shoots, mushrooms, tofu, and ' +
+            'shredded meat, it warms the body and stimulates the appetite.',
+          ja:
+            '辛さと酸味の絶妙なバランスが持ち味の、具だくさんのスープ。たけのこ、きのこ、' +
+            '豆腐、細切りの肉がたっぷり入り、体が温まって食欲もわいてきます。',
+          zhCN:
+            '以辣与酸的绝妙平衡为特色的浓郁汤品。竹笋、菇类、豆腐与肉丝料多实在，' +
+            '既暖身又开胃。',
+          zhTW:
+            '以辣與酸的絕妙平衡為特色的濃郁湯品。竹筍、菇類、豆腐與肉絲料多實在，' +
+            '既暖身又開胃。',
+          ko:
+            '매콤함과 새콤함의 절묘한 균형이 매력인 건더기 가득한 수프. 죽순과 버섯, 두부, ' +
+            '채썬 고기가 듬뿍 들어가 몸을 따뜻하게 하고 식욕을 돋웁니다.',
+        },
+      },
+      {
+        id: 'shumai',
+        name: 'Steamed Pork Dumplings',
+        nameJa: 'シュウマイ',
+        romaji: 'Shumai',
+        price: 'Approx. ¥800 per portion',
+        img: 'menu4.jpg',
+        description: {
+          en:
+            'Plump, hand-crafted steamed dumplings stuffed with juicy minced pork and ' +
+            'onions, wrapped in a thin dough. Hot, tender, and an ideal side dish or ' +
+            'appetizer to share alongside a bowl of Champon.',
+          ja:
+            '薄い皮で包んだ、ふっくらとした手作りのシュウマイ。ジューシーな豚ひき肉と' +
+            '玉ねぎの餡が詰まっています。熱々でやわらかく、ちゃんぽんと一緒に分け合う' +
+            '一品としても最適です。',
+          zhCN:
+            '以薄皮包裹、手工制作的饱满烧卖，内馅是多汁的猪肉末与洋葱。热腾腾又软嫩，' +
+            '很适合搭配什锦面一起分享。',
+          zhTW:
+            '以薄皮包裹、手工製作的飽滿燒賣，內餡是多汁的豬絞肉與洋蔥。熱騰騰又軟嫩，' +
+            '很適合搭配什錦麵一起分享。',
+          ko:
+            '얇은 피로 감싼 통통한 수제 슈마이. 육즙 가득한 다진 돼지고기와 양파 소가 ' +
+            '들어 있습니다. 뜨겁고 부드러워 짬뽕과 함께 나눠 먹기에 좋습니다.',
+        },
+      },
+    ],
+  },
 ]
 
 // id から店舗を取得
