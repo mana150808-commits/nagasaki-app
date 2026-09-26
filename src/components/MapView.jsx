@@ -39,7 +39,16 @@ const CATEGORY_ICON_PATHS = {
   Bar: '<path d="M5 4h14l-6.2 7.4V18h3"/><path d="M9 18h4"/><path d="M5.8 7.2h12.4"/>',
   Yakiniku: '<path d="M12 21c4 0 6-2.5 6-6 0-3-2-4.5-2-4.5.3 2-1 3-1 3 .3-3.5-2.5-5-2.5-8.5-1.5 1.5-3 3.5-3 6 0 1-1 1.7-1 1.7C7 14 6 15.5 6 17c0 2.5 2 4 6 4Z"/>',
   'Cafe & Bar': '<path d="M5 9h11v6a5 5 0 0 1-5 5H10a5 5 0 0 1-5-5V9Z"/><path d="M16 10.2h1.3a2.4 2.4 0 0 1 0 4.8H16"/><path d="M8.2 5.2c-.8.8-.8 1.8 0 2.6M11.7 4.4c-.8.8-.8 1.8 0 2.6"/>',
+  // 中華街の店（ちゃんぽんの丼と湯気）。他の飲食店と一目で見分けられるようにしている。
+  Chinese: '<path d="M4 11h16a8 8 0 0 1-16 0Z"/><path d="M6.5 19h11"/><path d="M9.5 4.5c-.9.9-.9 2 0 2.9M12.5 3.6c-.9.9-.9 2 0 2.9M15.5 4.5c-.9.9-.9 2 0 2.9"/>',
 }
+
+// ピンの見た目をカテゴリーごとに変える。
+// 中華街は「別のマーク」として分かるよう、白地ではなく朱色の塗りにしている。
+const CATEGORY_BADGE = {
+  Chinese: 'bg-vermilion text-white ring-2 ring-white',
+}
+const DEFAULT_BADGE = 'bg-white text-vermilion ring-2 ring-white'
 const DEFAULT_ICON_PATH =
   '<path d="M3 11h18a9 9 0 0 1-18 0Z"/><path d="M9 4.2c-.9.9-.9 2 0 2.9M12.3 3.4c-.9.9-.9 2 0 2.9M15.6 4.2c-.9.9-.9 2 0 2.9"/>'
 
@@ -197,8 +206,9 @@ export default function MapView({ className = '' }) {
           const el = document.createElement('button')
           el.type = 'button'
           el.setAttribute('aria-label', `${shop.name} (${shop.category})`)
-          el.className =
-            'flex h-[38px] w-[38px] items-center justify-center rounded-full bg-white text-vermilion shadow-hand ring-2 ring-white'
+          el.className = `flex h-[38px] w-[38px] items-center justify-center rounded-full shadow-hand ${
+            CATEGORY_BADGE[shop.category] || DEFAULT_BADGE
+          }`
           el.innerHTML = iconSvg(shop.category)
           el.addEventListener('click', (e) => {
             e.stopPropagation()

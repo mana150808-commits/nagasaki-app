@@ -1269,6 +1269,172 @@ export const shops = [
       },
     ],
   },
+
+  {
+    id: 'kozanro',
+    name: 'Kozanro',
+    nameJa: '江山楼',
+    // 中華街の店は他の飲食店と区別できるよう、専用のカテゴリー（＝専用のピン）にしている。
+    category: 'Chinese',
+    area: 'Shinchi Chinatown',
+    areaJa: '長崎市新地町',
+
+    map: { x: 44, y: 46 },
+    geo: { lat: 32.741222, lng: 129.87587 },
+    address: '〒850-0842 長崎県長崎市新地町13-13',
+    hours: {
+      sun: ['11:00–15:00', '17:00–20:30'],
+      mon: null, // 定休日
+      tue: null, // 定休日
+      wed: ['11:30–15:00', '17:00–20:30'],
+      thu: ['11:30–15:00', '17:00–20:30'],
+      fri: ['11:30–15:00', '17:00–20:30'],
+      sat: ['11:00–15:00', '17:00–20:30'],
+    },
+
+    photoBase: '/shops/kozanro',
+    exterior: 'exterior.jpg',
+
+    description: {
+      en:
+        'Kozanro is one of the most famous and historic Chinese restaurants in ' +
+        'Nagasaki Shinchi Chinatown. Renowned for perfecting Nagasaki’s legendary ' +
+        'culinary specialties, it is considered a must-visit spot for anyone wanting ' +
+        'to taste authentic Champon and Sara Udon. Its greatest pride is the signature ' +
+        'Champon broth made from 100% chicken bones, creating a rich, milky paitan soup ' +
+        'that is deeply flavorful yet remarkably clean and crisp. With its grand, ' +
+        'traditional decor, Kozanro offers an exceptional atmosphere for international ' +
+        'travelers to enjoy high-quality Nagasaki-style Chinese cuisine.',
+      ja:
+        '江山楼は、長崎新地中華街を代表する老舗の中華料理店です。長崎名物を極めた店として' +
+        '知られ、本場のちゃんぽんと皿うどんを味わうなら外せない一軒とされています。' +
+        '最大の自慢は、鶏ガラ100％でとった看板のちゃんぽんスープ。濃厚な白湯でありながら、' +
+        '後味は驚くほど澄んでいてすっきりとしています。風格ある伝統的な内装で、海外からの' +
+        'お客様が上質な長崎中華を楽しむのにふさわしい雰囲気です。',
+      zhCN:
+        '江山楼是长崎新地中华街最著名的老字号中餐厅之一。以将长崎名菜做到极致而闻名，' +
+        '想品尝正宗什锦面（强棒面）和什锦烩面的人都不可错过。最引以为傲的是招牌汤底——' +
+        '以100%鸡骨熬制的白汤，浓郁奶白却又十分清爽干净。店内装潢气派传统，' +
+        '是外国游客享用高品质长崎中华料理的绝佳去处。',
+      zhTW:
+        '江山樓是長崎新地中華街最著名的老字號中餐廳之一。以將長崎名菜做到極致而聞名，' +
+        '想品嚐道地什錦麵（強棒麵）與什錦燴麵的人都不可錯過。最引以為傲的是招牌湯底——' +
+        '以100%雞骨熬製的白湯，濃郁奶白卻又十分清爽乾淨。店內裝潢氣派傳統，' +
+        '是外國旅客享用高品質長崎中華料理的絕佳去處。',
+      ko:
+        '고잔로(江山楼)는 나가사키 신치 차이나타운을 대표하는 역사 깊은 중식당입니다. ' +
+        '나가사키 명물 요리를 완성한 곳으로 유명해, 정통 짬뽕과 사라우동을 맛보고 싶다면 ' +
+        '반드시 들러야 할 가게로 꼽힙니다. 가장 큰 자랑은 닭뼈 100%로 우려낸 짬뽕 육수로, ' +
+        '진한 유백색 국물이면서도 뒷맛은 놀랍도록 깔끔합니다. 웅장하고 전통적인 인테리어로, ' +
+        '해외 여행객이 수준 높은 나가사키식 중화요리를 즐기기에 좋은 분위기입니다.',
+    },
+
+    menu: [
+      {
+        id: 'tokujo-champon',
+        name: 'Special Champon',
+        nameJa: '特上ちゃんぽん',
+        romaji: 'Tokujo champon',
+        price: 'Approx. ¥2,000 – ¥2,200',
+        img: 'menu1.jpg',
+        description: {
+          en:
+            'Kozanro’s legendary specialty noodle soup, featuring their signature 100% ' +
+            'chicken broth. Loaded with chewy noodles, fresh shrimp, squid, pork, seasonal ' +
+            'vegetables, and topped with premium delicacies like shark fin.',
+          ja:
+            '鶏ガラ100％の看板スープでいただく、江山楼を代表する名物麺。もちもちの麺に、' +
+            '新鮮な海老やイカ、豚肉、旬の野菜がたっぷり入り、フカヒレなどの高級食材が' +
+            '添えられます。',
+          zhCN:
+            '以100%鸡骨招牌汤底烹制的江山楼名物面食。弹牙的面条搭配新鲜虾仁、鱿鱼、猪肉与' +
+            '时令蔬菜，并以鱼翅等高级食材点缀。',
+          zhTW:
+            '以100%雞骨招牌湯底烹製的江山樓名物麵食。彈牙的麵條搭配新鮮蝦仁、花枝、豬肉與' +
+            '時令蔬菜，並以魚翅等高級食材點綴。',
+          ko:
+            '닭뼈 100% 육수로 만든 고잔로의 대표 명물 면 요리. 쫄깃한 면에 신선한 새우와 ' +
+            '오징어, 돼지고기, 제철 채소가 듬뿍 들어가고 샥스핀 등 고급 재료가 올라갑니다.',
+        },
+      },
+      {
+        id: 'tokujo-sara-udon',
+        name: 'Special Crispy Noodles',
+        nameJa: '特上皿うどん',
+        romaji: 'Tokujo sara udon',
+        price: 'Approx. ¥2,000 – ¥2,200',
+        img: 'menu2.jpg',
+        description: {
+          en:
+            'Thin, extra-crispy fried noodles smothered in a thick, savory seafood and ' +
+            'vegetable gravy. You can enjoy the delicious contrast between the crunchy ' +
+            'noodles and the hot, flavorful sauce.',
+          ja:
+            'パリパリに揚げた細麺に、海鮮と野菜のとろみのあるあんをたっぷりかけた一皿。' +
+            '香ばしい麺と熱々のあんの食感の違いが楽しめます。',
+          zhCN:
+            '细面炸至酥脆，再淋上浓稠鲜美的海鲜蔬菜芡汁。酥脆的面条与热腾腾的酱汁形成' +
+            '美妙对比。',
+          zhTW:
+            '細麵炸至酥脆，再淋上濃稠鮮美的海鮮蔬菜芡汁。酥脆的麵條與熱騰騰的醬汁形成' +
+            '美妙對比。',
+          ko:
+            '바삭하게 튀긴 가는 면 위에 해산물과 채소가 들어간 걸쭉한 소스를 듬뿍 얹었습니다. ' +
+            '바삭한 면과 뜨거운 소스의 대비가 매력입니다.',
+        },
+      },
+      {
+        id: 'dongpo-rou',
+        name: 'Braised Pork Belly',
+        nameJa: '東坡肉',
+        romaji: 'Tonporo',
+        price: 'Approx. ¥800 – ¥1,200 per portion',
+        img: 'menu3.jpg',
+        description: {
+          en:
+            'Succulent pork belly slow-braised in a sweet and savory soy-sauce glaze until ' +
+            'it melts in your mouth. A classic, comforting dish that highlights traditional ' +
+            'Chinese cooking techniques.',
+          ja:
+            '豚バラ肉を甘辛い醤油だれでじっくり煮込み、口の中でとろけるほど柔らかく' +
+            '仕上げた一品。中国料理の伝統的な技が光る、定番の味わいです。',
+          zhCN:
+            '五花肉以甜咸酱汁慢火炖煮至入口即化。是一道展现中华传统烹饪技艺的经典佳肴。',
+          zhTW:
+            '五花肉以甜鹹醬汁慢火燉煮至入口即化。是一道展現中華傳統烹飪技藝的經典佳餚。',
+          ko:
+            '삼겹살을 달콤짭짤한 간장 소스에 오래 조려 입에서 녹을 정도로 부드럽게 ' +
+            '완성했습니다. 중국 전통 조리법이 돋보이는 고전적인 요리입니다.',
+        },
+      },
+      {
+        id: 'fukahire-soup',
+        name: 'Shark Fin Soup',
+        nameJa: 'フカヒレスープ',
+        romaji: 'Fukahire soup',
+        price: 'Approx. ¥1,800 – ¥2,500',
+        img: 'menu4.jpg',
+        description: {
+          en:
+            'A luxurious, silky soup featuring premium shark fin simmered in a rich, ' +
+            'flavorful broth. An elegant dish that adds a touch of high-end indulgence ' +
+            'to your meal.',
+          ja:
+            '上質なフカヒレを、旨みのあるスープでじっくり煮込んだ贅沢な一品。' +
+            'なめらかな口当たりで、食事に華やかさを添えます。',
+          zhCN:
+            '选用上等鱼翅，以浓郁高汤慢火炖煮而成的奢华汤品。口感滑顺，为整桌菜增添' +
+            '高级风味。',
+          zhTW:
+            '選用上等魚翅，以濃郁高湯慢火燉煮而成的奢華湯品。口感滑順，為整桌菜餚增添' +
+            '高級風味。',
+          ko:
+            '고급 샥스핀을 진한 육수에 천천히 끓여낸 호화로운 수프. 부드러운 목넘김으로 ' +
+            '식사에 품격을 더합니다.',
+        },
+      },
+    ],
+  },
 ]
 
 // id から店舗を取得
