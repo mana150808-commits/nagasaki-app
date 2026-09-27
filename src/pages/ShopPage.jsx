@@ -5,6 +5,7 @@ import { getShopById, shopImageUrl } from '../data/shops.js'
 import ShopImage from '../components/ShopImage.jsx'
 import OpeningHours from '../components/OpeningHours.jsx'
 import MenuNote from '../components/MenuNote.jsx'
+import FavoriteButton from '../components/FavoriteButton.jsx'
 import { useLanguage, pickText } from '../LanguageContext.jsx'
 
 // お店の詳細ページ。
@@ -42,8 +43,8 @@ export default function ShopPage() {
 
   return (
     <main className="page-enter min-h-dvh bg-[#f5f3ee] pb-12">
-      {/* 戻るボタン（写真の上に重ならないよう帯で配置） */}
-      <div className="px-4 pt-4 pb-3">
+      {/* 戻るボタン（写真の上に重ならないよう帯で配置）とお気に入りボタン */}
+      <div className="flex items-center justify-between px-4 pt-4 pb-3">
         <button
           type="button"
           onClick={() => navigate(-1)}
@@ -52,6 +53,8 @@ export default function ShopPage() {
         >
           <span aria-hidden="true">←</span> Back
         </button>
+
+        <FavoriteButton shopId={shop.id} />
       </div>
 
       {/* 上：外観バナー */}

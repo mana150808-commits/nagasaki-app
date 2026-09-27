@@ -5,6 +5,10 @@ import 'maplibre-gl/dist/maplibre-gl.css'
 import { shops } from '../data/shops.js'
 import { LANGUAGES, useLanguage } from '../LanguageContext.jsx'
 import { getLastShopId, clearLastShopId } from '../mapState.js'
+import { getFavorites, subscribeFavorites, useFavorites } from '../favorites.js'
+
+// 絞り込みの特別な値（カテゴリー名と重ならない文字列）
+const FAVORITES = '__favorites__'
 
 // 長崎によく来る海外観光客の言語＋日本語。アプリ全体（店舗の説明文など）と共通の言語リストを使う。
 // （長崎港は中国発クルーズ船の寄港が多く、地理的に韓国・台湾からの観光客も多いという
@@ -120,11 +124,15 @@ export default function MapView({ className = '' }) {
   const [activeCategory, setActiveCategory] = useState(null) // nullは「すべて」
   const [note, setNote] = useState(null) // 'outside' | 'denied' | 'unavailable' | null
   const activeCategoryRef = useRef(null)
+  const favorites = useFavorites() // 件数表示と、ボタンの出し分けに使う
 
   // ピンの絞り込みを、既に作成済みのマーカーの表示/非表示だけで行う（作り直さない）
+  // activeCategoryRef は null（すべて）／FAVORITES（お気に入りだけ）／カテゴリー名 のいずれか。
   const applyCategoryFilter = () => {
+    const active = activeCategoryRef.current
+    const favs = active === FAVORITES ? getFavorites() : null
     markersRef.current.forEach(({ shop, el }) => {
-      const show = !activeCategoryRef.current || shop.category === activeCategoryRef.current
+      const show = !active || (favs ? favs.includes(shop.id) : shop.category === active)
       el.style.display = show ? 'flex' : 'none'
     })
   }
@@ -242,6 +250,9 @@ export default function MapView({ className = '' }) {
     }
   }, [navigate])
 
+  // お気に入りが増減したら、絞り込み中の表示も追従させる
+  useEffect(() => subscribeFavorites(applyCategoryFilter), [])
+
   // 言語ボタンが押されたら、地図上の地名ラベルだけを差し替える（ピン・店舗データには影響しない）
   const handleLangChange = (code) => {
     setLang(code)
@@ -313,6 +324,29 @@ export default function MapView({ className = '' }) {
         >
           All
         </button>
+        {/* お気に入りだけ表示（1軒でも登録されていれば出す） */}
+        {favorites.length > 0 && (
+          <button
+            type="button"
+            onClick={() => handleCategoryClick(FAVORITES)}
+            className={`press flex items-center gap-1.5 rounded-full px-3 py-1.5 font-hand text-xs font-semibold shadow-hand ${
+              activeCategory === FAVORITES ? 'bg-vermilion text-white' : 'bg-white text-vermilion'
+            }`}
+            aria-pressed={activeCategory === FAVORITES}
+            aria-label="Saved shops"
+          >
+            <svg
+              viewBox="0 0 24 24"
+              width="14"
+              height="14"
+              fill="currentColor"
+              aria-hidden="true"
+            >
+              <path d="M12 20.3 4.6 13a4.6 4.6 0 0 1 6.5-6.5l.9.9.9-.9A4.6 4.6 0 0 1 19.4 13Z" />
+            </svg>
+            <span>{favorites.length}</span>
+          </button>
+        )}
         {CATEGORIES.map((category) => (
           <button
             key={category}
