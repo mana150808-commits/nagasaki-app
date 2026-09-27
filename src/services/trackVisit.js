@@ -7,6 +7,8 @@
 // 端末IDはこのアプリ用のランダムな文字列で、端末内(localStorage)にだけ保存する。
 // 個人を特定する情報（名前・メール・位置・広告IDなど）は一切送らない。
 //
+// 開発中（localhost等）のアクセスは送らない。手元の動作確認が利用者数に混ざるため。
+//
 // 【この数え方の限界】
 //  ・同じ人が2台で開けば2人として数える。
 //  ・端末のデータを消すと、同じ人がもう一度数えられる。
@@ -15,6 +17,18 @@
 
 const DEVICE_KEY = 'nagasaki_device_id'
 const ENDPOINT = import.meta.env.VITE_SURVEY_URL
+
+// 開発中のアクセス（localhostやプレビュー）は利用者数に混ぜない。
+// これが無いと、手元での動作確認がそのまま利用者として数えられてしまう。
+function isDevAccess() {
+  const host = window.location.hostname
+  return (
+    host === 'localhost' ||
+    host === '127.0.0.1' ||
+    host.endsWith('.local') ||
+    /^\d+\.\d+\.\d+\.\d+$/.test(host) // 同一Wi-Fi内で --host 起動して確認する場合
+  )
+}
 
 function platform() {
   const ua = window.navigator.userAgent
@@ -49,7 +63,7 @@ function source() {
 
 // アプリ起動時に1回だけ呼ぶ。初回の端末以外は何もしない。
 export function trackVisit() {
-  if (!ENDPOINT) return
+  if (!ENDPOINT || isDevAccess()) return
 
   let deviceId
   try {
@@ -73,6 +87,8 @@ export function trackVisit() {
       display: displayMode(),
       source: source(),
       lang: navigator.language || '',
+      // どのドメインから開かれたか（本番か、プレビュー用のURLかを後から見分けるため）
+      host: window.location.hostname,
       createdAt: new Date().toISOString(),
     }),
   }).catch(() => {
