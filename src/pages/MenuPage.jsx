@@ -39,8 +39,11 @@ export default function MenuPage() {
       <div className="px-4 pt-4 pb-3">
         <button
           type="button"
-          // 履歴に頼らず、必ずこの料理が属する店舗ページへ戻す
-          onClick={() => navigate(`/shop/${shopId}`)}
+          // 必ずこの料理が属する店舗ページへ戻す。
+          // replace: true で「この料理ページ」を履歴から置き換える。
+          // 追加（push）にすると 店舗→料理→店舗 と積まれ、店舗ページのBackが
+          // 料理ページに戻ってしまい、行き来のループになるため。
+          onClick={() => navigate(`/shop/${shopId}`, { replace: true })}
           aria-label="Back"
           className="press inline-flex items-center gap-1 rounded-full bg-white px-4 py-2 font-display text-lg text-navy shadow-hand"
         >

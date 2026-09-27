@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { useParams, useNavigate, Link } from 'react-router-dom'
+import { useParams, useNavigate, useLocation, Link } from 'react-router-dom'
 import { setLastShopId } from '../mapState.js'
 import { getShopById, shopImageUrl } from '../data/shops.js'
 import ShopImage from '../components/ShopImage.jsx'
@@ -16,6 +16,7 @@ import { useLanguage, pickText } from '../LanguageContext.jsx'
 export default function ShopPage() {
   const { shopId } = useParams()
   const navigate = useNavigate()
+  const location = useLocation()
   const { lang } = useLanguage()
   const shop = getShopById(shopId)
 
@@ -47,7 +48,9 @@ export default function ShopPage() {
       <div className="flex items-center justify-between px-4 pt-4 pb-3">
         <button
           type="button"
-          onClick={() => navigate(-1)}
+          // 直前の画面（ホームまたはマップ）へ戻る。
+          // QRやリンクでこのページを直接開いた場合は戻る先が無いので、マップへ送る。
+          onClick={() => (location.key === 'default' ? navigate('/map') : navigate(-1))}
           aria-label="Back"
           className="press inline-flex items-center gap-1 rounded-full bg-white px-4 py-2 font-display text-lg text-navy shadow-hand"
         >
