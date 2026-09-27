@@ -4,6 +4,7 @@ import maplibregl from 'maplibre-gl'
 import 'maplibre-gl/dist/maplibre-gl.css'
 import { shops } from '../data/shops.js'
 import { LANGUAGES, useLanguage } from '../LanguageContext.jsx'
+import { getLastShopId, clearLastShopId } from '../mapState.js'
 
 // 長崎によく来る海外観光客の言語＋日本語。アプリ全体（店舗の説明文など）と共通の言語リストを使う。
 // （長崎港は中国発クルーズ船の寄港が多く、地理的に韓国・台湾からの観光客も多いという
@@ -164,11 +165,16 @@ export default function MapView({ className = '' }) {
         })
       }
 
+      // 直前に店舗ページを開いていたら、その店のピンを中心に表示する。
+      // （初期位置に戻ってしまうと、どの店を見ていたのか分からなくなるため）
+      const lastShop = shops.find((s) => s.id === getLastShopId())
+      clearLastShopId()
+
       const map = new maplibregl.Map({
         container: containerRef.current,
         style,
-        center: [129.8712, 32.7455],
-        zoom: 14.6,
+        center: lastShop?.geo ? [lastShop.geo.lng, lastShop.geo.lat] : [129.8712, 32.7455],
+        zoom: lastShop ? 16.5 : 14.6,
         pitch: 50,
         bearing: -14,
         maxBounds: MAP_BOUNDS,

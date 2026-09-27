@@ -1,6 +1,7 @@
 import { useParams, useNavigate } from 'react-router-dom'
 import { getShopById, getMenuItem, shopImageUrl } from '../data/shops.js'
 import ShopImage from '../components/ShopImage.jsx'
+import MenuNote from '../components/MenuNote.jsx'
 import { useLanguage, pickText } from '../LanguageContext.jsx'
 
 // 料理の詳細ページ。
@@ -38,7 +39,8 @@ export default function MenuPage() {
       <div className="px-4 pt-4 pb-3">
         <button
           type="button"
-          onClick={() => navigate(-1)}
+          // 履歴に頼らず、必ずこの料理が属する店舗ページへ戻す
+          onClick={() => navigate(`/shop/${shopId}`)}
           aria-label="Back"
           className="press inline-flex items-center gap-1 rounded-full bg-white px-4 py-2 font-display text-lg text-navy shadow-hand"
         >
@@ -81,9 +83,13 @@ export default function MenuPage() {
 
         {/* 価格（あるときだけ） */}
         {item.price && (
-          <p className="mt-3 inline-block rounded-full bg-vermilion/10 px-3 py-1 font-display text-2xl text-vermilion">
-            {item.price}
-          </p>
+          <>
+            <p className="mt-3 inline-block rounded-full bg-vermilion/10 px-3 py-1 font-display text-2xl text-vermilion">
+              {item.price}
+            </p>
+            {/* メニュー・価格は時期によって変わる旨 */}
+            <MenuNote className="mt-1.5" />
+          </>
         )}
 
         {/* 説明 */}

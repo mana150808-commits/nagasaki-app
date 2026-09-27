@@ -123,7 +123,7 @@ export const shops = [
         name: 'Grilled Turban Shell',
         nameJa: 'さざえの壺焼き',
         romaji: 'Sazae no tsuboyaki',
-        price: 'Approx. ¥700 – ¥1,000',
+        price: '¥1,180',
         img: 'menu2.jpg',
         description: {
           en:
@@ -145,7 +145,7 @@ export const shops = [
         name: 'Wagyu Steak',
         nameJa: '和牛ステーキ',
         romaji: 'Wagyū sutēki',
-        price: 'Approx. ¥1,500 – ¥2,500',
+        price: '¥1,700',
         img: 'menu3.jpg',
         description: {
           en:
@@ -172,7 +172,7 @@ export const shops = [
         name: 'Hatoshi',
         nameJa: 'ハトシ',
         romaji: 'Hatoshi',
-        price: 'Approx. ¥600 – ¥800',
+        price: '¥680',
         img: 'menu4.jpg',
         description: {
           en:
@@ -856,7 +856,7 @@ export const shops = [
       {
         id: 'seasonal-sashimi',
         name: 'Sashimi of seasonal fish',
-        price: 'Approx. ¥2,000 – ¥2,500',
+        price: '¥2,750',
         img: 'menu1.jpg',
         description: {
           en:
@@ -894,7 +894,7 @@ export const shops = [
       {
         id: 'dutch-hot-pot',
         name: 'Specialty “Dutch hot pot”',
-        price: 'Approx. ¥1,500 – ¥2,000',
+        price: '¥2,200',
         img: 'menu3.jpg',
         description: {
           en:
@@ -921,7 +921,7 @@ export const shops = [
       {
         id: 'miso-oden',
         name: 'Specialty miso oden',
-        price: 'Approx. ¥800 – ¥1,200',
+        price: '¥990',
         img: 'menu4.jpg',
         description: {
           en:

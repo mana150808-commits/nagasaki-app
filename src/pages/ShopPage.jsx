@@ -1,7 +1,10 @@
+import { useEffect } from 'react'
 import { useParams, useNavigate, Link } from 'react-router-dom'
+import { setLastShopId } from '../mapState.js'
 import { getShopById, shopImageUrl } from '../data/shops.js'
 import ShopImage from '../components/ShopImage.jsx'
 import OpeningHours from '../components/OpeningHours.jsx'
+import MenuNote from '../components/MenuNote.jsx'
 import { useLanguage, pickText } from '../LanguageContext.jsx'
 
 // お店の詳細ページ。
@@ -14,6 +17,11 @@ export default function ShopPage() {
   const navigate = useNavigate()
   const { lang } = useLanguage()
   const shop = getShopById(shopId)
+
+  // Backで地図に戻ったとき、この店のピンを中心に表示させるための記録
+  useEffect(() => {
+    if (shop) setLastShopId(shop.id)
+  }, [shop])
 
   // 該当店が無い場合
   if (!shop) {
@@ -88,8 +96,10 @@ export default function ShopPage() {
         </h2>
         {/* メニュー写真がイメージ画である旨（設定した店舗のみ） */}
         {shop.menuImageNote && (
-          <p className="mb-3 text-xs italic text-ink/45">* {shop.menuImageNote}</p>
+          <p className="mb-1 text-xs italic text-ink/45">* {shop.menuImageNote}</p>
         )}
+        {/* メニュー・価格は時期によって変わる旨 */}
+        <MenuNote className="mb-3" />
         <div className="grid grid-cols-2 gap-3">
           {shop.menu.map((m, i) => (
             <Link
