@@ -1,4 +1,4 @@
-import { useParams, useNavigate } from 'react-router-dom'
+import { useParams, useNavigate, useLocation } from 'react-router-dom'
 import { getShopById, getMenuItem, shopImageUrl } from '../data/shops.js'
 import ShopImage from '../components/ShopImage.jsx'
 import MenuNote from '../components/MenuNote.jsx'
@@ -12,6 +12,7 @@ import { useLanguage, pickText } from '../LanguageContext.jsx'
 export default function MenuPage() {
   const { shopId, menuId } = useParams()
   const navigate = useNavigate()
+  const location = useLocation()
   const { lang } = useLanguage()
   const shop = getShopById(shopId)
   const item = getMenuItem(shop, menuId)
@@ -39,11 +40,15 @@ export default function MenuPage() {
       <div className="px-4 pt-4 pb-3">
         <button
           type="button"
-          // 必ずこの料理が属する店舗ページへ戻す。
-          // replace: true で「この料理ページ」を履歴から置き換える。
-          // 追加（push）にすると 店舗→料理→店舗 と積まれ、店舗ページのBackが
-          // 料理ページに戻ってしまい、行き来のループになるため。
-          onClick={() => navigate(`/shop/${shopId}`, { replace: true })}
+          // 通常は履歴を1つ戻る（＝この料理を開いた元の店舗ページ）。
+          // 店舗ページへ改めて遷移させると、push では 店舗→料理→店舗 とループになり、
+          // replace でも履歴に店舗ページが2つ残ってBackを余計に押すことになるため。
+          // QRやリンクでこの料理ページを直接開いた場合だけ、戻り先が無いので店舗ページへ送る。
+          onClick={() =>
+            location.key === 'default'
+              ? navigate(`/shop/${shopId}`, { replace: true })
+              : navigate(-1)
+          }
           aria-label="Back"
           className="press inline-flex items-center gap-1 rounded-full bg-white px-4 py-2 font-display text-lg text-navy shadow-hand"
         >
