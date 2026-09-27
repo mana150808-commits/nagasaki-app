@@ -1931,6 +1931,171 @@ export const shops = [
       },
     ],
   },
+
+  {
+    id: 'fukuju',
+    name: 'Fukuju',
+    nameJa: '中華料理 福寿',
+    category: 'Chinese',
+    area: 'Shinchi Chinatown',
+    areaJa: '長崎市新地町',
+
+    map: { x: 39, y: 49 },
+    geo: { lat: 32.742134, lng: 129.874985 },
+    address: '〒850-0842 長崎県長崎市新地町2-5',
+    hours: {
+      sun: ['11:00–14:00', '17:00–20:00'],
+      mon: ['11:00–14:00', '17:00–20:00'],
+      tue: ['11:00–14:00', '17:00–20:00'],
+      wed: ['11:00–14:00', '17:00–20:00'],
+      thu: ['11:00–14:00', '17:00–20:00'],
+      fri: ['11:00–14:00', '17:00–20:00'],
+      sat: ['11:00–14:00', '17:00–20:00'],
+    },
+
+    photoBase: '/shops/fukuju',
+    exterior: 'exterior.jpg',
+
+    description: {
+      en:
+        'Fukuju is a long-established, beloved Chinese restaurant in Nagasaki Shinchi ' +
+        'Chinatown. Its culinary pride lies in its signature broth, made from 100% ' +
+        'chicken bones using traditional methods unchanged since its opening. The broth ' +
+        'is uniquely clear until heat is applied, creating an ultimate, rich soup the ' +
+        'very moment it cooks. Offering a casual and welcoming atmosphere, Fukuju ' +
+        'provides international travelers with an authentic taste of historic ' +
+        'Nagasaki-Chinese comfort food.',
+      ja:
+        '中華料理 福寿は、長崎新地中華街で長く親しまれている老舗の中華料理店です。' +
+        '自慢は、創業以来変わらない製法で鶏ガラ100％からとる看板スープ。火を入れるまでは' +
+        '澄んでいて、加熱した瞬間に濃厚な旨みへと変わるのが特徴です。気取らない' +
+        '入りやすい雰囲気で、海外からのお客様も長崎中華の本来の味を楽しめます。',
+      zhCN:
+        '中华料理福寿是长崎新地中华街深受喜爱的老字号中餐厅。最自豪的是自创业以来沿用' +
+        '传统做法、以100%鸡骨熬制的招牌汤底。加热前清澈透亮，一经加热便化为浓郁鲜美的' +
+        '极致汤头。店内气氛轻松随和，外国游客也能品尝到地道的长崎中华家常味。',
+      zhTW:
+        '中華料理福壽是長崎新地中華街深受喜愛的老字號中餐廳。最自豪的是自創業以來沿用' +
+        '傳統做法、以100%雞骨熬製的招牌湯底。加熱前清澈透亮，一經加熱便化為濃郁鮮美的' +
+        '極致湯頭。店內氣氛輕鬆隨和，外國旅客也能品嚐到道地的長崎中華家常味。',
+      ko:
+        '중화요리 후쿠주는 나가사키 신치 차이나타운에서 오래도록 사랑받아 온 노포 중식당입니다. ' +
+        '자랑거리는 창업 이래 변하지 않은 방식으로 닭뼈 100%를 우려낸 간판 육수입니다. ' +
+        '가열하기 전에는 맑다가 불을 올리는 순간 진한 감칠맛으로 바뀌는 것이 특징입니다. ' +
+        '편안하고 소탈한 분위기에서 해외 여행객도 정통 나가사키 중화의 맛을 즐길 수 있습니다.',
+    },
+
+    menu: [
+      {
+        id: 'nagasaki-champon',
+        name: 'Nagasaki Champon',
+        nameJa: '長崎ちゃんぽん',
+        romaji: 'Nagasaki champon',
+        price: '¥800',
+        img: 'menu1.jpg',
+        description: {
+          en:
+            "Fukuju's classic signature dish. Made with their ultimate 100% chicken broth, " +
+            'packed with chewy noodles, pork, fresh seafood and a generous portion of ' +
+            "vegetables. A budget-friendly yet deeply flavourful bowl of Nagasaki's " +
+            'favourite comfort food.',
+          ja:
+            '福寿の定番にして看板の一杯。鶏ガラ100％の自慢のスープに、もちもちの麺、豚肉、' +
+            '新鮮な海鮮、たっぷりの野菜が入ります。手頃な価格ながら、旨みの深い長崎の' +
+            '定番の味です。',
+          zhCN:
+            '福寿的经典招牌。以100%鸡骨熬制的自豪汤底，搭配弹牙面条、猪肉、新鲜海鲜与' +
+            '满满的蔬菜。价格亲民却滋味深厚，是长崎的代表家常味。',
+          zhTW:
+            '福壽的經典招牌。以100%雞骨熬製的自豪湯底，搭配彈牙麵條、豬肉、新鮮海鮮與' +
+            '滿滿的蔬菜。價格親民卻滋味深厚，是長崎的代表家常味。',
+          ko:
+            '후쿠주의 대표 메뉴. 닭뼈 100%로 우려낸 자랑의 육수에 쫄깃한 면과 돼지고기, ' +
+            '신선한 해산물, 넉넉한 채소가 들어갑니다. 부담 없는 가격에 깊은 맛을 즐길 수 있는 ' +
+            '나가사키의 대표 음식입니다.',
+        },
+      },
+      {
+        id: 'soboro-sara-udon',
+        name: 'Soboro Sara Udon (Thick Noodles)',
+        nameJa: 'そぼろ皿うどん（太麺）',
+        romaji: 'Soboro sara udon',
+        price: '¥1,150',
+        img: 'menu2.jpg',
+        description: {
+          en:
+            'A specialty variation of Nagasaki Sara Udon using soft, thick champon-style ' +
+            'noodles instead of crispy thin ones. Tossed with a rich savoury sauce, minced ' +
+            'meat (soboro), and fresh seafood and vegetables.',
+          ja:
+            'パリパリの細麺ではなく、やわらかい太麺を使った長崎皿うどんの一種。旨みのある' +
+            'あんに、そぼろ肉と新鮮な海鮮、野菜を合わせています。',
+          zhCN:
+            '不用酥脆细面，而以柔软粗面制作的长崎什锦烩面。搭配浓郁芡汁、肉燥与新鲜海鲜' +
+            '和蔬菜。',
+          zhTW:
+            '不用酥脆細麵，而以柔軟粗麵製作的長崎什錦燴麵。搭配濃郁芡汁、肉燥與新鮮海鮮' +
+            '和蔬菜。',
+          ko:
+            '바삭한 가는 면 대신 부드러운 굵은 면을 사용한 나가사키 사라우동. 감칠맛 나는 ' +
+            '소스에 다진 고기와 신선한 해산물, 채소를 곁들였습니다.',
+        },
+      },
+      {
+        id: 'sweet-sour-pork',
+        name: 'Sweet and Sour Pork',
+        nameJa: '酢豚',
+        romaji: 'Subuta',
+        price: '¥1,260',
+        img: 'menu3.jpg',
+        description: {
+          en:
+            'Crispy, golden-brown fried pork pieces and colourful vegetables tossed in a ' +
+            'glossy, appetising sweet-and-sour glaze. A universally loved Chinese staple ' +
+            'that goes fantastically with rice or beer.',
+          ja:
+            'こんがり揚げた豚肉と彩りのよい野菜を、つやのある甘酢あんで絡めた一品。' +
+            'ご飯にもビールにもよく合う、誰にでも好まれる中華の定番です。',
+          zhCN:
+            '将炸得金黄酥脆的猪肉与缤纷蔬菜裹上亮泽的糖醋芡汁。无论配饭还是啤酒都十分' +
+            '对味，是老少咸宜的中华经典。',
+          zhTW:
+            '將炸得金黃酥脆的豬肉與繽紛蔬菜裹上亮澤的糖醋芡汁。無論配飯或啤酒都十分' +
+            '對味，是老少咸宜的中華經典。',
+          ko:
+            '노릇하게 튀긴 돼지고기와 색색의 채소를 윤기 나는 새콤달콤한 소스에 버무렸습니다. ' +
+            '밥에도 맥주에도 잘 어울리는, 누구나 좋아하는 중식 대표 요리입니다.',
+        },
+      },
+      {
+        id: 'chinjao-rosu',
+        name: 'Stir-Fried Beef and Green Peppers',
+        nameJa: '牛肉とピーマンの炒め（青椒肉絲）',
+        romaji: 'Chinjao rosu',
+        price: 'Small ¥1,890 / Large ¥2,840',
+        img: 'menu4.jpg',
+        description: {
+          en:
+            'Tender strips of beef stir-fried over high heat with crisp green bell peppers ' +
+            'and bamboo shoots in a savoury soy-based sauce. Offered in two portion sizes, ' +
+            'making it ideal for individual diners or group sharing.',
+          ja:
+            '細切りの牛肉を、シャキッとしたピーマンとたけのこと一緒に強火で炒め、醤油' +
+            'ベースのたれで仕上げた一品。小（1〜2人前）と大（3〜4人前）があり、一人でも' +
+            '大人数でも楽しめます。',
+          zhCN:
+            '牛肉丝与爽脆青椒、竹笋一同大火快炒，以酱油为底调味。提供小份（1–2人）与' +
+            '大份（3–4人），一人用餐或多人分享都合适。',
+          zhTW:
+            '牛肉絲與爽脆青椒、竹筍一同大火快炒，以醬油為底調味。提供小份（1–2人）與' +
+            '大份（3–4人），一人用餐或多人分享都合適。',
+          ko:
+            '채썬 소고기를 아삭한 피망, 죽순과 함께 센 불에 볶아 간장 베이스 소스로 ' +
+            '마무리했습니다. 소(1~2인분)와 대(3~4인분)가 있어 혼자서도 여럿이서도 좋습니다.',
+        },
+      },
+    ],
+  },
 ]
 
 // id から店舗を取得
