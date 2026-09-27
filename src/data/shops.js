@@ -1771,6 +1771,166 @@ export const shops = [
       },
     ],
   },
+
+  {
+    id: 'laolee',
+    name: 'Lao Lee',
+    nameJa: '老李',
+    category: 'Chinese',
+    area: 'Shinchi Chinatown',
+    areaJa: '長崎市新地町',
+
+    map: { x: 41, y: 50 },
+    geo: { lat: 32.74094, lng: 129.875504 },
+    address: '〒850-0842 長崎県長崎市新地町12-7',
+    hours: {
+      sun: ['11:30–14:30', '17:00–21:30'],
+      mon: ['11:30–14:30', '17:00–21:30'],
+      tue: ['11:30–14:30', '17:00–21:30'],
+      wed: ['11:30–14:30', '17:00–21:30'],
+      thu: ['11:30–14:30', '17:00–21:30'],
+      fri: ['11:30–14:30', '17:00–21:30'],
+      sat: ['11:30–14:30', '17:00–21:30'],
+    },
+
+    photoBase: '/shops/laolee',
+    exterior: 'exterior.jpg',
+
+    description: {
+      en:
+        'Lao Lee is a hugely popular Taiwanese-style Chinese restaurant located in ' +
+        'Nagasaki Shinchi Chinatown. Its signature Champon features a rich 100% chicken ' +
+        'broth that pairs flawlessly with exclusive noodles crafted by Shinchi Noodle ' +
+        'Factory, made using Nagasaki’s traditional Karaaku lye water for an authentic ' +
+        'texture. Renowned for its juicy water dumplings and vibrant Taiwanese fusion ' +
+        'dishes, Lao Lee offers a welcoming atmosphere and a satisfying culinary ' +
+        'experience for international travelers.',
+      ja:
+        '老李（ラオリー）は、長崎新地中華街にある台湾料理系の人気中華料理店です。看板の' +
+        'ちゃんぽんは鶏ガラ100％の濃厚なスープが特徴で、長崎伝統の唐灰汁（とうあく）を' +
+        '使って新地製麺所が作る専用の麺と見事に合わさります。肉汁あふれる水餃子や、' +
+        '彩り豊かな台湾料理でも知られ、海外からのお客様も気軽に立ち寄れる雰囲気です。',
+      zhCN:
+        '老李是位于长崎新地中华街的人气台式中华料理店。招牌什锦面采用100%鸡骨熬制的浓郁' +
+        '汤底，搭配新地制面厂以长崎传统唐灰汁制作的专用面条，口感道地。店内以多汁的水饺' +
+        '和丰富的台湾料理闻名，气氛亲切，是外国游客也能尽情享用的一家餐厅。',
+      zhTW:
+        '老李是位於長崎新地中華街的人氣台式中華料理店。招牌什錦麵採用100%雞骨熬製的濃郁' +
+        '湯底，搭配新地製麵廠以長崎傳統唐灰汁製作的專用麵條，口感道地。店內以多汁的水餃' +
+        '和豐富的台灣料理聞名，氣氛親切，是外國旅客也能盡情享用的一家餐廳。',
+      ko:
+        '라오리(老李)는 나가사키 신치 차이나타운에 자리한 인기 대만식 중화요리점입니다. ' +
+        '간판 짬뽕은 닭뼈 100%로 우려낸 진한 육수가 특징이며, 나가사키 전통의 도아쿠(간수)로 ' +
+        '만든 신치 제면소의 전용 면과 훌륭하게 어우러집니다. 육즙 가득한 물만두와 다채로운 ' +
+        '대만 요리로도 유명하며, 해외 여행객도 편안하게 즐길 수 있는 분위기입니다.',
+    },
+
+    menu: [
+      {
+        id: 'laolee-set',
+        name: 'Lao Lee Set Menu',
+        nameJa: '老李セット',
+        romaji: 'Lao Lee set',
+        price: '¥1,650',
+        img: 'menu1.jpg',
+        description: {
+          en:
+            'An ultimate value set featuring Taiwanese ramen, fragrant fried rice, juicy ' +
+            'signature boiled dumplings (Sui-Gyoza), and a delightful dessert. A perfect ' +
+            "all-in-one meal to taste Lao Lee's most popular specialties.",
+          ja:
+            '台湾ラーメン、香ばしいチャーハン、名物の肉汁あふれる水餃子、デザートまで' +
+            'そろったお得なセット。老李の人気料理をまとめて味わえる一皿です。',
+          zhCN:
+            '包含台湾拉面、香喷喷的炒饭、招牌多汁水饺以及甜点的超值套餐。可以一次品尝' +
+            '老李最受欢迎的招牌料理。',
+          zhTW:
+            '包含台灣拉麵、香噴噴的炒飯、招牌多汁水餃以及甜點的超值套餐。可以一次品嚐' +
+            '老李最受歡迎的招牌料理。',
+          ko:
+            '대만 라멘과 고소한 볶음밥, 명물인 육즙 가득한 물만두, 디저트까지 갖춘 알찬 세트. ' +
+            '라오리의 인기 메뉴를 한 번에 맛볼 수 있습니다.',
+        },
+      },
+      {
+        id: 'karasumi-champon',
+        name: 'Dried Mullet Roe Champon',
+        nameJa: 'からすみちゃんぽん',
+        romaji: 'Karasumi champon',
+        price: '¥1,540',
+        img: 'menu2.jpg',
+        description: {
+          en:
+            'A luxurious Nagasaki Champon topped generously with finely grated Karasumi ' +
+            '(dried mullet roe), a famous local delicacy. The rich umami of the 100% ' +
+            'chicken broth combined with the salty, complex flavour of Karasumi creates ' +
+            'an unforgettable gourmet dish.',
+          ja:
+            '長崎名産のからすみをたっぷり削りかけた、贅沢な長崎ちゃんぽん。鶏ガラ100％の' +
+            'スープの旨みと、からすみの塩気とコクが重なり、忘れられない一杯になります。',
+          zhCN:
+            '慷慨刨上长崎名产乌鱼子的奢华长崎什锦面。100%鸡骨汤底的浓郁鲜味与乌鱼子的' +
+            '咸香层次交织，令人难忘。',
+          zhTW:
+            '慷慨刨上長崎名產烏魚子的奢華長崎什錦麵。100%雞骨湯底的濃郁鮮味與烏魚子的' +
+            '鹹香層次交織，令人難忘。',
+          ko:
+            '나가사키 명산인 가라스미(어란)를 듬뿍 갈아 올린 호화로운 나가사키 짬뽕. ' +
+            '닭뼈 100% 육수의 진한 감칠맛과 가라스미의 짭조름한 풍미가 어우러져 잊을 수 없는 ' +
+            '한 그릇이 됩니다.',
+        },
+      },
+      {
+        id: 'juicy-gyoza',
+        name: 'Original Nagasaki Juicy Boiled Dumplings',
+        nameJa: '元祖長崎肉汁水餃子',
+        romaji: 'Ganso Nagasaki nikujiru sui-gyoza',
+        price: '¥430',
+        img: 'menu3.jpg',
+        description: {
+          en:
+            "Lao Lee's award-winning signature dish. Tender dumpling wrappers stuffed with " +
+            'a savoury pork filling that bursts with rich, flavourful juice in every bite.',
+          ja:
+            '数々の賞を受けた老李の看板料理。もちもちの皮に豚肉の餡を包み、噛むたびに' +
+            '旨みたっぷりの肉汁があふれ出します。',
+          zhCN:
+            '老李屡获奖项的招牌菜。柔软的饺子皮包裹着猪肉馅，一口咬下鲜美的肉汁瞬间涌出。',
+          zhTW:
+            '老李屢獲獎項的招牌菜。柔軟的餃子皮包裹著豬肉餡，一口咬下鮮美的肉汁瞬間湧出。',
+          ko:
+            '여러 상을 받은 라오리의 간판 요리. 쫄깃한 만두피 속 돼지고기 소에서 한 입 베어 물 ' +
+            '때마다 진한 육즙이 흘러넘칩니다.',
+        },
+      },
+      {
+        id: 'taiwanese-mazesoba',
+        name: 'Taiwanese Mazesoba',
+        nameJa: '台湾まぜそば',
+        romaji: 'Taiwan mazesoba',
+        price: '¥1,160',
+        img: 'menu4.jpg',
+        description: {
+          en:
+            'Flavourful brothless noodles topped with spicy minced pork, fresh scallions, ' +
+            'minced garlic, seaweed and a raw egg yolk. Mix everything thoroughly before ' +
+            'eating for a bold, addictive punch of Taiwanese flavour.',
+          ja:
+            'スープのない和えそば。ピリ辛の肉味噌、ねぎ、にんにく、海苔、卵黄をのせて' +
+            'います。よく混ぜてから食べると、台湾料理らしい濃厚な味わいが楽しめます。',
+          zhCN:
+            '无汤拌面，铺上香辣肉燥、青葱、蒜末、海苔与生蛋黄。充分拌匀后享用，' +
+            '浓郁的台湾风味令人上瘾。',
+          zhTW:
+            '無湯拌麵，鋪上香辣肉燥、青蔥、蒜末、海苔與生蛋黃。充分拌勻後享用，' +
+            '濃郁的台灣風味令人上癮。',
+          ko:
+            '국물 없는 비빔면으로, 매콤한 고기 소와 파, 다진 마늘, 김, 노른자를 올렸습니다. ' +
+            '충분히 비벼 먹으면 진한 대만식 풍미를 즐길 수 있습니다.',
+        },
+      },
+    ],
+  },
 ]
 
 // id から店舗を取得
