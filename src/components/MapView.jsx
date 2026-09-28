@@ -67,6 +67,7 @@ const MAP_BOUNDS = [
 export default function MapView({ className = '' }) {
   const navigate = useNavigate()
   const containerRef = useRef(null)
+  const controlsWrapperRef = useRef(null)
   const mapRef = useRef(null)
   const labelLayerIdsRef = useRef([])
   const markersRef = useRef([]) // { shop, el }[]
@@ -143,6 +144,13 @@ export default function MapView({ className = '' }) {
       map.on('load', () => geolocate.trigger())
 
       map.on('load', () => {
+        // 右上のズーム＋現在地ボタンだけは、マップ本体とは別のフェードのかからない
+        // レイヤーへ移し替える（薄くなってほしくないため）。地図帰属表示（右下）は対象外。
+        const topRightCtrl = containerRef.current?.querySelector('.maplibregl-ctrl-top-right')
+        if (topRightCtrl && controlsWrapperRef.current) {
+          controlsWrapperRef.current.appendChild(topRightCtrl)
+        }
+
         markersRef.current = []
         shops.forEach((shop) => {
           if (shop.geo?.lat == null || shop.geo?.lng == null) return
@@ -202,10 +210,27 @@ export default function MapView({ className = '' }) {
       {/* この内側のrelativeが地図カードそのもの。言語ボタンをこの角に重ねるので、
           凡例（この下に続く別要素）の高さに影響されず常に地図の左下に留まる。 */}
       <div className="relative">
+        {/* 縁をくっきりしたカード枠にせず、四角形のまま上下左右均等に背景（夜景）へ溶け込ませる。
+            円形にはせず、縦横それぞれの辺に沿ったグラデーションを重ねて（mask-composite）
+            四隅も含めて全方向同じ幅・同じ強さでフェードするようにしている。 */}
         <div
           ref={containerRef}
-          className="aspect-square w-full overflow-hidden rounded-2xl ring-1 ring-white/10"
+          className="aspect-square w-full"
+          style={{
+            maskImage:
+              'linear-gradient(to right, transparent, black 12%, black 88%, transparent), ' +
+              'linear-gradient(to bottom, transparent, black 12%, black 88%, transparent)',
+            maskComposite: 'intersect',
+            WebkitMaskImage:
+              'linear-gradient(to right, transparent, black 12%, black 88%, transparent), ' +
+              'linear-gradient(to bottom, transparent, black 12%, black 88%, transparent)',
+            WebkitMaskComposite: 'source-in',
+          }}
         />
+
+        {/* ズーム＋現在地ボタン（MapLibreの標準コントロール）の置き場所。
+            マップ本体とは別要素なので、フェードの影響を受けず常にはっきり表示される。 */}
+        <div ref={controlsWrapperRef} className="pointer-events-none absolute inset-0 z-10" />
 
         {/* 地図上の地名の表示言語切り替え */}
         <div className="absolute bottom-3 left-3 z-10 flex gap-1 rounded-full bg-white/95 p-1 shadow-hand">
