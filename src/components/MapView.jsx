@@ -125,7 +125,30 @@ export default function MapView({ className = '' }) {
   const [activeCategory, setActiveCategory] = useState(null) // nullは「すべて」
   const [note, setNote] = useState(null) // 'outside' | 'denied' | 'unavailable' | null
   const activeCategoryRef = useRef(null)
+  // 地図の初期化処理（useEffect内）から今の言語を参照するための控え
+  const langRef = useRef(lang)
   const favorites = useFavorites() // 件数表示と、ボタンの出し分けに使う
+
+  // 店名ラベルを出す拡大率のしきい値。
+  // 初期表示（14.6）では出さず、店を探しに寄ったときだけ名前が並ぶようにしている。
+  const LABEL_MIN_ZOOM = 15.8
+
+  // 地図に載せる店名。日本語・中国語のときは日本語表記（漢字）のほうが読みやすい。
+  const labelFor = (shop, code) =>
+    (code === 'ja' || code.startsWith('zh')) && shop.nameJa ? shop.nameJa : shop.name
+
+  // 拡大率に応じて店名ラベルを出し入れする。言語が変わったときは文字も入れ替える。
+  const applyLabels = () => {
+    const map = mapRef.current
+    if (!map) return
+    const show = map.getZoom() >= LABEL_MIN_ZOOM
+    const code = langRef.current
+    markersRef.current.forEach(({ shop, labelEl }) => {
+      if (!labelEl) return
+      labelEl.textContent = labelFor(shop, code)
+      labelEl.style.display = show ? 'block' : 'none'
+    })
+  }
 
   // ピンの絞り込みを、既に作成済みのマーカーの表示/非表示だけで行う（作り直さない）
   // activeCategoryRef は null（すべて）／FAVORITES（お気に入りだけ）／カテゴリー名 のいずれか。
@@ -238,15 +261,28 @@ export default function MapView({ className = '' }) {
             navigate(`/shop/${shop.id}`)
           })
 
+          // 店名のラベル。ピンの真下に重ねる（absoluteなのでピンの位置はずれない）。
+          // 広域表示では名前が重なって読めなくなるため、拡大したときだけ出す。
+          const labelEl = document.createElement('span')
+          labelEl.className =
+            'pointer-events-none absolute left-1/2 top-full mt-1 -translate-x-1/2 whitespace-nowrap rounded-full bg-white/95 px-2 py-0.5 font-hand text-[11px] font-bold leading-tight text-navy shadow-hand'
+          labelEl.style.display = 'none'
+          el.appendChild(labelEl)
+
           new maplibregl.Marker({ element: el, anchor: 'bottom' })
             .setLngLat([shop.geo.lng, shop.geo.lat])
             .addTo(map)
 
-          markersRef.current.push({ shop, el })
+          markersRef.current.push({ shop, el, labelEl })
         })
+
         // 凡例で既に選ばれている種類があれば、マーカー作成直後にも反映する
         applyCategoryFilter()
+        applyLabels()
       })
+
+      // 拡大率が変わるたびに店名の出し入れを判定する
+      map.on('zoom', applyLabels)
     }
 
     init()
@@ -264,6 +300,8 @@ export default function MapView({ className = '' }) {
   // 言語ボタンが押されたら、地図上の地名ラベルだけを差し替える（ピン・店舗データには影響しない）
   const handleLangChange = (code) => {
     setLang(code)
+    langRef.current = code
+    applyLabels() // 店名ラベルの表記も合わせて切り替える
     const map = mapRef.current
     if (!map) return
     const expr = buildTextField(code)
