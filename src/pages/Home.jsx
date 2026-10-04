@@ -102,7 +102,8 @@ export default function Home() {
       <div className="relative z-10 mt-2 flex-1 overflow-hidden px-3 pb-[96px]">
         <div className={view === 'map' ? 'flex h-full flex-col' : 'hidden'}>
           <MapView
-            className="m-7 min-h-0 flex-1"
+            /* 縁をぼかしている分、上下に余白を足して地図そのものの高さを少し抑える */
+            className="mx-7 mb-12 mt-5 min-h-0 flex-1"
             selectedId={selectedId}
             onSelect={(shop) => setSelectedId(shop.id)}
             categoryFilter={category}

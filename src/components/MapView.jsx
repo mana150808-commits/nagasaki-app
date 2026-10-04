@@ -197,10 +197,13 @@ export default function MapView({
       map.on('load', () => geolocate.trigger())
 
       map.on('load', () => {
-        // 右上のズーム＋現在地ボタンは、別のフェードのかからないレイヤーへ移す
-        const topRightCtrl = containerRef.current?.querySelector('.maplibregl-ctrl-top-right')
-        if (topRightCtrl && controlsWrapperRef.current) {
-          controlsWrapperRef.current.appendChild(topRightCtrl)
+        // 右上のズーム＋現在地ボタンと、右下の地図の帰属表示（OpenStreetMap等のクレジット）は、
+        // フェードのかからない別レイヤーへ移す。帰属表示は掲示が必要なので薄くしない。
+        const wrapper = controlsWrapperRef.current
+        if (wrapper) {
+          containerRef.current
+            ?.querySelectorAll('.maplibregl-ctrl-top-right, .maplibregl-ctrl-bottom-right')
+            .forEach((ctrl) => wrapper.appendChild(ctrl))
         }
 
         // 徒歩3/6/10分のリング（実座標の円）
@@ -301,8 +304,24 @@ export default function MapView({
 
   return (
     <div className={className}>
-      <div className="relative h-full w-full overflow-hidden rounded-radius-lg shadow-organic-md">
-        <div ref={containerRef} className="h-full w-full" />
+      {/* 縁をカード枠で切らず、上下左右を均等に背景（夜景）へ溶け込ませる。
+          四隅も欠けないよう、縦横それぞれのグラデーションを重ねて（mask-composite）
+          全方向で同じ幅・同じ強さにしている。 */}
+      <div className="relative h-full w-full">
+        <div
+          ref={containerRef}
+          className="h-full w-full"
+          style={{
+            maskImage:
+              'linear-gradient(to right, transparent, black 10%, black 90%, transparent), ' +
+              'linear-gradient(to bottom, transparent, black 10%, black 90%, transparent)',
+            maskComposite: 'intersect',
+            WebkitMaskImage:
+              'linear-gradient(to right, transparent, black 10%, black 90%, transparent), ' +
+              'linear-gradient(to bottom, transparent, black 10%, black 90%, transparent)',
+            WebkitMaskComposite: 'source-in',
+          }}
+        />
         <div ref={controlsWrapperRef} className="pointer-events-none absolute inset-0 z-10" />
 
         {/* 現在地についての一言（範囲外・許可なし・取得失敗）。押すと消える。 */}
