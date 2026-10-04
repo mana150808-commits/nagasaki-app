@@ -57,7 +57,11 @@ body {
 /* 地図上の店舗ピン（丸い写真バッジ）。MapLibreのMarkerに渡すDOM要素に直接付与するため、
    Tailwindのクラスではなく通常のCSSで定義している（--wr-ring はカテゴリーごとの色）。 */
 .wr-pin {
-  position: relative;
+  /* position は指定しない。
+     MapLibre はマーカー要素に .maplibregl-marker（position: absolute）を付け、
+     transform で地図上の座標に合わせている。ここで relative にすると絶対配置が
+     打ち消され、ピンが本来の位置からずれる（ズームやパンのたびにずれ方が変わる）。
+     店名ラベルの absolute は MapLibre 側の absolute を基準に配置される。 */
   width: 44px;
   height: 44px;
   border-radius: 9999px;
