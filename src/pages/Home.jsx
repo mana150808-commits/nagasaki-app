@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import MapView from '../components/MapView.jsx'
 import ShopImage from '../components/ShopImage.jsx'
@@ -23,6 +23,14 @@ export default function Home() {
   const [view, setView] = useState('map') // 'map' | 'list' | 'saved' | 'feedback'
   // 起動直後の表示でだけ導入演出を再生する（アプリ内でホームに戻ったときは再生しない）
   const [playIntro] = useState(() => shouldPlayIntro())
+  const [showIntroTitle, setShowIntroTitle] = useState(playIntro)
+
+  // タイトルの演出（0.6秒待ち＋1.7秒）が終わったら取り除く
+  useEffect(() => {
+    if (!showIntroTitle) return
+    const timer = setTimeout(() => setShowIntroTitle(false), 2400)
+    return () => clearTimeout(timer)
+  }, [showIntroTitle])
   const [category, setCategory] = useState(null) // null=すべて／FAVORITES_FILTER／カテゴリー名
   const [selectedId, setSelectedId] = useState(null)
 
@@ -169,6 +177,19 @@ export default function Home() {
           {t('tabFeedback', lang)}
         </TabButton>
       </div>
+
+      {/* 起動時だけ中央に出る「DISCOVER NAGASAKI」。
+          消えたあとはDOMから外して、下の操作を邪魔しないようにする。 */}
+      {showIntroTitle && (
+        <div className="pointer-events-none absolute inset-0 z-30 flex items-center justify-center">
+          <div className="wr-intro-title text-center drop-shadow-[0_2px_16px_rgba(0,0,0,0.55)]">
+            <p className="text-xs font-semibold uppercase tracking-[0.5em] text-gold">Discover</p>
+            <p className="mt-1 font-display uppercase leading-[0.9] tracking-tight text-white text-[clamp(2.25rem,11vw,3.5rem)]">
+              Nagasaki
+            </p>
+          </div>
+        </div>
+      )}
 
       <InstallPrompt />
     </main>
