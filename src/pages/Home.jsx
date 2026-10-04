@@ -12,6 +12,7 @@ import { useFavorites, toggleFavorite } from '../favorites.js'
 import { HOTEL, walkMinutes } from '../walkRings.js'
 import { getOpenStatus } from '../walkRings.js'
 import { t, CATEGORY_KEYS, CATEGORY_LABEL, CATEGORY_COLOR, FAVORITES_FILTER } from '../walkRingsText.js'
+import { shouldPlayIntro } from '../introState.js'
 
 // ホーム画面＝「02 Map」「03 List」「06 Saved」の3タブをまとめたシェル。
 // 絞り込み（カテゴリー・お気に入り）と選択中の店舗は、3タブ全体で共有する。
@@ -20,6 +21,8 @@ export default function Home() {
   const { lang, setLang } = useLanguage()
   const favorites = useFavorites()
   const [view, setView] = useState('map') // 'map' | 'list' | 'saved' | 'feedback'
+  // 起動直後の表示でだけ導入演出を再生する（アプリ内でホームに戻ったときは再生しない）
+  const [playIntro] = useState(() => shouldPlayIntro())
   const [category, setCategory] = useState(null) // null=すべて／FAVORITES_FILTER／カテゴリー名
   const [selectedId, setSelectedId] = useState(null)
 
@@ -53,13 +56,17 @@ export default function Home() {
   const placeArea = t('place', lang).split('·')[1]?.trim() || ''
 
   return (
-    <main className="relative flex h-dvh flex-col overflow-hidden bg-night font-body text-white">
+    <main
+      className={`relative flex h-dvh flex-col overflow-hidden bg-night font-body text-white ${
+        playIntro ? 'intro' : ''
+      }`}
+    >
       {/* 背景：長崎の夜景（フルブリード、今まで通り） */}
       <NightView className="absolute inset-0 h-full w-full" />
       <div className="absolute inset-0 bg-gradient-to-b from-night/35 via-night/30 to-night/95" />
 
       {/* ヘッダー */}
-      <div className="relative z-10 px-[22px] pt-[54px]">
+      <div className="wr-anim-header relative z-10 px-[22px] pt-[54px]">
         <div className="flex items-center justify-between">
           <div className="leading-none">
             <div className="font-display text-[22px] leading-none tracking-tight text-white">{placeName}</div>
@@ -81,7 +88,7 @@ export default function Home() {
       </div>
 
       {/* カテゴリーチップ */}
-      <div className="relative z-10 mt-3 flex gap-1.5 overflow-x-auto px-[22px] pb-1" style={{ scrollbarWidth: 'none' }}>
+      <div className="wr-anim-chips relative z-10 mt-3 flex gap-1.5 overflow-x-auto px-[22px] pb-1" style={{ scrollbarWidth: 'none' }}>
         <CategoryChip
           active={category === null}
           label={t('all', lang)}
@@ -103,7 +110,7 @@ export default function Home() {
         <div className={view === 'map' ? 'flex h-full flex-col' : 'hidden'}>
           <MapView
             /* 縁をぼかしている分、上下に余白を足して地図そのものの高さを少し抑える */
-            className="mx-7 mb-12 mt-5 min-h-0 flex-1"
+            className="wr-anim-map mx-7 mb-12 mt-5 min-h-0 flex-1"
             selectedId={selectedId}
             onSelect={(shop) => setSelectedId(shop.id)}
             categoryFilter={category}
@@ -148,7 +155,7 @@ export default function Home() {
       </div>
 
       {/* タブバー */}
-      <div className="fixed bottom-[22px] left-1/2 z-20 flex h-16 w-[calc(100%-32px)] max-w-[420px] -translate-x-1/2 items-center gap-1 rounded-full bg-text p-1.5 shadow-organic-lg">
+      <div className="wr-anim-tabs fixed bottom-[22px] left-1/2 z-20 flex h-16 w-[calc(100%-32px)] max-w-[420px] -translate-x-1/2 items-center gap-1 rounded-full bg-text p-1.5 shadow-organic-lg">
         <TabButton active={view === 'map'} onClick={() => setView('map')}>
           {t('tabMap', lang)}
         </TabButton>

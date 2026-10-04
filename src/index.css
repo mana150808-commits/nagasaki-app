@@ -159,6 +159,57 @@ body {
   animation: lightOn 0.5s ease-out both;
 }
 
+/* ===== 起動演出（Walk Ringsデザイン） =====
+   夜景の灯りが点ったあと、上から順に
+   ヘッダー → カテゴリー → 地図 → タブバー が現れる。
+   操作をすぐ始められるよう、全体で約1.2秒に収めている。 */
+
+/* 地図カード：少し引いた位置からゆっくり馴染ませる */
+@keyframes mapSettle {
+  from {
+    opacity: 0;
+    transform: scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* タブバー：画面下からせり上がる */
+@keyframes tabRise {
+  from {
+    opacity: 0;
+    transform: translate(-50%, 24px);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+}
+
+.intro .wr-anim-header {
+  animation: fadeUp 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: 0.15s;
+}
+
+.intro .wr-anim-chips {
+  animation: fadeUp 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: 0.3s;
+}
+
+.intro .wr-anim-map {
+  animation: mapSettle 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: 0.45s;
+}
+
+/* タブバーは -translate-x-1/2 で中央寄せしているため、
+   アニメーション側でもその分を含めて動かす（横位置がずれないように）。 */
+.intro .wr-anim-tabs {
+  animation: tabRise 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: 0.6s;
+}
+
 /* ページを開いたときの登場（フェード＋スライドアップ）。
    店舗ページ・料理ページを開いた瞬間に軽く動かす。 */
 @keyframes pageEnter {
@@ -181,6 +232,10 @@ body {
   .intro .anim-title,
   .intro .anim-fade-up,
   .intro .lit,
+  .intro .wr-anim-header,
+  .intro .wr-anim-chips,
+  .intro .wr-anim-map,
+  .intro .wr-anim-tabs,
   .page-enter {
     animation: none !important;
   }
