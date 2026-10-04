@@ -19,18 +19,24 @@
 //   { en, ja, zhCN, zhTW, ko } の多言語オブジェクトになっている。
 //   表示側は LanguageContext.jsx の pickText(value, lang) を通して参照し、
 //   訳が無い言語ではenにフォールバックする。
-//   店名・カテゴリー・エリア名・メニュー品目名は翻訳対象外（英語のまま）。
-//   ⚠️ 説明文の翻訳はAIによる下訳です。実在店の情報として公開する前に、
-//      各言語のネイティブ話者による確認・校正を強く推奨します。
+//   店名（nameI18n）・エリア名（areaI18n）・メニュー品目名（menu[].nameI18n）も
+//   同様に { en, ja, zhCN, zhTW, ko } を持つ（表示側は `obj?.[lang] || obj.en` で参照）。
+//   category は CATEGORY_LABEL（walkRingsText.js）で表示側が変換する。
+//   住所（address）だけは日本語のまま（タクシーや店員に見せて使うため意図的に翻訳しない）。
+//   ⚠️ 説明文・店名・エリア名・メニュー品目名の翻訳はAIによる下訳です。実在店の情報として
+//      公開する前に、各言語のネイティブ話者による確認・校正を強く推奨します。
 
 export const shops = [
   {
     id: 'asa',
     name: 'ASA Kisaburo',
     nameJa: '亜紗　喜三郎',
+    nameI18n: { en: 'ASA Kisaburo', zhCN: '亚纱 喜三郎', zhTW: '亞紗 喜三郎', ko: '아사 기사부로', ja: '亜紗 喜三郎' },
+    heroDish: { name: { en: 'Hatoshi (shrimp toast)', zhCN: '虾多士', zhTW: '蝦多士', ko: '하토시 (새우 토스트)', ja: 'ハトシ' }, price: '¥680', image: 'exterior.jpg' },
     category: 'Izakaya',
     area: 'Dōza-machi, Nagasaki',
     areaJa: '長崎市銅座町',
+    areaI18n: { en: 'Dōza-machi, Nagasaki', zhCN: '长崎铜座町', zhTW: '長崎銅座町', ko: '나가사키 도자마치', ja: '長崎市銅座町' },
 
     // 現・仮マップ用の位置（%座標）
     map: { x: 56, y: 42 },
@@ -95,6 +101,7 @@ export const shops = [
         id: 'sashimi',
         name: 'Assorted sashimi platter',
         nameJa: '刺身盛り合わせ',
+        nameI18n: { en: 'Assorted sashimi platter', zhCN: '什锦生鱼片拼盘', zhTW: '什錦生魚片拼盤', ko: '모둠 사시미', ja: '刺身盛り合わせ' },
         romaji: 'Sashimi moriawase',
         price: 'Approx. ¥1,600 – ¥2,000',
         img: 'menu1.jpg',
@@ -122,6 +129,7 @@ export const shops = [
         id: 'turban-shell',
         name: 'Grilled Turban Shell',
         nameJa: 'さざえの壺焼き',
+        nameI18n: { en: 'Grilled Turban Shell', zhCN: '烤海螺', zhTW: '烤海螺', ko: '소라 구이', ja: 'さざえの壺焼き' },
         romaji: 'Sazae no tsuboyaki',
         price: '¥1,180',
         img: 'menu2.jpg',
@@ -144,6 +152,7 @@ export const shops = [
         id: 'wagyu-steak',
         name: 'Wagyu Steak',
         nameJa: '和牛ステーキ',
+        nameI18n: { en: 'Wagyu Steak', zhCN: '和牛牛排', zhTW: '和牛牛排', ko: '와규 스테이크', ja: '和牛ステーキ' },
         romaji: 'Wagyū sutēki',
         price: '¥1,700',
         img: 'menu3.jpg',
@@ -171,6 +180,7 @@ export const shops = [
         id: 'hatoshi',
         name: 'Hatoshi',
         nameJa: 'ハトシ',
+        nameI18n: { en: 'Hatoshi', zhCN: '虾多士', zhTW: '蝦多士', ko: '하토시 (새우 토스트)', ja: 'ハトシ' },
         romaji: 'Hatoshi',
         price: '¥680',
         img: 'menu4.jpg',
@@ -196,9 +206,12 @@ export const shops = [
     id: 'irish-pub',
     name: 'Irish Pub Nagasaki',
     nameJa: '',
+    nameI18n: { en: 'Irish Pub Nagasaki', zhCN: '长崎爱尔兰酒吧', zhTW: '長崎愛爾蘭酒吧', ko: '아이리시 펍 나가사키', ja: 'アイリッシュパブ長崎' },
+    heroDish: { name: { en: 'Guinness Draught', zhCN: '健力士生啤', zhTW: '健力士生啤', ko: '기네스 생맥주', ja: 'ギネス生' }, price: '¥1,320', image: 'exterior.jpg' },
     category: 'Bar',
     area: 'Near Nagasaki Station',
     areaJa: '長崎駅周辺',
+    areaI18n: { en: 'Near Nagasaki Station', zhCN: '长崎站附近', zhTW: '長崎站附近', ko: '나가사키역 근처', ja: '長崎駅周辺' },
 
     // 現・仮マップ用の位置（%座標）※長崎駅寄り（港側）に配置
     map: { x: 16, y: 20 },
@@ -254,6 +267,7 @@ export const shops = [
       {
         id: 'guinness',
         name: 'Guinness Draught',
+        nameI18n: { en: 'Guinness Draught', zhCN: '健力士生啤', zhTW: '健力士生啤', ko: '기네스 생맥주', ja: 'ギネス生' },
         price: 'Approx. ¥1,320',
         img: 'menu1.jpg',
         description: {
@@ -277,6 +291,7 @@ export const shops = [
       {
         id: 'fish-and-chips',
         name: 'Fish & Chips',
+        nameI18n: { en: 'Fish & Chips', zhCN: '炸鱼薯条', zhTW: '炸魚薯條', ko: '피시 앤 칩스', ja: 'フィッシュ＆チップス' },
         price: 'Large ¥1,100 / Small ¥660',
         img: 'menu2.jpg',
         description: {
@@ -320,6 +335,7 @@ export const shops = [
       {
         id: 'nagasaki-pickles',
         name: 'Nagasaki Pickles',
+        nameI18n: { en: 'Nagasaki Pickles', zhCN: '长崎风味泡菜', zhTW: '長崎風味泡菜', ko: '나가사키 피클', ja: '長崎風ピクルス' },
         price: 'Approx. ¥550',
         img: 'menu4.jpg',
         description: {
@@ -341,9 +357,12 @@ export const shops = [
     id: 'base',
     name: 'cafe＆bar BASE',
     nameJa: '',
-    category: 'Cafe & Bar',
+    nameI18n: { en: 'cafe & bar BASE', zhCN: 'cafe & bar BASE', zhTW: 'cafe & bar BASE', ko: '카페&바 BASE', ja: 'カフェ＆バー BASE' },
+    heroDish: { name: { en: 'Berry French Toast', zhCN: '莓果法式吐司', zhTW: '莓果法式吐司', ko: '베리 프렌치토스트', ja: 'ベリーのフレンチトースト' }, price: '¥1,150', image: 'menu2.jpg' },
+    category: 'Cafe',
     area: 'Near Shianbashi',
     areaJa: '思案橋周辺',
+    areaI18n: { en: 'Near Shianbashi', zhCN: '思案桥附近', zhTW: '思案橋附近', ko: '시안바시 근처', ja: '思案橋周辺' },
 
     // 現・仮マップ用の位置（%座標）※思案橋寄り
     map: { x: 36, y: 80 },
@@ -399,6 +418,7 @@ export const shops = [
       {
         id: 'base-burger',
         name: 'Signature BASE Burger',
+        nameI18n: { en: 'Signature BASE Burger', zhCN: 'BASE招牌汉堡', zhTW: 'BASE招牌漢堡', ko: 'BASE 시그니처 버거', ja: 'BASE特製バーガー' },
         price: 'Approx. ¥1,150',
         img: 'menu1.jpg',
         description: {
@@ -425,6 +445,7 @@ export const shops = [
       {
         id: 'berry-french-toast',
         name: 'Berry French Toast',
+        nameI18n: { en: 'Berry French Toast', zhCN: '莓果法式吐司', zhTW: '莓果法式吐司', ko: '베리 프렌치토스트', ja: 'ベリーのフレンチトースト' },
         price: 'Approx. ¥1,150',
         img: 'menu2.jpg',
         description: {
@@ -451,6 +472,7 @@ export const shops = [
       {
         id: 'hamburger-doria',
         name: 'Tomato Sauce Hamburger Doria',
+        nameI18n: { en: 'Tomato Sauce Hamburger Doria', zhCN: '番茄酱汉堡排焗饭', zhTW: '番茄醬漢堡排焗飯', ko: '토마토 소스 함박 도리아', ja: 'トマトソースハンバーグドリア' },
         price: 'Approx. ¥1,000',
         img: 'menu3.jpg',
         description: {
@@ -477,6 +499,7 @@ export const shops = [
       {
         id: 'design-latte',
         name: 'Design Latte',
+        nameI18n: { en: 'Design Latte', zhCN: '拉花拿铁', zhTW: '拉花拿鐵', ko: '디자인 라떼', ja: 'デザインラテ' },
         price: 'Coffee from approx. ¥500',
         img: 'menu4.jpg',
         description: {
@@ -505,9 +528,12 @@ export const shops = [
     id: 'iwi',
     name: 'BAR IWI',
     nameJa: '',
+    nameI18n: { en: 'BAR IWI', zhCN: 'BAR IWI', zhTW: 'BAR IWI', ko: '바 이위', ja: 'バー イウィ' },
+    heroDish: { name: { en: 'House Cocktails', zhCN: '招牌鸡尾酒', zhTW: '招牌雞尾酒', ko: '하우스 칵테일', ja: 'オリジナルカクテル' }, price: '¥800', image: 'menu1.jpg' },
     category: 'Bar',
     area: 'Shianbashi',
     areaJa: '思案橋',
+    areaI18n: { en: 'Shianbashi', zhCN: '思案桥', zhTW: '思案橋', ko: '시안바시', ja: '思案橋' },
 
     // 現・仮マップ用の位置（%座標）※思案橋エリア
     map: { x: 84, y: 76 },
@@ -566,6 +592,7 @@ export const shops = [
       {
         id: 'house-cocktails',
         name: 'Special House Cocktails',
+        nameI18n: { en: 'Special House Cocktails', zhCN: '特调鸡尾酒', zhTW: '特調雞尾酒', ko: '스페셜 하우스 칵테일', ja: 'スペシャルハウスカクテル' },
         price: 'Approx. ¥800',
         img: 'menu1.jpg',
         description: {
@@ -583,6 +610,7 @@ export const shops = [
       {
         id: 'spirits-mixers',
         name: 'Standard Spirits & Mixers',
+        nameI18n: { en: 'Standard Spirits & Mixers', zhCN: '基酒与调酒饮料', zhTW: '基酒與調酒飲料', ko: '스탠다드 스피릿 & 믹서', ja: '定番スピリッツ＆ミキサー' },
         price: 'Approx. ¥500 – ¥700',
         img: 'menu2.jpg',
         description: {
@@ -600,6 +628,7 @@ export const shops = [
       {
         id: 'beers',
         name: 'Domestic & Imported Beers',
+        nameI18n: { en: 'Domestic & Imported Beers', zhCN: '国产与进口啤酒', zhTW: '國產與進口啤酒', ko: '국산 및 수입 맥주', ja: '国産・輸入ビール' },
         price: 'Approx. ¥600 – ¥800',
         img: 'menu3.jpg',
         description: {
@@ -617,6 +646,7 @@ export const shops = [
       {
         id: 'bar-snacks',
         name: 'Casual Bar Snacks',
+        nameI18n: { en: 'Casual Bar Snacks', zhCN: '休闲小食', zhTW: '休閒小食', ko: '캐주얼 안주', ja: 'カジュアルなおつまみ' },
         price: 'Approx. ¥400 – ¥600',
         img: 'menu4.jpg',
         description: {
@@ -638,9 +668,12 @@ export const shops = [
     id: 'pure',
     name: 'Nagasaki Wagyu Yakiniku Pure',
     nameJa: '',
+    nameI18n: { en: 'Yakiniku Pure', zhCN: '长崎和牛烤肉 Pure', zhTW: '長崎和牛燒肉 Pure', ko: '야키니쿠 Pure', ja: '長崎和牛焼肉 Pure' },
+    heroDish: { name: { en: 'Nagasaki Wagyu Assortment (for 3)', zhCN: '长崎和牛拼盘（3人份）', zhTW: '長崎和牛拼盤（3人份）', ko: '나가사키 와규 모둠 (3인분)', ja: '長崎和牛盛合せ(３人前)' }, price: '¥8,690', image: 'exterior.jpg' },
     category: 'Yakiniku',
     area: 'Near Shinchi Chinatown',
     areaJa: '新地中華街周辺',
+    areaI18n: { en: 'Near Shinchi Chinatown', zhCN: '新地中华街附近', zhTW: '新地中華街附近', ko: '신치 차이나타운 근처', ja: '新地中華街周辺' },
 
     // 現・仮マップ用の位置（%座標）※新地中華街寄り（中央）
     map: { x: 40, y: 58 },
@@ -696,103 +729,36 @@ export const shops = [
 
     menu: [
       {
-        id: 'wagyu-assortment',
-        name: 'Premium Nagasaki Wagyu Assortment',
-        price: 'Approx. ¥6,000 – ¥8,000 (ideal for 2–3 people)',
+        id: 'wagyu-assortment-3',
+        name: 'Nagasaki Wagyu Assortment (for 3)',
+        nameJa: '長崎和牛盛合せ(３人前)',
+        nameI18n: { en: 'Nagasaki Wagyu Assortment (for 3)', zhCN: '长崎和牛拼盘（3人份）', zhTW: '長崎和牛拼盤（3人份）', ko: '나가사키 와규 모둠 (3인분)', ja: '長崎和牛盛合せ(３人前)' },
+        price: '¥8,690',
         img: 'menu1.jpg',
-        description: {
-          en:
-            'A luxurious platter featuring various highly marbled cuts of Nagasaki ' +
-            'Wagyu, such as sirloin, premium rib (Karubi), and loin (Rosu). It is the ' +
-            'ultimate way to taste and compare different rich textures and ' +
-            'melt-in-your-mouth flavors.',
-          ja:
-            'サーロイン、上カルビ、ロースなど、美しい霜降りの長崎和牛を各部位盛り合わせた' +
-            '贅沢な一皿。とろけるような食感と豊かな旨味を、食べ比べながら存分に味わえます。',
-          zhCN:
-            '汇集西冷、特选五花（Karubi）、里脊（Rosu）等多种油花丰富的长崎和牛部位的豪华' +
-            '拼盘。是品味比较各种入口即化口感与浓郁风味的终极方式。',
-          zhTW:
-            '匯集沙朗、特選五花（Karubi）、里肌（Rosu）等多種油花豐富的長崎和牛部位的豪華' +
-            '拼盤。是品味比較各種入口即化口感與濃郁風味的終極方式。',
-          ko:
-            '설로인, 프리미엄 갈비(카루비), 등심(로스) 등 아름다운 마블링의 나가사키 와규 각 ' +
-            '부위를 모은 호화로운 모둠입니다. 각기 다른 부위의 진한 식감과 입안에서 녹아내리는 ' +
-            '풍미를 비교하며 맛볼 수 있는 최고의 방법입니다.',
-        },
       },
       {
-        id: 'wagyu-sirloin-karubi',
-        name: 'Thick-Cut Karubi',
-        price: '¥3,190',
+        id: 'special-3-assortment',
+        name: 'Special 3-Cut Assortment',
+        nameJa: '特選３種盛合せ',
+        nameI18n: { en: 'Special 3-Cut Assortment', zhCN: '特选三种拼盘', zhTW: '特選三種拼盤', ko: '특선 3종 모둠', ja: '特選３種盛合せ' },
+        price: '¥5,390',
         img: 'menu2.jpg',
-        description: {
-          en:
-            'Thickly sliced cuts of top-grade Nagasaki Wagyu grilled directly over ' +
-            'heat at your table. Simply seasoned with a touch of sea salt and freshly ' +
-            "grated wasabi to highlight the beef's natural, rich Umami.",
-          ja:
-            '厚切りにした最上級の長崎和牛を、テーブルで直火焼きに。シンプルに岩塩とおろしたての' +
-            'わさびだけで味付けし、お肉本来の豊かな旨味を引き立てます。',
-          zhCN:
-            '厚切顶级长崎和牛，在餐桌上直接明火烤制。仅以少许海盐和现磨山葵简单调味，衬托出' +
-            '牛肉天然浓郁的鲜味。',
-          zhTW:
-            '厚切頂級長崎和牛，在餐桌上直接明火烤製。僅以少許海鹽和現磨山葵簡單調味，襯托出' +
-            '牛肉天然濃郁的鮮味。',
-          ko:
-            '두툼하게 썬 최상급 나가사키 와규를 테이블에서 직접 불에 구워 드립니다. 소금과 ' +
-            '갓 간 와사비로 심플하게 간을 하여 고기 본연의 진한 감칠맛을 살렸습니다.',
-        },
       },
       {
-        id: 'cold-noodles-bibimbap',
-        name: 'Cold Noodles',
-        price: '¥1,078',
+        id: 'thick-karubi-2way',
+        name: 'Thick-Cut Karubi, 2-Way',
+        nameJa: '厚切りカルビの２種盛り',
+        nameI18n: { en: 'Thick-Cut Karubi, 2-Way', zhCN: '厚切五花两种拼盘', zhTW: '厚切五花兩種拼盤', ko: '두꺼운 갈비 2종 모둠', ja: '厚切りカルビの２種盛り' },
+        price: '¥3,190',
         img: 'menu3.jpg',
-        description: {
-          en:
-            'A perfect side dish or meal-closer to go with rich BBQ. The refreshing, ' +
-            'chewy Japanese-style cold noodles (Reimen) serve as a fantastic palate ' +
-            'cleanser after enjoying flavorful Wagyu meats.',
-          ja:
-            'こってりとした焼肉によく合う、サイドメニューやお食事の締めに最適な一品。さっぱり' +
-            'コシのある冷麺は、旨味豊かな和牛を堪能した後の口直しにぴったりです。',
-          zhCN:
-            '是搭配浓郁烤肉的完美配菜，也是收尾的最佳选择。清爽有嚼劲的日式冷面，在享用完' +
-            '风味十足的和牛后，是绝佳的清口小品。',
-          zhTW:
-            '是搭配濃郁烤肉的完美配菜，也是收尾的最佳選擇。清爽有嚼勁的日式冷麵，在享用完' +
-            '風味十足的和牛後，是絕佳的清口小品。',
-          ko:
-            '진한 맛의 야키니쿠와 잘 어울리는 사이드 메뉴이자 식사 마무리로 완벽한 메뉴입니다. ' +
-            '상큼하고 쫄깃한 일본식 냉면(레이멘)은 풍미 가득한 와규를 즐긴 후 입안을 개운하게 ' +
-            '정리해줍니다.',
-        },
       },
       {
-        id: 'highball-beer',
-        name: 'Nagasaki Local Sake',
-        price: 'Approx. ¥800 – ¥1,200 per glass',
+        id: '5000yen-course',
+        name: '¥5,000 Course',
+        nameJa: '５０００円コース',
+        nameI18n: { en: '¥5,000 Course', zhCN: '5000日元套餐', zhTW: '5000日圓套餐', ko: '5000엔 코스', ja: '５０００円コース' },
+        price: '¥5,500',
         img: 'menu4.jpg',
-        description: {
-          en:
-            'Premium local Japanese sake produced in Nagasaki Prefecture. Served ' +
-            'chilled, these sakes offer a clean, crisp finish that pairs exquisitely ' +
-            'with the rich, savory flavors of grilled Nagasaki Wagyu beef.',
-          ja:
-            '長崎県内で造られる上質な地酒。冷やして提供され、すっきりとキレのある味わいが、' +
-            '濃厚でコクのある長崎和牛の焼肉と絶妙にマッチします。',
-          zhCN:
-            '长崎县内酿造的优质地方清酒。冰镇供应，口感清爽利落，与浓郁醇厚的长崎和牛烤肉' +
-            '相得益彰。',
-          zhTW:
-            '長崎縣內釀造的優質地方清酒。冰鎮供應，口感清爽俐落，與濃郁醇厚的長崎和牛烤肉' +
-            '相得益彰。',
-          ko:
-            '나가사키현에서 생산되는 고급 지역 사케입니다. 차갑게 제공되며, 깔끔하고 산뜻한 ' +
-            '끝맛이 진하고 감칠맛 넘치는 나가사키 와규 구이와 절묘하게 어우러집니다.',
-        },
       },
     ],
   },
@@ -801,9 +767,12 @@ export const shops = [
     id: 'kamadojyaya',
     name: 'Kamadojyaya',
     nameJa: '',
+    nameI18n: { en: 'Kamadojyaya', zhCN: '灶家', zhTW: '灶家', ko: '가마도자야', ja: 'かまど家' },
+    heroDish: { name: { en: 'Dutch Hot Pot', zhCN: '荷兰火锅', zhTW: '荷蘭火鍋', ko: '네덜란드식 전골', ja: 'オランダ鍋' }, price: '¥2,200', image: 'menu3.jpg' },
     category: 'Izakaya',
     area: 'Shianbashi',
     areaJa: '思案橋',
+    areaI18n: { en: 'Shianbashi', zhCN: '思案桥', zhTW: '思案橋', ko: '시안바시', ja: '思案橋' },
 
     // 現・仮マップ用の位置（%座標）※思案橋エリア
     map: { x: 66, y: 62 },
@@ -856,6 +825,7 @@ export const shops = [
       {
         id: 'seasonal-sashimi',
         name: 'Sashimi of seasonal fish',
+        nameI18n: { en: 'Sashimi of seasonal fish', zhCN: '时令鱼生鱼片', zhTW: '時令魚生魚片', ko: '제철 생선 사시미', ja: '旬魚の刺身' },
         price: '¥2,750',
         img: 'menu1.jpg',
         description: {
@@ -877,6 +847,7 @@ export const shops = [
       {
         id: 'whale-three-piece',
         name: 'Whale three-piece set',
+        nameI18n: { en: 'Whale three-piece set', zhCN: '鲸鱼三拼', zhTW: '鯨魚三拼', ko: '고래 3종 모둠', ja: '鯨三点盛り' },
         price: 'Approx. ¥2,400',
         img: 'menu2.jpg',
         description: {
@@ -894,6 +865,7 @@ export const shops = [
       {
         id: 'dutch-hot-pot',
         name: 'Specialty “Dutch hot pot”',
+        nameI18n: { en: 'Specialty “Dutch hot pot”', zhCN: '招牌荷兰锅', zhTW: '招牌荷蘭鍋', ko: '명물 네덜란드식 전골', ja: '名物「オランダ鍋」' },
         price: '¥2,200',
         img: 'menu3.jpg',
         description: {
@@ -921,6 +893,7 @@ export const shops = [
       {
         id: 'miso-oden',
         name: 'Specialty miso oden',
+        nameI18n: { en: 'Specialty miso oden', zhCN: '招牌味噌关东煮', zhTW: '招牌味噌關東煮', ko: '명물 미소 오뎅', ja: '名物みそおでん' },
         price: '¥990',
         img: 'menu4.jpg',
         description: {
@@ -952,9 +925,12 @@ export const shops = [
     id: 'tito-dragon',
     name: 'Darts Cafe TiTO Dragon',
     nameJa: '',
+    nameI18n: { en: 'TiTO Dragon', zhCN: 'TiTO Dragon 飞镖咖啡', zhTW: 'TiTO Dragon 飛鏢咖啡', ko: '다트 카페 TiTO Dragon', ja: 'ダーツカフェ TiTO Dragon' },
+    heroDish: { name: { en: 'Margherita Pizza', zhCN: '玛格丽特披萨', zhTW: '瑪格麗特披薩', ko: '마르게리타 피자', ja: 'マルゲリータ' }, price: '¥800', image: 'exterior.jpg' },
     category: 'Bar',
     area: 'Shianbashi',
     areaJa: '思案橋',
+    areaI18n: { en: 'Shianbashi', zhCN: '思案桥', zhTW: '思案橋', ko: '시안바시', ja: '思案橋' },
 
     // 現・仮マップ用の位置（%座標）※思案橋（電停横）
     map: { x: 82, y: 40 },
@@ -1011,6 +987,7 @@ export const shops = [
         id: 'tequila-horn',
         name: '"Ring the Horn for Tequila!" Shot',
         nameJa: '鳴らすと危険！ワンパフテキーラ',
+        nameI18n: { en: '"Ring the Horn for Tequila!" Shot', zhCN: '敲钟就请客！一口闷龙舌兰', zhTW: '敲鐘就請客！一口乾龍舌蘭', ko: '울리면 위험! 원샷 데킬라', ja: '鳴らすと危険！ワンパフテキーラ' },
         price: '¥700 per shot',
         img: 'menu1.jpg',
         description: {
@@ -1037,6 +1014,7 @@ export const shops = [
       {
         id: 'darts-games',
         name: 'Darts & Various Party Games',
+        nameI18n: { en: 'Darts & Various Party Games', zhCN: '飞镖与各种派对游戏', zhTW: '飛鏢與各種派對遊戲', ko: '다트 & 다양한 파티 게임', ja: 'ダーツ＆パーティーゲーム各種' },
         price: 'Darts from approx. ¥100 per game / Board games available',
         img: 'menu2.jpg',
         description: {
@@ -1063,6 +1041,7 @@ export const shops = [
         id: 'margherita-pizza',
         name: 'Margherita Pizza',
         nameJa: 'マルゲリータピザ',
+        nameI18n: { en: 'Margherita Pizza', zhCN: '玛格丽特披萨', zhTW: '瑪格麗特披薩', ko: '마르게리타 피자', ja: 'マルゲリータピザ' },
         price: '¥800',
         img: 'menu3.jpg',
         description: {
@@ -1089,6 +1068,7 @@ export const shops = [
         id: 'assorted-sausages',
         name: 'Assorted Sausages',
         nameJa: 'ソーセージの盛り合わせ',
+        nameI18n: { en: 'Assorted Sausages', zhCN: '香肠拼盘', zhTW: '香腸拼盤', ko: '소시지 모둠', ja: 'ソーセージの盛り合わせ' },
         price: '¥700',
         img: 'menu4.jpg',
         description: {
@@ -1110,9 +1090,12 @@ export const shops = [
     id: 'shunsai-nagaya',
     name: 'Shunsai Nagaya',
     nameJa: '',
+    nameI18n: { en: 'Shunsai Nagaya', zhCN: '旬彩 长家', zhTW: '旬彩 長家', ko: '슌사이 나가야', ja: '旬彩 なが家' },
+    heroDish: { name: { en: 'Wagyu Beef Tempura', zhCN: '和牛天妇罗', zhTW: '和牛天婦羅', ko: '와규 튀김', ja: '和牛の天ぷら' }, price: '¥1,380', image: 'menu1.jpg' },
     category: 'Izakaya',
     area: 'Near Shianbashi & Doza',
     areaJa: '思案橋・銅座周辺',
+    areaI18n: { en: 'Near Shianbashi & Doza', zhCN: '思案桥・铜座附近', zhTW: '思案橋・銅座附近', ko: '시안바시・도자 근처', ja: '思案橋・銅座周辺' },
 
     // 現・仮マップ用の位置（%座標）※思案橋・銅座エリア
     map: { x: 70, y: 90 },
@@ -1166,6 +1149,7 @@ export const shops = [
       {
         id: 'wagyu-tempura',
         name: 'Nagasaki Kuroge Wagyu Beef Tempura',
+        nameI18n: { en: 'Nagasaki Kuroge Wagyu Beef Tempura', zhCN: '长崎黑毛和牛天妇罗', zhTW: '長崎黑毛和牛天婦羅', ko: '나가사키 쿠로게 와규 튀김', ja: '長崎黒毛和牛の天ぷら' },
         price: '¥1,380',
         img: 'menu1.jpg',
         description: {
@@ -1191,6 +1175,7 @@ export const shops = [
       {
         id: 'shimaaji-shabu',
         name: 'Yukou Shima-Aji Shabu-Shabu with Goto Udon Finish',
+        nameI18n: { en: 'Yukou Shima-Aji Shabu-Shabu with Goto Udon Finish', zhCN: '柚香竹荚鱼涮锅（五岛乌冬收尾）', zhTW: '柚香竹莢魚涮鍋（五島烏龍麵收尾）', ko: '유자향 전갱이 샤부샤부 (고토 우동 마무리)', ja: '柚香しまあじしゃぶしゃぶ 五島うどん締め' },
         price: '¥2,500',
         img: 'menu2.jpg',
         description: {
@@ -1220,6 +1205,7 @@ export const shops = [
       {
         id: 'pork-lemon-butter',
         name: 'Pork Shoulder Roast Lemon Butter Steak on Hot Plate',
+        nameI18n: { en: 'Pork Shoulder Roast Lemon Butter Steak on Hot Plate', zhCN: '猪肩里脊柠檬黄油铁板牛排', zhTW: '豬肩里脊檸檬奶油鐵板牛排', ko: '돼지 어깨살 레몬버터 철판 스테이크', ja: '豚肩ロースのレモンバターステーキ 鉄板焼き' },
         price: '¥1,280',
         img: 'menu3.jpg',
         description: {
@@ -1274,10 +1260,13 @@ export const shops = [
     id: 'kozanro',
     name: 'Kozanro',
     nameJa: '江山楼',
+    nameI18n: { en: 'Kozanro', zhCN: '江山楼', zhTW: '江山樓', ko: '코잔로', ja: '江山楼' },
+    heroDish: { name: { en: 'Special Champon', zhCN: '特制什锦面', zhTW: '特製什錦麵', ko: '특제 짬뽕', ja: '特製ちゃんぽん' }, price: '¥2,000–', image: 'exterior.jpg' },
     // 中華街の店は他の飲食店と区別できるよう、専用のカテゴリー（＝専用のピン）にしている。
     category: 'Chinese',
     area: 'Shinchi Chinatown',
     areaJa: '長崎市新地町',
+    areaI18n: { en: 'Shinchi Chinatown', zhCN: '新地中华街', zhTW: '新地中華街', ko: '신치 차이나타운', ja: '長崎市新地町' },
 
     map: { x: 44, y: 46 },
     geo: { lat: 32.741222, lng: 129.87587 },
@@ -1334,6 +1323,7 @@ export const shops = [
         id: 'tokujo-champon',
         name: 'Special Champon',
         nameJa: '特上ちゃんぽん',
+        nameI18n: { en: 'Special Champon', zhCN: '特上什锦面', zhTW: '特上什錦麵', ko: '특상 짬뽕', ja: '特上ちゃんぽん' },
         romaji: 'Tokujo champon',
         price: 'Approx. ¥2,000 – ¥2,200',
         img: 'menu1.jpg',
@@ -1361,6 +1351,7 @@ export const shops = [
         id: 'tokujo-sara-udon',
         name: 'Special Crispy Noodles',
         nameJa: '特上皿うどん',
+        nameI18n: { en: 'Special Crispy Noodles', zhCN: '特上炒乌冬脆面', zhTW: '特上炒烏龍脆麵', ko: '특상 사라우동', ja: '特上皿うどん' },
         romaji: 'Tokujo sara udon',
         price: 'Approx. ¥2,000 – ¥2,200',
         img: 'menu2.jpg',
@@ -1384,9 +1375,32 @@ export const shops = [
         },
       },
       {
+        id: 'sweet-sour-pork',
+        name: 'Sweet and Sour Pork',
+        nameJa: '酢豚',
+        nameI18n: { en: 'Sweet and Sour Pork', zhCN: '糖醋肉', zhTW: '糖醋肉', ko: '탕수육', ja: '酢豚' },
+        img: 'menu5.jpg',
+        description: {
+          en:
+            'Bite-sized fried pork tossed with onion, bell pepper, and pineapple in a ' +
+            'tangy-sweet sauce — a comforting classic on any Chinese-restaurant table.',
+          ja:
+            '一口大の豚肉を揚げ、玉ねぎ・ピーマン・パイナップルと共に甘酢あんで仕上げた' +
+            '定番の一皿です。',
+          zhCN:
+            '一口大小的炸猪肉，与洋葱、青椒、菠萝一同裹上酸甜芡汁，是中餐桌上的经典家常菜。',
+          zhTW:
+            '一口大小的炸豬肉，與洋蔥、青椒、鳳梨一同裹上酸甜芡汁，是中餐桌上的經典家常菜。',
+          ko:
+            '한입 크기로 튀긴 돼지고기를 양파, 피망, 파인애플과 함께 새콤달콤한 소스로 ' +
+            '버무린 중화요리의 정석입니다.',
+        },
+      },
+      {
         id: 'dongpo-rou',
         name: 'Braised Pork Belly',
         nameJa: '東坡肉',
+        nameI18n: { en: 'Braised Pork Belly', zhCN: '东坡肉', zhTW: '東坡肉', ko: '동파육', ja: '東坡肉' },
         romaji: 'Tonporo',
         price: 'Approx. ¥800 – ¥1,200 per portion',
         img: 'menu3.jpg',
@@ -1411,6 +1425,7 @@ export const shops = [
         id: 'fukahire-soup',
         name: 'Shark Fin Soup',
         nameJa: 'フカヒレスープ',
+        nameI18n: { en: 'Shark Fin Soup', zhCN: '鱼翅汤', zhTW: '魚翅湯', ko: '샥스핀 수프', ja: 'フカヒレスープ' },
         romaji: 'Fukahire soup',
         price: 'Approx. ¥1,800 – ¥2,500',
         img: 'menu4.jpg',
@@ -1440,9 +1455,12 @@ export const shops = [
     id: 'kairakuen',
     name: 'Kairakuen',
     nameJa: '会楽園',
+    nameI18n: { en: 'Kairakuen', zhCN: '会乐园', zhTW: '會樂園', ko: '카이라쿠엔', ja: '会楽園' },
+    heroDish: { name: { en: 'Nagasaki Champon', zhCN: '长崎什锦面', zhTW: '長崎什錦麵', ko: '나가사키 짬뽕', ja: '長崎ちゃんぽん' }, price: '¥1,200', image: 'menu1.jpg' },
     category: 'Chinese',
     area: 'Shinchi Chinatown',
     areaJa: '長崎市新地町',
+    areaI18n: { en: 'Shinchi Chinatown', zhCN: '新地中华街', zhTW: '新地中華街', ko: '신치 차이나타운', ja: '長崎市新地町' },
 
     map: { x: 42, y: 48 },
     geo: { lat: 32.741982, lng: 129.875717 },
@@ -1499,6 +1517,7 @@ export const shops = [
         id: 'nagasaki-champon',
         name: 'Nagasaki Champon',
         nameJa: '長崎ちゃんぽん',
+        nameI18n: { en: 'Nagasaki Champon', zhCN: '长崎什锦面', zhTW: '長崎什錦麵', ko: '나가사키 짬뽕', ja: '長崎ちゃんぽん' },
         romaji: 'Nagasaki champon',
         price: '¥1,200',
         img: 'menu1.jpg',
@@ -1525,6 +1544,7 @@ export const shops = [
         id: 'chili-crab',
         name: 'Deep-Fried Crab in Chili Sauce',
         nameJa: 'カニのチリソース',
+        nameI18n: { en: 'Deep-Fried Crab in Chili Sauce', zhCN: '辣椒蟹', zhTW: '辣椒蟹', ko: '칠리 크랩', ja: 'カニのチリソース' },
         romaji: 'Kani no chili sauce',
         price: '¥1,700',
         img: 'menu2.jpg',
@@ -1551,6 +1571,7 @@ export const shops = [
         id: 'yurinchi',
         name: 'Crispy Chicken with Sweet Soy Sauce',
         nameJa: '油淋鶏',
+        nameI18n: { en: 'Crispy Chicken with Sweet Soy Sauce', zhCN: '油淋鸡', zhTW: '油淋雞', ko: '유린기', ja: '油淋鶏' },
         romaji: 'Yurinchi',
         price: '¥1,600',
         img: 'menu3.jpg',
@@ -1577,6 +1598,7 @@ export const shops = [
         id: 'mapo-tofu',
         name: 'Mapo Tofu',
         nameJa: '麻婆豆腐',
+        nameI18n: { en: 'Mapo Tofu', zhCN: '麻婆豆腐', zhTW: '麻婆豆腐', ko: '마파두부', ja: '麻婆豆腐' },
         romaji: 'Mabo dofu',
         price: '¥1,000',
         img: 'menu4.jpg',
@@ -1606,9 +1628,12 @@ export const shops = [
     id: 'kyokaen',
     name: 'Kyokaen',
     nameJa: '京香園',
+    nameI18n: { en: 'Kyokaen', zhCN: '京香园', zhTW: '京香園', ko: '교카엔', ja: '京香園' },
+    heroDish: { name: { en: 'Hot and Sour Soup', zhCN: '酸辣汤', zhTW: '酸辣湯', ko: '쏸라탕', ja: '酸辣湯' }, price: '¥1,100', image: 'menu3.jpg' },
     category: 'Chinese',
     area: 'Shinchi Chinatown',
     areaJa: '長崎市新地町',
+    areaI18n: { en: 'Shinchi Chinatown', zhCN: '新地中华街', zhTW: '新地中華街', ko: '신치 차이나타운', ja: '長崎市新地町' },
 
     map: { x: 40, y: 47 },
     geo: { lat: 32.741905, lng: 129.875595 },
@@ -1665,6 +1690,7 @@ export const shops = [
         id: 'nagasaki-champon',
         name: 'Nagasaki Champon',
         nameJa: '長崎ちゃんぽん',
+        nameI18n: { en: 'Nagasaki Champon', zhCN: '长崎什锦面', zhTW: '長崎什錦麵', ko: '나가사키 짬뽕', ja: '長崎ちゃんぽん' },
         romaji: 'Nagasaki champon',
         price: '¥1,200',
         img: 'menu1.jpg',
@@ -1694,6 +1720,7 @@ export const shops = [
         id: 'kourou-fan',
         name: 'Braised Pork Belly Rice Bowl',
         nameJa: '角煮飯',
+        nameI18n: { en: 'Braised Pork Belly Rice Bowl', zhCN: '红烧猪肉盖饭', zhTW: '紅燒豬肉蓋飯', ko: '가쿠니 덮밥', ja: '角煮飯' },
         romaji: 'Kakuni meshi',
         price: 'Approx. ¥1,200',
         img: 'menu2.jpg',
@@ -1720,6 +1747,7 @@ export const shops = [
         id: 'suanlatang',
         name: 'Hot and Sour Soup',
         nameJa: '酸辣湯',
+        nameI18n: { en: 'Hot and Sour Soup', zhCN: '酸辣汤', zhTW: '酸辣湯', ko: '쏸라탕', ja: '酸辣湯' },
         romaji: 'Sanratan',
         price: 'Approx. ¥1,100',
         img: 'menu3.jpg',
@@ -1746,6 +1774,7 @@ export const shops = [
         id: 'shumai',
         name: 'Steamed Pork Dumplings',
         nameJa: 'シュウマイ',
+        nameI18n: { en: 'Steamed Pork Dumplings', zhCN: '烧卖', zhTW: '燒賣', ko: '슈마이', ja: 'シュウマイ' },
         romaji: 'Shumai',
         price: 'Approx. ¥800 per portion',
         img: 'menu4.jpg',
@@ -1776,9 +1805,12 @@ export const shops = [
     id: 'laolee',
     name: 'Lao Lee',
     nameJa: '老李',
+    nameI18n: { en: 'Lao Lee', zhCN: '老李', zhTW: '老李', ko: '라오리', ja: '老李' },
+    heroDish: { name: { en: 'Lao Lee Set Menu', zhCN: '老李套餐', zhTW: '老李套餐', ko: '라오리 세트', ja: '老李セット' }, price: '¥1,650', image: 'menu1.jpg' },
     category: 'Chinese',
     area: 'Shinchi Chinatown',
     areaJa: '長崎市新地町',
+    areaI18n: { en: 'Shinchi Chinatown', zhCN: '新地中华街', zhTW: '新地中華街', ko: '신치 차이나타운', ja: '長崎市新地町' },
 
     map: { x: 41, y: 50 },
     geo: { lat: 32.74094, lng: 129.875504 },
@@ -1830,6 +1862,7 @@ export const shops = [
         id: 'laolee-set',
         name: 'Lao Lee Set Menu',
         nameJa: '老李セット',
+        nameI18n: { en: 'Lao Lee Set Menu', zhCN: '老李套餐', zhTW: '老李套餐', ko: '라오리 세트', ja: '老李セット' },
         romaji: 'Lao Lee set',
         price: '¥1,650',
         img: 'menu1.jpg',
@@ -1856,6 +1889,7 @@ export const shops = [
         id: 'karasumi-champon',
         name: 'Dried Mullet Roe Champon',
         nameJa: 'からすみちゃんぽん',
+        nameI18n: { en: 'Dried Mullet Roe Champon', zhCN: '乌鱼子什锦面', zhTW: '烏魚子什錦麵', ko: '숭어알 짬뽕', ja: 'からすみちゃんぽん' },
         romaji: 'Karasumi champon',
         price: '¥1,540',
         img: 'menu2.jpg',
@@ -1884,6 +1918,7 @@ export const shops = [
         id: 'juicy-gyoza',
         name: 'Original Nagasaki Juicy Boiled Dumplings',
         nameJa: '元祖長崎肉汁水餃子',
+        nameI18n: { en: 'Original Nagasaki Juicy Boiled Dumplings', zhCN: '元祖长崎多汁水饺', zhTW: '元祖長崎多汁水餃', ko: '원조 나가사키 육즙 물만두', ja: '元祖長崎肉汁水餃子' },
         romaji: 'Ganso Nagasaki nikujiru sui-gyoza',
         price: '¥430',
         img: 'menu3.jpg',
@@ -1907,6 +1942,7 @@ export const shops = [
         id: 'taiwanese-mazesoba',
         name: 'Taiwanese Mazesoba',
         nameJa: '台湾まぜそば',
+        nameI18n: { en: 'Taiwanese Mazesoba', zhCN: '台湾拌面', zhTW: '台灣拌麵', ko: '타이완 마제소바', ja: '台湾まぜそば' },
         romaji: 'Taiwan mazesoba',
         price: '¥1,160',
         img: 'menu4.jpg',
@@ -1936,9 +1972,12 @@ export const shops = [
     id: 'fukuju',
     name: 'Fukuju',
     nameJa: '中華料理 福寿',
+    nameI18n: { en: 'Fukuju', zhCN: '福寿', zhTW: '福壽', ko: '후쿠주', ja: '福寿' },
+    heroDish: { name: { en: 'Nagasaki Champon', zhCN: '长崎什锦面', zhTW: '長崎什錦麵', ko: '나가사키 짬뽕', ja: '長崎ちゃんぽん' }, price: '¥800', image: 'menu1.jpg' },
     category: 'Chinese',
     area: 'Shinchi Chinatown',
     areaJa: '長崎市新地町',
+    areaI18n: { en: 'Shinchi Chinatown', zhCN: '新地中华街', zhTW: '新地中華街', ko: '신치 차이나타운', ja: '長崎市新地町' },
 
     map: { x: 39, y: 49 },
     geo: { lat: 32.742134, lng: 129.874985 },
@@ -1990,6 +2029,7 @@ export const shops = [
         id: 'nagasaki-champon',
         name: 'Nagasaki Champon',
         nameJa: '長崎ちゃんぽん',
+        nameI18n: { en: 'Nagasaki Champon', zhCN: '长崎什锦面', zhTW: '長崎什錦麵', ko: '나가사키 짬뽕', ja: '長崎ちゃんぽん' },
         romaji: 'Nagasaki champon',
         price: '¥800',
         img: 'menu1.jpg',
@@ -2019,6 +2059,7 @@ export const shops = [
         id: 'soboro-sara-udon',
         name: 'Soboro Sara Udon (Thick Noodles)',
         nameJa: 'そぼろ皿うどん（太麺）',
+        nameI18n: { en: 'Soboro Sara Udon (Thick Noodles)', zhCN: '肉末皿乌冬粗面', zhTW: '肉末皿烏龍粗麵', ko: '소보로 사라우동 (굵은 면)', ja: 'そぼろ皿うどん（太麺）' },
         romaji: 'Soboro sara udon',
         price: '¥1,150',
         img: 'menu2.jpg',
@@ -2045,6 +2086,7 @@ export const shops = [
         id: 'sweet-sour-pork',
         name: 'Sweet and Sour Pork',
         nameJa: '酢豚',
+        nameI18n: { en: 'Sweet and Sour Pork', zhCN: '糖醋肉', zhTW: '糖醋肉', ko: '탕수육', ja: '酢豚' },
         romaji: 'Subuta',
         price: '¥1,260',
         img: 'menu3.jpg',
@@ -2071,6 +2113,7 @@ export const shops = [
         id: 'chinjao-rosu',
         name: 'Stir-Fried Beef and Green Peppers',
         nameJa: '牛肉とピーマンの炒め（青椒肉絲）',
+        nameI18n: { en: 'Stir-Fried Beef and Green Peppers', zhCN: '青椒肉丝', zhTW: '青椒肉絲', ko: '피망 소고기 볶음', ja: '牛肉とピーマンの炒め（青椒肉絲）' },
         romaji: 'Chinjao rosu',
         price: 'Small ¥1,890 / Large ¥2,840',
         img: 'menu4.jpg',
@@ -2093,6 +2136,746 @@ export const shops = [
             '채썬 소고기를 아삭한 피망, 죽순과 함께 센 불에 볶아 간장 베이스 소스로 ' +
             '마무리했습니다. 소(1~2인분)와 대(3~4인분)가 있어 혼자서도 여럿이서도 좋습니다.',
         },
+      },
+    ],
+  },
+  {
+    id: "shianbashi-ramen",
+    name: "Shianbashi Ramen",
+    nameJa: "思案橋ラーメン",
+    nameI18n: { en: "Shianbashi Ramen", zhCN: "思案桥拉面", zhTW: "思案橋拉麵", ko: "시안바시 라멘", ja: "思案橋ラーメン" },
+    heroDish: { name: { en: "Bakudan Ramen", zhCN: "爆弹拉面", zhTW: "爆彈拉麵", ko: "바쿠단 라멘", ja: "バクダンラーメン" }, image: 'exterior.jpg' },
+    category: "Ramen",
+    area: "Shianbashi",
+    areaJa: "思案橋",
+    areaI18n: { en: "Shianbashi", zhCN: "思案桥", zhTW: "思案橋", ko: "시안바시", ja: "思案橋" },
+
+    geo: { lat: 32.743095, lng: 129.87915 },
+    address: "〒850-0853 長崎県長崎市浜町6-17",
+    hours: {
+      sun: ["11:00–15:00", "17:00–01:30"],
+      mon: ["11:00–15:00", "17:00–01:30"],
+      tue: ["11:00–15:00", "17:00–01:30"],
+      wed: ["11:00–15:00", "17:00–01:30"],
+      thu: null,
+      fri: ["11:00–15:00", "17:00–01:30"],
+      sat: ["11:00–15:00", "17:00–01:30"],
+    },
+
+    photoBase: "/shops/shianbashi-ramen",
+    exterior: 'exterior.jpg',
+    menuBoardImage: 'menu-board.jpg',
+
+    description: {
+      en: "A Shianbashi ramen shop open for lunch and late into the night (closed Thursdays). Best known for its fiery \"Bakudan\" (bomb) spicy champon and ramen, plus oden — a popular final stop after a night out.",
+      ja: "思案橋のラーメン店。昼と夜の二部営業で、深夜1時半まで営業（木曜定休）。名物は激辛の「バクダンチャンポン」「バクダンラーメン」で、おでんも人気。飲んだ後の〆としても親しまれています。",
+      zhCN: "思案桥的拉面店，午市与夜市分开营业，最晚至凌晨1点半（周四休息）。招牌是超辣的「爆弹什锦面」「爆弹拉面」，关东煮也很受欢迎，是夜饮后常去的收尾之选。",
+      zhTW: "思案橋的拉麵店，午市與夜市分開營業，最晚至凌晨1點半（週四公休）。招牌是超辣的「爆彈什錦麵」「爆彈拉麵」，關東煮也很受歡迎，是夜飲後常去的收尾之選。",
+      ko: "시안바시의 라멘 가게로, 점심과 저녁으로 나뉘어 영업하며 새벽 1시 반까지 운영합니다 (목요일 휴무). 매운맛으로 유명한 \"바쿠단 짬뽕\"과 \"바쿠단 라멘\"이 대표 메뉴이며, 오뎅도 인기입니다.",
+    },
+
+    menu: [
+      {
+        id: "bakudan-champon",
+        name: "Bakudan Champon",
+        nameJa: "バクダンチャンポン",
+        nameI18n: { en: "Bakudan Champon", zhCN: "爆弹什锦面", zhTW: "爆彈什錦麵", ko: "바쿠단 짬뽕", ja: "バクダンチャンポン" },
+        img: "menu1.jpg",
+      },
+      {
+        id: "bakudan-ramen",
+        name: "Bakudan Ramen",
+        nameJa: "バクダンラーメン",
+        nameI18n: { en: "Bakudan Ramen", zhCN: "爆弹拉面", zhTW: "爆彈拉麵", ko: "바쿠단 라멘", ja: "バクダンラーメン" },
+        img: "menu2.jpg",
+      },
+      {
+        id: "oden",
+        name: "Oden",
+        nameJa: "おでん",
+        nameI18n: { en: "Oden", zhCN: "关东煮", zhTW: "關東煮", ko: "오뎅", ja: "おでん" },
+        img: "menu3.jpg",
+      },
+    ],
+  },
+  {
+    id: "tsuruchan",
+    name: "Tsuruchan",
+    nameJa: "ツル茶ん",
+    nameI18n: { en: "Tsuruchan", zhCN: "鹤茶", zhTW: "鶴茶", ko: "츠루짱", ja: "ツル茶ん" },
+    heroDish: { name: { en: "Nostalgic Turkish Rice", zhCN: "怀旧土耳其饭", zhTW: "懷舊土耳其飯", ko: "노스탤직 터키라이스", ja: "昔なつかしトルコライス" }, image: 'exterior.jpg' },
+    category: "Cafe",
+    area: "Near Shianbashi",
+    areaJa: "思案橋周辺",
+    areaI18n: { en: "Near Shianbashi", zhCN: "思案桥附近", zhTW: "思案橋附近", ko: "시안바시 근처", ja: "思案橋周辺" },
+
+    geo: { lat: 32.743137, lng: 129.880661 },
+    address: "〒850-0832 長崎県長崎市油屋町2-47",
+    hours: {
+      sun: ["09:00–21:00"],
+      mon: ["09:00–21:00"],
+      tue: ["09:00–21:00"],
+      wed: ["09:00–21:00"],
+      thu: ["09:00–21:00"],
+      fri: ["09:00–21:00"],
+      sat: ["09:00–21:00"],
+    },
+
+    photoBase: "/shops/tsuruchan",
+    exterior: 'exterior.jpg',
+
+    description: {
+      en: "Kyushu's oldest kissaten (Japanese-style cafe), open since 1925. Famous for Nagasaki's beloved \"Turkish Rice\" (pilaf, spaghetti and a pork cutlet on one plate) and the original Nagasaki-style milk seiki.",
+      ja: "大正14年（1925年）創業、九州最古の喫茶店。ピラフ・スパゲティ・カツを一皿にのせた長崎名物「トルコライス」と、元祖「ミルクセーキ」で知られています。",
+      zhCN: "创业于1925年，九州最古老的咖啡馆。以长崎名物「土耳其饭」（炒饭、意面与炸猪排同盘）和元祖奶昔而闻名。",
+      zhTW: "創業於1925年，九州最古老的咖啡館。以長崎名物「土耳其飯」（炒飯、義麵與炸豬排同盤）和元祖奶昔而聞名。",
+      ko: "1925년 창업한 규슈에서 가장 오래된 다방. 필라프·스파게티·돈가스를 한 접시에 담은 나가사키 명물 \"터키라이스\"와 원조 밀크셰이크로 유명합니다.",
+    },
+
+    menu: [
+      {
+        id: "natsukashi-turkish-rice",
+        name: "Nostalgic Turkish Rice",
+        nameJa: "昔なつかしトルコライス",
+        nameI18n: { en: "Nostalgic Turkish Rice", zhCN: "怀旧土耳其饭", zhTW: "懷舊土耳其飯", ko: "노스탤직 터키라이스", ja: "昔なつかしトルコライス" },
+        img: "menu1.jpg",
+      },
+      {
+        id: "shinsei-turkish-rice",
+        name: "Authentic Turkish Rice",
+        nameJa: "真正トルコライス",
+        nameI18n: { en: "Authentic Turkish Rice", zhCN: "正宗土耳其饭", zhTW: "正宗土耳其飯", ko: "정통 터키라이스", ja: "真正トルコライス" },
+        img: "menu2.jpg",
+      },
+      {
+        id: "milk-seiki",
+        name: "Original Nagasaki-Style Milk Seiki",
+        nameJa: "元祖長崎風ミルクセーキ",
+        nameI18n: { en: "Original Nagasaki-Style Milk Seiki", zhCN: "元祖长崎风奶昔", zhTW: "元祖長崎風奶昔", ko: "원조 나가사키식 밀크셰이크", ja: "元祖長崎風ミルクセーキ" },
+        img: "menu3.jpg",
+      },
+      {
+        id: "custard-pudding",
+        name: "Custard Pudding",
+        nameJa: "カスタードプリン",
+        nameI18n: { en: "Custard Pudding", zhCN: "焦糖布丁", zhTW: "焦糖布丁", ko: "커스터드 푸딩", ja: "カスタードプリン" },
+        img: "menu4.jpg",
+      },
+    ],
+  },
+  {
+    id: "shippoku-hamakatsu",
+    name: "Nagasaki Shippoku Hamakatsu",
+    nameJa: "長崎卓袱浜勝",
+    nameI18n: { en: "Nagasaki Shippoku Hamakatsu", zhCN: "长崎卓袱滨胜", zhTW: "長崎卓袱濱勝", ko: "나가사키 싯포쿠 하마카츠", ja: "長崎卓袱浜勝" },
+    heroDish: { name: { en: "Shippoku Bugyo Course", zhCN: "卓袱奉行套餐", zhTW: "卓袱奉行套餐", ko: "싯포쿠 부교 코스", ja: "卓袱奉行コース" }, image: 'exterior.jpg' },
+    category: "Japanese",
+    area: "Near Shianbashi & Doza",
+    areaJa: "思案橋・銅座周辺",
+    areaI18n: { en: "Near Shianbashi & Doza", zhCN: "思案桥・铜座附近", zhTW: "思案橋・銅座附近", ko: "시안바시・도자 근처", ja: "思案橋・銅座周辺" },
+
+    geo: { lat: 32.743282, lng: 129.881302 },
+    address: "〒850-0831 長崎県長崎市鍛冶屋町6-50",
+    hours: {
+      sun: ["11:00–15:00", "17:00–21:30"],
+      mon: ["11:00–15:00", "17:00–21:30"],
+      tue: ["11:00–15:00", "17:00–21:30"],
+      wed: ["11:00–15:00", "17:00–21:30"],
+      thu: ["11:00–15:00", "17:00–21:30"],
+      fri: ["11:00–15:00", "17:00–21:30"],
+      sat: ["11:00–15:00", "17:00–21:30"],
+    },
+
+    photoBase: "/shops/shippoku-hamakatsu",
+    exterior: 'exterior.jpg',
+
+    description: {
+      en: "A specialist in Shippoku, Nagasaki's historic banquet-style cuisine blending Japanese, Chinese and Western dishes on one round table. A good way to sample a wide range of Nagasaki flavors in a single course.",
+      ja: "和華蘭（和・中・洋）の料理が一つの卓を囲む、長崎の郷土料理「卓袱料理」の専門店。一度のコースで長崎の様々な味を楽しめます。",
+      zhCN: "长崎传统宴席料理「卓袱料理」专门店，和、中、洋式菜肴同桌共享。可在一套料理中品尝长崎的多种风味。",
+      zhTW: "長崎傳統宴席料理「卓袱料理」專門店，和、中、洋式菜餚同桌共享。可在一套料理中品嚐長崎的多種風味。",
+      ko: "일본·중국·서양 요리가 한 상에 오르는 나가사키 전통 연회 요리 싯포쿠 요리 전문점. 한 번의 코스로 나가사키의 다양한 맛을 즐길 수 있습니다.",
+    },
+
+    menu: [
+      {
+        id: "bugyo-course",
+        name: "Shippoku Bugyo Course",
+        nameJa: "卓袱奉行コース",
+        nameI18n: { en: "Shippoku Bugyo Course", zhCN: "卓袱奉行套餐", zhTW: "卓袱奉行套餐", ko: "싯포쿠 부교 코스", ja: "卓袱奉行コース" },
+        img: "menu1.jpg",
+        description: {
+          en: "The grandest course, with the widest spread of dishes. Reservation required, from 2 people.",
+          ja: "最も豪華な、品数の多いコース。要予約・2名様より。",
+          zhCN: "菜品最丰盛豪华的套餐。需预约，2位起。",
+          zhTW: "菜色最豐盛豪華的套餐。需預約，2位起。",
+          ko: "가장 호화롭고 가짓수가 많은 코스. 예약 필수, 2인 이상부터.",
+        },
+      },
+      {
+        id: "capitan-course",
+        name: "Shippoku Capitan Course",
+        nameJa: "卓袱カピタンコース",
+        nameI18n: { en: "Shippoku Capitan Course", zhCN: "卓袱卡比丹套餐", zhTW: "卓袱卡比丹套餐", ko: "싯포쿠 카피탄 코스", ja: "卓袱カピタンコース" },
+        img: "menu2.jpg",
+        description: {
+          en: "A slightly more compact course than Bugyo, still full of variety. From 2 people.",
+          ja: "奉行コースよりやや品数を抑えた、それでも種類豊富なコース。2名様より。",
+          zhCN: "比奉行套餐稍精简，但依然种类丰富的套餐。2位起。",
+          zhTW: "比奉行套餐稍精簡，但依然種類豐富的套餐。2位起。",
+          ko: "부교 코스보다 가짓수는 조금 적지만 여전히 다양한 코스. 2인 이상부터.",
+        },
+      },
+      {
+        id: "biidoro-course",
+        name: "Shippoku Biidoro Course",
+        nameJa: "卓袱ビードロコース",
+        nameI18n: { en: "Shippoku Biidoro Course", zhCN: "卓袱比多罗套餐", zhTW: "卓袱比多羅套餐", ko: "싯포쿠 비이도로 코스", ja: "卓袱ビードロコース" },
+        img: "menu3.jpg",
+        description: {
+          en: "A smaller-format course, the only one available for a single diner.",
+          ja: "一回り小さい規模のコースで、1名様から利用できる唯一のコース。",
+          zhCN: "规模较小的套餐，唯一可供1人用餐的选择。",
+          zhTW: "規模較小的套餐，唯一可供1人用餐的選擇。",
+          ko: "규모가 조금 작은 코스로, 1인부터 이용할 수 있는 유일한 코스입니다.",
+        },
+      },
+    ],
+  },
+  {
+    id: "yossou",
+    name: "Yossou",
+    nameJa: "吉宗",
+    nameI18n: { en: "Yossou", zhCN: "吉宗", zhTW: "吉宗", ko: "요소", ja: "吉宗" },
+    heroDish: { name: { en: "Classic Set (Chawanmushi & Mushizushi)", zhCN: "招牌套餐（茶碗蒸・蒸寿司）", zhTW: "招牌套餐（茶碗蒸・蒸壽司）", ko: "클래식 세트 (자완무시 & 무시즈시)", ja: "御一人前（茶碗むし・蒸寿し揃）" }, price: "¥1,650", image: 'exterior.jpg' },
+    category: "Japanese",
+    area: "Near Shianbashi",
+    areaJa: "思案橋周辺",
+    areaI18n: { en: "Near Shianbashi", zhCN: "思案桥附近", zhTW: "思案橋附近", ko: "시안바시 근처", ja: "思案橋周辺" },
+
+    geo: { lat: 32.744514, lng: 129.878799 },
+    address: "〒850-0853 長崎県長崎市浜町8-9",
+    hours: {
+      sun: ["11:00–21:00"],
+      mon: ["11:00–21:00"],
+      tue: ["11:00–21:00"],
+      wed: ["11:00–21:00"],
+      thu: ["11:00–21:00"],
+      fri: ["11:00–21:00"],
+      sat: ["11:00–21:00"],
+    },
+
+    photoBase: "/shops/yossou",
+    exterior: 'exterior.jpg',
+
+    description: {
+      en: "Founded in 1866, the original specialist in Nagasaki's giant chawanmushi (steamed egg custard) and mushizushi (steamed sushi), a local classic rich with seafood and mountain vegetables.",
+      ja: "慶応2年（1866年）創業、元祖・茶碗蒸し専門店。具だくさんの大きな茶碗蒸しと蒸し寿司が名物の老舗です。",
+      zhCN: "创业于1866年，元祖茶碗蒸专门店。料多味美的大份茶碗蒸与蒸寿司是招牌名物。",
+      zhTW: "創業於1866年，元祖茶碗蒸專門店。料多味美的大份茶碗蒸與蒸壽司是招牌名物。",
+      ko: "1866년 창업한 원조 자완무시(달걀찜) 전문점. 건더기가 가득한 큼직한 자완무시와 찜스시가 명물인 노포입니다.",
+    },
+
+    menu: [
+      {
+        id: "gonin-mae-set",
+        name: "Classic Set (Chawanmushi & Mushizushi)",
+        nameJa: "御一人前（茶碗むし・蒸寿し揃）",
+        nameI18n: { en: "Classic Set (Chawanmushi & Mushizushi)", zhCN: "招牌套餐（茶碗蒸・蒸寿司）", zhTW: "招牌套餐（茶碗蒸・蒸壽司）", ko: "클래식 세트 (자완무시 & 무시즈시)", ja: "御一人前（茶碗むし・蒸寿し揃）" },
+        price: "¥1,650",
+        img: "menu1.jpg",
+      },
+      {
+        id: "yossou-teishoku",
+        name: "Yossou Set Meal",
+        nameJa: "吉宗定食",
+        nameI18n: { en: "Yossou Set Meal", zhCN: "吉宗定食", zhTW: "吉宗定食", ko: "요소 정식", ja: "吉宗定食" },
+        price: "¥3,080",
+        img: "menu2.jpg",
+      },
+      {
+        id: "makunouchi",
+        name: "Makunouchi Bento (with Soup)",
+        nameJa: "幕の内（吸物付）",
+        nameI18n: { en: "Makunouchi Bento (with Soup)", zhCN: "幕之内便当（附汤）", zhTW: "幕之內便當（附湯）", ko: "마쿠노우치 벤토 (국 포함)", ja: "幕の内（吸物付）" },
+        price: "¥1,815",
+        img: "menu3.jpg",
+      },
+    ],
+  },
+  {
+    id: "osakaya-hamamachi",
+    name: "Osakaya Hamamachi",
+    nameJa: "大阪屋 浜町店",
+    nameI18n: { en: "Osakaya Hamamachi", zhCN: "大阪屋 滨町店", zhTW: "大阪屋 濱町店", ko: "오사카야 하마마치점", ja: "大阪屋 浜町店" },
+    heroDish: { name: { en: "Popular Course", zhCN: "人气套餐", zhTW: "人氣套餐", ko: "인기 코스", ja: "人気コース" }, price: "¥9,240", image: 'exterior.jpg' },
+    category: "Yakiniku",
+    area: "Shianbashi",
+    areaJa: "思案橋",
+    areaI18n: { en: "Shianbashi", zhCN: "思案桥", zhTW: "思案橋", ko: "시안바시", ja: "思案橋" },
+
+    geo: { lat: 32.743576, lng: 129.880524 },
+    address: "〒850-0853 長崎県長崎市浜町11-11",
+    hours: {
+      sun: ["17:00–24:00"],
+      mon: ["17:00–24:00"],
+      tue: ["17:00–24:00"],
+      wed: ["17:00–24:00"],
+      thu: ["17:00–24:00"],
+      fri: ["17:00–24:00"],
+      sat: ["17:00–24:00"],
+    },
+
+    photoBase: "/shops/osakaya-hamamachi",
+    exterior: 'exterior.jpg',
+
+    description: {
+      en: "A yakiniku restaurant just off the Shianbashi arcade, known for its course menus (from 2 people) rather than ordering piece by piece — a solid choice for a grilled-meat dinner near the hotel.",
+      ja: "思案橋のアーケードそばにある焼肉店。単品より、2名様から楽しめるコースメニューが人気です。",
+      zhCN: "位于思案桥拱廊附近的烤肉店，比起单点更以套餐（2位起）闻名，是酒店附近享用烤肉晚餐的好选择。",
+      zhTW: "位於思案橋拱廊附近的烤肉店，比起單點更以套餐（2位起）聞名，是飯店附近享用烤肉晚餐的好選擇。",
+      ko: "시안바시 아케이드 근처의 야키니쿠 식당으로, 단품보다 2인 이상부터 즐기는 코스 메뉴로 유명합니다.",
+    },
+
+    menu: [
+      {
+        id: "popular-course",
+        name: "Popular Course",
+        nameJa: "人気コース",
+        nameI18n: { en: "Popular Course", zhCN: "人气套餐", zhTW: "人氣套餐", ko: "인기 코스", ja: "人気コース" },
+        price: "¥9,240",
+        description: {
+          en: "10 dishes including a special tongue stew and yukhoe-style rare steak. The shop's most-repeated course. From 2 people.",
+          ja: "特製タンシチューやユッケ風レアステーキを含む全10品。リピート率が高い看板コース。2名様より。",
+          zhCN: "共10道菜，包含特制牛舌炖汤与生拌牛肉风味嫩煎牛排。回头率最高的招牌套餐。2位起。",
+          zhTW: "共10道菜，包含特製牛舌燉湯與生拌牛肉風味嫩煎牛排。回頭率最高的招牌套餐。2位起。",
+          ko: "특제 혀 스튜와 육회풍 레어 스테이크가 포함된 총 10가지 요리. 재방문율이 높은 대표 코스. 2인 이상부터.",
+        },
+      },
+      {
+        id: "banquet-course",
+        name: "Banquet Course (2hr All-You-Can-Drink)",
+        nameJa: "宴会コース（2時間飲み放題付き）",
+        nameI18n: { en: "Banquet Course (2hr All-You-Can-Drink)", zhCN: "宴会套餐（含2小时无限畅饮）", zhTW: "宴會套餐（含2小時無限暢飲）", ko: "연회 코스 (2시간 음료 무제한 포함)", ja: "宴会コース（2時間飲み放題付き）" },
+        price: "¥9,240",
+        description: {
+          en: "9 dishes with 2 hours of all-you-can-drink included, featuring yaki-suki and salted black tongue. From 2 people.",
+          ja: "2時間の飲み放題付きで全9品。焼きすきや黒タン塩が楽しめます。2名様より。",
+          zhCN: "共9道菜，含2小时无限畅饮，可品尝寿喜烧风烤肉与黑毛和牛舌盐烤。2位起。",
+          zhTW: "共9道菜，含2小時無限暢飲，可品嚐壽喜燒風烤肉與黑毛和牛舌鹽烤。2位起。",
+          ko: "2시간 음료 무제한이 포함된 총 9가지 요리로, 야키스키와 소금 간 흑우 혀를 즐길 수 있습니다. 2인 이상부터.",
+        },
+      },
+    ],
+  },
+  {
+    id: "kadoya",
+    name: "Kadoya",
+    nameJa: "かどや",
+    nameI18n: { en: "Kadoya", zhCN: "角屋", zhTW: "角屋", ko: "카도야", ja: "かどや" },
+    heroDish: { name: { en: "Kadoya Ramen", zhCN: "角屋拉面", zhTW: "角屋拉麵", ko: "카도야 라멘", ja: "かどやラーメン" }, image: 'exterior.jpg' },
+    category: "Ramen",
+    area: "Shianbashi",
+    areaJa: "思案橋",
+    areaI18n: { en: "Shianbashi", zhCN: "思案桥", zhTW: "思案橋", ko: "시안바시", ja: "思案橋" },
+
+    geo: { lat: 32.743225, lng: 129.87854 },
+    address: "〒850-0853 長崎県長崎市浜町6-23",
+    hours: {
+      sun: ["11:00–01:00"],
+      mon: ["11:00–03:00"],
+      tue: ["11:00–03:00"],
+      wed: ["11:00–03:00"],
+      thu: ["11:00–03:00"],
+      fri: ["11:00–03:00"],
+      sat: ["11:00–03:00"],
+    },
+
+    photoBase: "/shops/kadoya",
+    exterior: 'exterior.jpg',
+
+    description: {
+      en: "A ramen shop near Kankodori known for its deeply rich tonkotsu broth, open very late — a favorite stop after a night out in the area.",
+      ja: "観光通り近くのラーメン店。濃厚な豚骨スープが評判で、深夜まで営業しているため飲んだ後に立ち寄る人も多い人気店です。",
+      zhCN: "位于观光通附近的拉面店，以浓厚的豚骨汤底闻名，营业至深夜，是夜饮后的热门去处。",
+      zhTW: "位於觀光通附近的拉麵店，以濃厚的豚骨湯底聞名，營業至深夜，是夜飲後的熱門去處。",
+      ko: "간코도리 근처의 라멘 가게로, 진한 돈코츠 육수로 유명하며 밤늦게까지 영업해 술자리 후 들르기 좋은 곳입니다.",
+    },
+
+    menu: [
+      {
+        id: "kadoya-ramen",
+        name: "Kadoya Ramen",
+        nameJa: "かどやラーメン",
+        nameI18n: { en: "Kadoya Ramen", zhCN: "角屋拉面", zhTW: "角屋拉麵", ko: "카도야 라멘", ja: "かどやラーメン" },
+        img: "menu1.jpg",
+      },
+      {
+        id: "aka-ramen",
+        name: "Aka (Red) Spicy Ramen",
+        nameJa: "赤ラーメン",
+        nameI18n: { en: "Aka (Red) Spicy Ramen", zhCN: "红辣拉面", zhTW: "紅辣拉麵", ko: "아카 라멘 (매운맛)", ja: "赤ラーメン" },
+        img: "menu2.jpg",
+      },
+      {
+        id: "koku-miso-champon",
+        name: "Rich Miso Champon",
+        nameJa: "コク味噌ちゃんぽん",
+        nameI18n: { en: "Rich Miso Champon", zhCN: "浓郁味噌什锦面", zhTW: "濃郁味噌什錦麵", ko: "코쿠 미소 짬뽕", ja: "コク味噌ちゃんぽん" },
+        img: "menu3.jpg",
+      },
+      {
+        id: "kadoya-meat-ramen",
+        name: "Kadoya Special Meat Ramen",
+        nameJa: "かどや特製肉ラーメン",
+        nameI18n: { en: "Kadoya Special Meat Ramen", zhCN: "角屋特制叉烧拉面", zhTW: "角屋特製叉燒拉麵", ko: "카도야 특제 고기 라멘", ja: "かどや特製肉ラーメン" },
+        img: "menu4.jpg",
+      },
+    ],
+  },
+  {
+    id: "kaniya-doza",
+    name: "Kaniya",
+    nameJa: "かにや",
+    nameI18n: { en: "Kaniya", zhCN: "蟹屋", zhTW: "蟹屋", ko: "카니야", ja: "かにや" },
+    heroDish: { name: { en: "Salted Mackerel Onigiri", zhCN: "盐烤鲭鱼饭团", zhTW: "鹽烤鯖魚飯糰", ko: "소금 고등어 오니기리", ja: "塩さば" }, price: "¥280", image: 'exterior.jpg' },
+    category: "Japanese",
+    area: "Dōza-machi, Nagasaki",
+    areaJa: "長崎市銅座町",
+    areaI18n: { en: "Dōza-machi, Nagasaki", zhCN: "长崎铜座町", zhTW: "長崎銅座町", ko: "나가사키 도자마치", ja: "長崎市銅座町" },
+
+    geo: { lat: 32.742653, lng: 129.877487 },
+    address: "〒850-0841 長崎県長崎市銅座町10-2",
+    hours: {
+      sun: null,
+      mon: ["18:00–02:00"],
+      tue: ["18:00–02:00"],
+      wed: ["18:00–02:00"],
+      thu: ["18:00–02:00"],
+      fri: ["18:00–03:00"],
+      sat: ["18:00–03:00"],
+    },
+
+    photoBase: "/shops/kaniya-doza",
+    exterior: 'exterior.jpg',
+
+    description: {
+      en: "An onigiri (rice ball) specialty shop since 1965, a Nagasaki institution for ending a night out with a hand-shaped rice ball instead of ramen — the local answer to a late-night snack.",
+      ja: "昭和40年創業のおにぎり専門店。長崎では飲んだ後の〆にラーメンではなくおにぎりを食べる文化があり、その代表格として親しまれています。",
+      zhCN: "创业于1965年的饭团专门店。长崎有夜饮后以饭团代替拉面收尾的文化，本店正是其代表。",
+      zhTW: "創業於1965年的飯糰專門店。長崎有夜飲後以飯糰代替拉麵收尾的文化，本店正是其代表。",
+      ko: "1965년 창업한 오니기리(주먹밥) 전문점. 나가사키에는 술자리 마무리로 라멘 대신 오니기리를 먹는 문화가 있는데, 그 대표 격인 가게입니다.",
+    },
+
+    menu: [
+      {
+        id: "shio-saba",
+        name: "Salted Mackerel Onigiri",
+        nameJa: "塩さば",
+        nameI18n: { en: "Salted Mackerel Onigiri", zhCN: "盐烤鲭鱼饭团", zhTW: "鹽烤鯖魚飯糰", ko: "소금 고등어 오니기리", ja: "塩さば" },
+        price: "¥280",
+        img: "menu1.jpg",
+      },
+      {
+        id: "iwa-nori",
+        name: "Rock Seaweed Onigiri",
+        nameJa: "岩のり",
+        nameI18n: { en: "Rock Seaweed Onigiri", zhCN: "岩海苔饭团", zhTW: "岩海苔飯糰", ko: "바위김 오니기리", ja: "岩のり" },
+        price: "¥280",
+        img: "menu2.jpg",
+      },
+      {
+        id: "takana",
+        name: "Pickled Takana Greens Onigiri",
+        nameJa: "高菜",
+        nameI18n: { en: "Pickled Takana Greens Onigiri", zhCN: "芥菜饭团", zhTW: "芥菜飯糰", ko: "다카나(갓) 절임 오니기리", ja: "高菜" },
+        price: "¥280",
+        img: "menu3.jpg",
+      },
+    ],
+  },
+  {
+    id: "yakitori-ren",
+    name: "Yakitori Ren",
+    nameJa: "焼鳥 蓮",
+    nameI18n: { en: "Yakitori Ren", zhCN: "烤鸡肉串 莲", zhTW: "烤雞肉串 蓮", ko: "야키토리 렌", ja: "焼鳥 蓮" },
+    heroDish: { name: { en: "Assorted Yakitori Skewers", zhCN: "烤鸡肉串拼盘", zhTW: "烤雞肉串拼盤", ko: "모둠 야키토리", ja: "焼き鳥盛り合わせ" }, image: 'exterior.jpg' },
+    category: "Izakaya",
+    area: "Dōza-machi, Nagasaki",
+    areaJa: "長崎市銅座町",
+    areaI18n: { en: "Dōza-machi, Nagasaki", zhCN: "长崎铜座町", zhTW: "長崎銅座町", ko: "나가사키 도자마치", ja: "長崎市銅座町" },
+
+    geo: { lat: 32.743298, lng: 129.87764 },
+    address: "〒850-0841 長崎県長崎市銅座町6-8 HANA銅座ビル1F",
+    hours: {
+      sun: ["18:00–22:00"],
+      mon: ["18:00–22:00"],
+      tue: ["18:00–22:00"],
+      wed: ["18:00–22:00"],
+      thu: ["18:00–22:00"],
+      fri: ["18:00–22:00"],
+      sat: ["18:00–22:00"],
+    },
+
+    photoBase: "/shops/yakitori-ren",
+    exterior: 'exterior.jpg',
+
+    description: {
+      en: "A charcoal-grilled yakitori restaurant in Doza, serving skewers alongside izakaya-style small plates — a cozy evening spot near the hotel.",
+      ja: "銅座にある炭火焼鳥の店。焼き鳥を中心に、居酒屋メニューも楽しめる夜の一軒です。",
+      zhCN: "位于铜座的炭火烤鸡肉串店，以烤串为主，也提供居酒屋风味小菜，是酒店附近惬意的夜间去处。",
+      zhTW: "位於銅座的炭火烤雞肉串店，以烤串為主，也提供居酒屋風味小菜，是飯店附近愜意的夜間去處。",
+      ko: "도자에 있는 숯불 야키토리 가게로, 꼬치구이를 중심으로 이자카야풍 안주도 즐길 수 있는 아늑한 저녁 식당입니다.",
+    },
+
+    menu: [
+      {
+        id: "yakitori-set",
+        name: "Assorted Yakitori Skewers",
+        nameJa: "焼き鳥盛り合わせ",
+        nameI18n: { en: "Assorted Yakitori Skewers", zhCN: "烤鸡肉串拼盘", zhTW: "烤雞肉串拼盤", ko: "모둠 야키토리", ja: "焼き鳥盛り合わせ" },
+        img: "menu1.jpg",
+      },
+    ],
+  },
+  {
+    id: "hiiragi-ramen",
+    name: "Ramen Hiiragi",
+    nameJa: "らーめん柊",
+    nameI18n: { en: "Ramen Hiiragi", zhCN: "柊拉面", zhTW: "柊拉麵", ko: "라멘 히이라기", ja: "らーめん柊" },
+    heroDish: { name: { en: "Tomato Ramen", zhCN: "番茄拉面", zhTW: "番茄拉麵", ko: "토마토 라멘", ja: "トマトらーめん" }, price: "¥1,000", image: 'exterior.jpg' },
+    category: "Ramen",
+    area: "Dōza-machi, Nagasaki",
+    areaJa: "長崎市銅座町",
+    areaI18n: { en: "Dōza-machi, Nagasaki", zhCN: "长崎铜座町", zhTW: "長崎銅座町", ko: "나가사키 도자마치", ja: "長崎市銅座町" },
+
+    geo: { lat: 32.743206, lng: 129.877563 },
+    address: "〒850-0841 長崎県長崎市銅座町6-9",
+    hours: {
+      sun: ["11:00–03:00"],
+      mon: ["11:00–03:00"],
+      tue: null,
+      wed: ["11:00–03:00"],
+      thu: ["11:00–03:00"],
+      fri: ["11:00–05:00"],
+      sat: ["11:00–05:00"],
+    },
+
+    photoBase: "/shops/hiiragi-ramen",
+    exterior: 'exterior.jpg',
+
+    description: {
+      en: "A classic tonkotsu ramen shop in Doza, open into the small hours on weekends — a reliable late-night bowl of noodles near the hotel.",
+      ja: "銅座にある豚骨ラーメンの店。週末は深夜まで営業しており、〆の一杯に便利な一軒です。",
+      zhCN: "位于铜座的豚骨拉面店，周末营业至深夜，是收尾一碗面的便利选择。",
+      zhTW: "位於銅座的豚骨拉麵店，週末營業至深夜，是收尾一碗麵的便利選擇。",
+      ko: "도자에 있는 돈코츠 라멘 가게로, 주말에는 새벽까지 영업해 마무리 한 그릇으로 들르기 좋습니다.",
+    },
+
+    menu: [
+      {
+        id: "tomato-ramen",
+        name: "Tomato Ramen",
+        nameJa: "トマトらーめん",
+        nameI18n: { en: "Tomato Ramen", zhCN: "番茄拉面", zhTW: "番茄拉麵", ko: "토마토 라멘", ja: "トマトらーめん" },
+        price: "¥1,000",
+        img: "menu1.jpg",
+      },
+      {
+        id: "asari-gohan",
+        name: "Bite-Size Clam Rice",
+        nameJa: "一口あさりごはん",
+        nameI18n: { en: "Bite-Size Clam Rice", zhCN: "一口蛤蜊饭", zhTW: "一口蛤蜊飯", ko: "한입 바지락밥", ja: "一口あさりごはん" },
+        img: "menu2.jpg",
+      },
+      {
+        id: "aosa-ramen",
+        name: "Aosa Seaweed Ramen",
+        nameJa: "あおさらーめん",
+        nameI18n: { en: "Aosa Seaweed Ramen", zhCN: "海藻拉面", zhTW: "海藻拉麵", ko: "아오사 해조 라멘", ja: "あおさらーめん" },
+        price: "¥900",
+        img: "menu3.jpg",
+      },
+      {
+        id: "tonkotsu",
+        name: "Tonkotsu Ramen",
+        nameJa: "とんこつらーめん",
+        nameI18n: { en: "Tonkotsu Ramen", zhCN: "豚骨拉面", zhTW: "豚骨拉麵", ko: "돈코츠 라멘", ja: "とんこつらーめん" },
+        price: "¥830",
+        img: "menu4.jpg",
+      },
+      {
+        id: "tantanmen",
+        name: "Tantanmen",
+        nameJa: "坦々麺",
+        nameI18n: { en: "Tantanmen", zhCN: "担担面", zhTW: "擔擔麵", ko: "탄탄멘", ja: "坦々麺" },
+        price: "¥900",
+        img: "menu5.jpg",
+      },
+    ],
+  },
+  {
+    id: "dashibonz",
+    name: "Dashi Bonz",
+    nameJa: "だしぼんず",
+    nameI18n: { en: "Dashi Bonz", zhCN: "Dashi Bonz", zhTW: "Dashi Bonz", ko: "다시본즈", ja: "だしぼんず" },
+    heroDish: { name: { en: "Nagasaki Sea Bream Dashi Udon", zhCN: "长崎鲷鱼高汤乌冬", zhTW: "長崎鯛魚高湯烏龍", ko: "나가사키 도미 육수 우동", ja: "長崎鯛だしうどん" }, price: "¥935", image: 'exterior.jpg' },
+    category: "Izakaya",
+    area: "Near Shianbashi",
+    areaJa: "思案橋周辺",
+    areaI18n: { en: "Near Shianbashi", zhCN: "思案桥附近", zhTW: "思案橋附近", ko: "시안바시 근처", ja: "思案橋周辺" },
+
+    geo: { lat: 32.743881, lng: 129.877365 },
+    address: "〒850-0853 長崎県長崎市浜町4-22 明星ビル1F",
+    hours: {
+      sun: ["11:00–22:00"],
+      mon: ["11:00–22:00"],
+      tue: ["11:00–22:00"],
+      wed: ["11:00–22:00"],
+      thu: ["11:00–22:00"],
+      fri: ["11:00–22:00"],
+      sat: ["11:00–22:00"],
+    },
+
+    photoBase: "/shops/dashibonz",
+    exterior: 'exterior.jpg',
+
+    description: {
+      en: "An izakaya specializing in Goto udon — thin, chewy noodles from the Goto Islands served with a rich dashi broth — alongside other Nagasaki-sourced ingredients.",
+      ja: "五島うどんを中心に、長崎の食材を活かした料理を提供する居酒屋。細くてコシのある五島うどんと出汁が自慢です。",
+      zhCN: "以五岛乌冬面为主打的居酒屋，善用长崎当地食材。细滑有嚼劲的五岛乌冬搭配浓郁高汤是招牌。",
+      zhTW: "以五島烏龍麵為主打的居酒屋，善用長崎當地食材。細滑有嚼勁的五島烏龍麵搭配濃郁高湯是招牌。",
+      ko: "고토 우동을 중심으로 나가사키 현지 식재료를 활용하는 이자카야. 가늘고 쫄깃한 고토 우동과 진한 육수가 자랑입니다.",
+    },
+
+    menu: [
+      {
+        id: "tai-dashi-udon",
+        name: "Nagasaki Sea Bream Dashi Udon",
+        nameJa: "長崎鯛だしうどん",
+        nameI18n: { en: "Nagasaki Sea Bream Dashi Udon", zhCN: "长崎鲷鱼高汤乌冬", zhTW: "長崎鯛魚高湯烏龍", ko: "나가사키 도미 육수 우동", ja: "長崎鯛だしうどん" },
+        price: "¥935",
+        img: "menu1.jpg",
+      },
+      {
+        id: "niku-gobo-tempura-udon",
+        name: "Beef & Burdock Tempura Udon",
+        nameJa: "肉ごぼう天うどん",
+        nameI18n: { en: "Beef & Burdock Tempura Udon", zhCN: "牛肉牛蒡天妇罗乌冬", zhTW: "牛肉牛蒡天婦羅烏龍", ko: "소고기 우엉 튀김 우동", ja: "肉ごぼう天うどん" },
+        price: "¥880",
+        img: "menu2.jpg",
+      },
+      {
+        id: "tenzaru-udon",
+        name: "Cold Udon with Tempura (Tenzaru)",
+        nameJa: "天ざるうどん",
+        nameI18n: { en: "Cold Udon with Tempura (Tenzaru)", zhCN: "天妇罗冷乌冬", zhTW: "天婦羅冷烏龍", ko: "덴자루 우동 (튀김 곁들인 냉우동)", ja: "天ざるうどん" },
+        price: "¥935",
+        img: "menu3.jpg",
+      },
+    ],
+  },
+  {
+    id: "sushi-kozo",
+    name: "Sushi Kozo",
+    nameJa: "鮨 幸三",
+    nameI18n: { en: "Sushi Kozo", zhCN: "寿司 幸三", zhTW: "壽司 幸三", ko: "스시 코조", ja: "鮨 幸三" },
+    heroDish: { name: { en: "Chef's Omakase Sushi", zhCN: "主厨精选寿司", zhTW: "主廚精選壽司", ko: "오마카세 스시", ja: "おまかせにぎり" }, price: "¥4,000", image: 'exterior.jpg' },
+    category: "Sushi",
+    area: "Dōza-machi, Nagasaki",
+    areaJa: "長崎市銅座町",
+    areaI18n: { en: "Dōza-machi, Nagasaki", zhCN: "长崎铜座町", zhTW: "長崎銅座町", ko: "나가사키 도자마치", ja: "長崎市銅座町" },
+
+    geo: { lat: 32.742706, lng: 129.87822 },
+    address: "〒850-0841 長崎県長崎市銅座町12-2",
+    hours: {
+      sun: null,
+      mon: ["18:00–24:00"],
+      tue: ["18:00–24:00"],
+      wed: ["18:00–24:00"],
+      thu: ["18:00–24:00"],
+      fri: ["18:00–24:00"],
+      sat: ["18:00–24:00"],
+    },
+
+    photoBase: "/shops/sushi-kozo",
+    exterior: 'exterior.jpg',
+    menuBoardImage: 'menu-board.jpg',
+
+    description: {
+      en: "A counter sushi restaurant in Doza offering chef's-choice courses built around the day's catch — a special-occasion choice for fresh Nagasaki seafood.",
+      ja: "銅座にあるカウンター寿司店。その日仕入れた鮮魚を使ったおまかせコースが中心の、特別な夜に向く一軒です。",
+      zhCN: "位于铜座的吧台寿司店，以当日进货的新鲜海鲜制作主厨精选套餐，适合特别夜晚的选择。",
+      zhTW: "位於銅座的吧檯壽司店，以當日進貨的新鮮海鮮製作主廚精選套餐，適合特別夜晚的選擇。",
+      ko: "도자에 있는 카운터 스시집으로, 그날 들어온 신선한 생선으로 만드는 오마카세 코스가 중심인 특별한 밤을 위한 곳입니다.",
+    },
+
+    menu: [
+      {
+        id: "omakase",
+        name: "Chef's Omakase Nigiri",
+        nameJa: "おまかせにぎり",
+        nameI18n: { en: "Chef's Omakase Nigiri", zhCN: "主厨精选握寿司", zhTW: "主廚精選握壽司", ko: "오마카세 니기리", ja: "おまかせにぎり" },
+        price: "¥4,000",
+        img: "menu1.jpg",
+      },
+    ],
+  },
+  {
+    id: "koda-shokudo",
+    name: "Koda Shokudo",
+    nameJa: "甲田食堂",
+    nameI18n: { en: "Koda Shokudo", zhCN: "甲田食堂", zhTW: "甲田食堂", ko: "코다 쇼쿠도", ja: "甲田食堂" },
+    heroDish: { name: { en: "Salmon & Salmon Roe Rice Bowl", zhCN: "三文鱼鱼子盖饭", zhTW: "鮭魚魚卵蓋飯", ko: "연어 이쿠라 덮밥", ja: "サーモンいくら丼" }, image: 'exterior.jpg' },
+    category: "Japanese",
+    area: "Dōza-machi, Nagasaki",
+    areaJa: "長崎市銅座町",
+    areaI18n: { en: "Dōza-machi, Nagasaki", zhCN: "长崎铜座町", zhTW: "長崎銅座町", ko: "나가사키 도자마치", ja: "長崎市銅座町" },
+
+    geo: { lat: 32.742546, lng: 129.878235 },
+    address: "〒850-0841 長崎県長崎市銅座町15-16",
+    hours: {
+      sun: null,
+      mon: null,
+      tue: ["11:30–18:30"],
+      wed: ["11:30–18:30"],
+      thu: ["11:30–18:30"],
+      fri: ["11:30–18:30"],
+      sat: ["11:30–18:30"],
+    },
+
+    photoBase: "/shops/koda-shokudo",
+    exterior: 'exterior.jpg',
+
+    description: {
+      en: "A set-meal diner run directly by a local fishmonger, serving teishoku built around whatever fresh fish came in that day — simple, honest seafood cooking.",
+      ja: "鮮魚店直営の定食店。その日仕入れた魚を使った定食が中心で、新鮮な魚介を気軽に楽しめます。",
+      zhCN: "由鲜鱼店直营的定食店，以当日进货的鲜鱼制作定食为主，能轻松品尝新鲜海鲜。",
+      zhTW: "由鮮魚店直營的定食店，以當日進貨的鮮魚製作定食為主，能輕鬆品嚐新鮮海鮮。",
+      ko: "생선 가게가 직접 운영하는 정식 식당으로, 그날 들어온 신선한 생선으로 만드는 정식이 중심입니다.",
+    },
+
+    menu: [
+      {
+        id: "salmon-ikura-don",
+        name: "Salmon & Salmon Roe Rice Bowl",
+        nameJa: "サーモンいくら丼",
+        nameI18n: { en: "Salmon & Salmon Roe Rice Bowl", zhCN: "三文鱼鱼子盖饭", zhTW: "鮭魚魚卵蓋飯", ko: "연어 이쿠라 덮밥", ja: "サーモンいくら丼" },
+        img: "menu1.jpg",
+      },
+      {
+        id: "nagasaki-kaisen-don-set",
+        name: "Nagasaki Seafood Rice Bowl Set",
+        nameJa: "長崎海鮮丼セット",
+        nameI18n: { en: "Nagasaki Seafood Rice Bowl Set", zhCN: "长崎海鲜盖饭套餐", zhTW: "長崎海鮮蓋飯套餐", ko: "나가사키 해산물 덮밥 세트", ja: "長崎海鮮丼セット" },
+        img: "menu2.jpg",
+      },
+      {
+        id: "sashimi-moriawase",
+        name: "Assorted Sashimi",
+        nameJa: "刺身の盛り合わせ",
+        nameI18n: { en: "Assorted Sashimi", zhCN: "生鱼片拼盘", zhTW: "生魚片拼盤", ko: "모둠 사시미", ja: "刺身の盛り合わせ" },
+        img: "menu3.jpg",
       },
     ],
   },

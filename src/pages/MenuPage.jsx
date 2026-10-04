@@ -4,11 +4,25 @@ import ShopImage from '../components/ShopImage.jsx'
 import MenuNote from '../components/MenuNote.jsx'
 import { useLanguage, pickText } from '../LanguageContext.jsx'
 
+const TEXT = {
+  back: { en: 'Back', zhCN: '返回', zhTW: '返回', ko: '뒤로', ja: '戻る' },
+  notFoundTitle: { en: 'Dish not found', zhCN: '找不到该料理', zhTW: '找不到該料理', ko: '메뉴를 찾을 수 없습니다', ja: '料理が見つかりません' },
+  notFoundBody: {
+    en: 'This menu item doesn’t exist.',
+    zhCN: '该菜品不存在。',
+    zhTW: '該菜品不存在。',
+    ko: '존재하지 않는 메뉴입니다.',
+    ja: 'このメニューは存在しません。',
+  },
+  menu: { en: 'Menu', zhCN: '菜单', zhTW: '菜單', ko: '메뉴', ja: 'メニュー' },
+}
+const tt = (key, lang) => TEXT[key][lang] || TEXT[key].en
+
 // 料理の詳細ページ。
 // ルート /shop/:shopId/menu/:menuId の id を受け、店舗→メニュー項目を取得して描画。
 // 構成：上=料理写真（店舗ページと同じ画像）／下=料理名・日本語名/ローマ字・価格・説明。
 // 価格・日本語名などは存在する時だけ表示（未入力のデータでも壊れない）。
-// 説明文は、マップで選んだ言語（LanguageContext）に連動して切り替わる。
+// 料理名・説明は、マップで選んだ言語（LanguageContext）に連動して切り替わる。
 export default function MenuPage() {
   const { shopId, menuId } = useParams()
   const navigate = useNavigate()
@@ -21,18 +35,21 @@ export default function MenuPage() {
   if (!shop || !item) {
     return (
       <main className="flex min-h-dvh flex-col items-center justify-center gap-4 px-6 text-center">
-        <p className="font-display text-3xl text-navy">Dish not found</p>
-        <p className="text-sm text-ink/60">This menu item doesn’t exist.</p>
+        <p className="font-display text-3xl text-navy">{tt('notFoundTitle', lang)}</p>
+        <p className="text-sm text-ink/60">{tt('notFoundBody', lang)}</p>
         <button
           type="button"
           onClick={() => navigate(shop ? `/shop/${shop.id}` : '/map')}
           className="press rounded-full bg-vermilion px-5 py-2 font-semibold text-white shadow-hand"
         >
-          ← Back
+          ← {tt('back', lang)}
         </button>
       </main>
     )
   }
+
+  const shopName = shop.nameI18n?.[lang] || shop.name
+  const itemName = item.nameI18n?.[lang] || item.name
 
   return (
     <main className="page-enter min-h-dvh bg-[#f5f3ee] pb-12">
@@ -52,7 +69,7 @@ export default function MenuPage() {
           aria-label="Back"
           className="press inline-flex items-center gap-1 rounded-full bg-white px-4 py-2 font-display text-lg text-navy shadow-hand"
         >
-          <span aria-hidden="true">←</span> Back
+          <span aria-hidden="true">←</span> {tt('back', lang)}
         </button>
       </div>
 
@@ -61,8 +78,8 @@ export default function MenuPage() {
         <ShopImage
           src={shopImageUrl(shop, item.img)}
           variant="menu"
-          label={item.name}
-          alt={item.name}
+          label={itemName}
+          alt={itemName}
           className="aspect-[4/3] w-full"
         />
       </div>
@@ -75,10 +92,10 @@ export default function MenuPage() {
       {/* 下：料理の情報 */}
       <section className="px-5 pt-5">
         <p className="text-xs font-semibold uppercase tracking-[0.2em] text-terracotta">
-          {shop.name} · Menu
+          {shopName} · {tt('menu', lang)}
         </p>
 
-        <h1 className="mt-1 font-display text-3xl leading-tight text-navy">{item.name}</h1>
+        <h1 className="mt-1 font-display text-3xl leading-tight text-navy">{itemName}</h1>
 
         {/* 日本語名 / ローマ字（あるときだけ） */}
         {(item.nameJa || item.romaji) && (
