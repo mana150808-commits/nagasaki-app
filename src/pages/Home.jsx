@@ -96,7 +96,13 @@ export default function Home() {
       </div>
 
       {/* カテゴリーチップ */}
-      <div className="wr-anim-chips relative z-10 mt-3 flex gap-1.5 overflow-x-auto px-[22px] pb-1" style={{ scrollbarWidth: 'none' }}>
+      {/* カテゴリーチップは店を絞り込むためのものなので、フィードバック画面では出さない */}
+      <div
+        className={`wr-anim-chips relative z-10 mt-3 gap-1.5 overflow-x-auto px-[22px] pb-1 ${
+          view === 'feedback' ? 'hidden' : 'flex'
+        }`}
+        style={{ scrollbarWidth: 'none' }}
+      >
         <CategoryChip
           active={category === null}
           label={t('all', lang)}
@@ -151,13 +157,12 @@ export default function Home() {
         )}
 
         {view === 'feedback' && (
-          <div className="h-full overflow-y-auto pb-6">
-            <div className="px-2 pb-3 pt-1">
-              <h2 className="font-heading text-[28px] leading-[1.12] text-white">{t('tabFeedback', lang)}</h2>
-            </div>
-            <div className="px-2">
-              <SurveyForm />
-            </div>
+          /* スクロールせず1画面に収める（はみ出す端末でだけスクロールできるようにする） */
+          <div className="flex h-full flex-col justify-center overflow-y-auto px-2 py-2">
+            <h2 className="mb-2 font-heading text-[24px] leading-[1.12] text-white">
+              {t('tabFeedback', lang)}
+            </h2>
+            <SurveyForm />
           </div>
         )}
       </div>
