@@ -304,22 +304,18 @@ export default function MapView({
 
   return (
     <div className={className}>
-      {/* 縁をカード枠で切らず、上下左右を均等に背景（夜景）へ溶け込ませる。
-          四隅も欠けないよう、縦横それぞれのグラデーションを重ねて（mask-composite）
-          全方向で同じ幅・同じ強さにしている。 */}
+      {/* 縁をカード枠で切らず、背景（夜景）へ溶け込ませる。
+          楕円のグラデーションでマスクしているので、角が丸く落ちて全体が楕円に近い形に見える。
+          中心付近（62%まで）は完全に不透明なので、地図の情報量は損なわれない。 */}
       <div className="relative h-full w-full">
         <div
           ref={containerRef}
           className="h-full w-full"
           style={{
             maskImage:
-              'linear-gradient(to right, transparent, black 10%, black 90%, transparent), ' +
-              'linear-gradient(to bottom, transparent, black 10%, black 90%, transparent)',
-            maskComposite: 'intersect',
+              'radial-gradient(ellipse 78% 82% at 50% 50%, black 62%, rgba(0,0,0,0.65) 84%, transparent 100%)',
             WebkitMaskImage:
-              'linear-gradient(to right, transparent, black 10%, black 90%, transparent), ' +
-              'linear-gradient(to bottom, transparent, black 10%, black 90%, transparent)',
-            WebkitMaskComposite: 'source-in',
+              'radial-gradient(ellipse 78% 82% at 50% 50%, black 62%, rgba(0,0,0,0.65) 84%, transparent 100%)',
           }}
         />
         <div ref={controlsWrapperRef} className="pointer-events-none absolute inset-0 z-10" />
