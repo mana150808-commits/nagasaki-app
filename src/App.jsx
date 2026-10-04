@@ -1,7 +1,6 @@
 import { useEffect, useRef } from 'react'
-import { Routes, Route, useLocation } from 'react-router-dom'
+import { Routes, Route, Navigate, useLocation } from 'react-router-dom'
 import Home from './pages/Home.jsx'
-import MapPage from './pages/MapPage.jsx'
 import SurveyPage from './pages/SurveyPage.jsx'
 import ShopPage from './pages/ShopPage.jsx'
 import MenuPage from './pages/MenuPage.jsx'
@@ -28,7 +27,9 @@ export default function App() {
     <div className="mx-auto flex min-h-full w-full max-w-md flex-col">
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/map" element={<MapPage />} />
+        {/* 旧デザインの独立したマップページは廃止。ホーム自体がMapタブを持つため、そちらへ誘導する。 */}
+        <Route path="/map" element={<Navigate to="/" replace />} />
+        <Route path="/welcome" element={<Navigate to="/" replace />} />
         {/* お店の詳細ページ（データ駆動：/shop/<id>）。店舗追加は data/shops.js に足すだけ。 */}
         <Route path="/shop/:shopId" element={<ShopPage />} />
         {/* 料理の詳細ページ（/shop/<id>/menu/<menuId>）。 */}

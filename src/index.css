@@ -47,6 +47,49 @@ body {
   -webkit-tap-highlight-color: transparent;
 }
 
+/* ===== "Organic" デザインシステム（Walk Rings リデザイン）共通スタイル ===== */
+
+/* 写真の色味を少し落ち着かせる（仕様書の .washed 定義そのまま） */
+.washed {
+  filter: saturate(0.6) contrast(0.85) brightness(1.1) opacity(0.94);
+}
+
+/* 地図上の店舗ピン（丸い写真バッジ）。MapLibreのMarkerに渡すDOM要素に直接付与するため、
+   Tailwindのクラスではなく通常のCSSで定義している（--wr-ring はカテゴリーごとの色）。 */
+.wr-pin {
+  position: relative;
+  width: 44px;
+  height: 44px;
+  border-radius: 9999px;
+  padding: 3px;
+  background: var(--wr-ring, #c67139);
+  box-sizing: border-box;
+  box-shadow: 0 3px 10px rgba(46, 43, 37, 0.16);
+  border: none;
+  cursor: pointer;
+  transition: width 0.15s ease-out, height 0.15s ease-out, box-shadow 0.15s ease-out;
+}
+.wr-pin-photo {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 9999px;
+  overflow: hidden;
+}
+.wr-pin-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.wr-pin-selected {
+  width: 54px;
+  height: 54px;
+  background: #c67139;
+  box-shadow: 0 0 0 3px rgba(198, 113, 57, 0.3), 0 6px 16px rgba(46, 43, 37, 0.28);
+  z-index: 5;
+}
+
 /* ===== ホーム画面の表示アニメーション ===== */
 
 /* 灯りが点る（0→その要素本来の明るさ --lit-o へ。個々の灯りの暗さを保つ） */

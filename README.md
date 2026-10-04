@@ -1,5 +1,13 @@
 # Nagasaki Trip / 長崎観光アプリ
 
+## 公開URL
+
+**https://nagasaki-app.pages.dev**
+
+Cloudflare Pagesで公開中（`main`ブランチにpushすると自動デプロイ）。スマホのブラウザで直接開けます。
+HTTPSなので、ローカルの開発サーバー（`http://<IP>:5173`）と違い現在地機能も動作します。
+検索エンジンには載らないよう`noindex`を設定しています（[public/_headers](public/_headers)参照）。
+
 長崎を訪れる外国人観光客向けのモバイルアプリ（プロトタイプ）。
 React + Vite + Tailwind CSS + react-router-dom で構築した **PWA**（スマホのホーム画面に
 追加すると全画面アプリとして起動できます）。
