@@ -83,7 +83,7 @@ export default function Home() {
               alt={placeName}
               className="h-[46px] w-auto"
               width="480"
-              height="234"
+              height="288"
             />
             <div className="mt-1 flex items-center gap-1 text-[10px] font-bold uppercase tracking-[0.18em] text-gold">
               <svg viewBox="0 0 24 24" width="10" height="10" fill="currentColor" aria-hidden="true">
