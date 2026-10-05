@@ -135,6 +135,7 @@ export default function Home() {
               shop={selected}
               lang={lang}
               onOpen={() => openShop(selected.id)}
+              onClose={() => setSelectedId(null)}
             />
           )}
         </div>
@@ -244,36 +245,62 @@ function StatusTag({ status, lang }) {
   return <span className={`text-[12px] font-bold ${fg}`}>{status.label}</span>
 }
 
-function SelectedCard({ shop, lang, onOpen }) {
+function SelectedCard({ shop, lang, onOpen, onClose }) {
   return (
-    <button
-      type="button"
-      onClick={onOpen}
-      className="press mt-3 flex items-center gap-3 rounded-radius-lg bg-neutral-100 p-2.5 text-left shadow-organic-md"
-    >
-      <ShopImage
-        src={shopImageUrl(shop, shop.exterior)}
-        variant="exterior"
-        label={shop.name}
-        alt=""
-        className="h-[72px] w-[72px] flex-none rounded-[18px]"
-      />
-      <div className="min-w-0 flex-1">
-        <div className="truncate text-xs font-bold text-accent-700">
-          {CATEGORY_LABEL[shop.category]?.[lang] || shop.category}
+    // 閉じるボタンはカード本体のボタンの中に入れられない（ボタンの入れ子は不可）ため、
+    // 外側のdivで包み、右上に重ねて配置している。
+    <div className="relative mt-3">
+      <button
+        type="button"
+        onClick={onClose}
+        aria-label="Close"
+        className="press absolute -right-1.5 -top-1.5 z-10 flex h-7 w-7 items-center justify-center rounded-full bg-text text-neutral-100 shadow-organic-md"
+      >
+        <svg
+          viewBox="0 0 24 24"
+          width="14"
+          height="14"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2.4"
+          strokeLinecap="round"
+          aria-hidden="true"
+        >
+          <path d="M6 6l12 12M18 6L6 18" />
+        </svg>
+      </button>
+
+      <button
+        type="button"
+        onClick={onOpen}
+        className="press flex w-full items-center gap-3 rounded-radius-lg bg-neutral-100 p-2.5 text-left shadow-organic-md"
+      >
+        <ShopImage
+          src={shopImageUrl(shop, shop.exterior)}
+          variant="exterior"
+          label={shop.name}
+          alt=""
+          className="h-[72px] w-[72px] flex-none rounded-[18px]"
+        />
+        <div className="min-w-0 flex-1">
+          <div className="truncate text-xs font-bold text-accent-700">
+            {CATEGORY_LABEL[shop.category]?.[lang] || shop.category}
+          </div>
+          <div className="truncate font-heading text-lg text-text">
+            {shop.nameI18n?.[lang] || shop.name}
+          </div>
+          <div className="mt-0.5 flex flex-wrap gap-1.5">
+            <span className="rounded-full bg-accent-200 px-2 py-0.5 text-[12px] font-bold text-accent-800">
+              {shop.walk} {t('min', lang)}
+            </span>
+            <StatusTag status={shop.status} lang={lang} />
+          </div>
         </div>
-        <div className="truncate font-heading text-lg text-text">{shop.nameI18n?.[lang] || shop.name}</div>
-        <div className="mt-0.5 flex flex-wrap gap-1.5">
-          <span className="rounded-full bg-accent-200 px-2 py-0.5 text-[12px] font-bold text-accent-800">
-            {shop.walk} {t('min', lang)}
-          </span>
-          <StatusTag status={shop.status} lang={lang} />
-        </div>
-      </div>
-      <span className="flex h-10 w-10 flex-none items-center justify-center rounded-full bg-accent text-base font-bold text-neutral-100">
-        →
-      </span>
-    </button>
+        <span className="flex h-10 w-10 flex-none items-center justify-center rounded-full bg-accent text-base font-bold text-neutral-100">
+          →
+        </span>
+      </button>
+    </div>
   )
 }
 
