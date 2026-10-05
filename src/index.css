@@ -73,6 +73,13 @@ body {
   bottom: max(22px, calc(env(safe-area-inset-bottom, 0px) + 8px));
 }
 
+/* タブバー（高さ64px）の分だけ中身の下に余白を取る。
+   タブバーが安全領域の分だけ持ち上がるので、こちらも同じ計算で連動させないと
+   選択中のお店のカードがタブバーに隠れる。 */
+.safe-pb-content {
+  padding-bottom: calc(max(22px, calc(env(safe-area-inset-bottom, 0px) + 8px)) + 76px);
+}
+
 /* 地図上の店舗ピン（丸い写真バッジ）。MapLibreのMarkerに渡すDOM要素に直接付与するため、
    Tailwindのクラスではなく通常のCSSで定義している（--wr-ring はカテゴリーごとの色）。 */
 .wr-pin {
