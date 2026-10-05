@@ -74,7 +74,7 @@ export default function Home() {
       <div className="absolute inset-0 bg-gradient-to-b from-night/35 via-night/30 to-night/95" />
 
       {/* ヘッダー */}
-      <div className="wr-anim-header relative z-10 px-[22px] pt-[54px]">
+      <div className="wr-anim-header safe-pt-header relative z-10 px-[22px]">
         <div className="flex items-center justify-between">
           <div className="leading-none">
             <div className="font-display text-[22px] leading-none tracking-tight text-white">{placeName}</div>
@@ -169,7 +169,7 @@ export default function Home() {
       </div>
 
       {/* タブバー */}
-      <div className="wr-anim-tabs fixed bottom-[22px] left-1/2 z-20 flex h-16 w-[calc(100%-32px)] max-w-[420px] -translate-x-1/2 items-center gap-1 rounded-full bg-text p-1.5 shadow-organic-lg">
+      <div className="wr-anim-tabs safe-bottom-tabs fixed left-1/2 z-20 flex h-16 w-[calc(100%-32px)] max-w-[420px] -translate-x-1/2 items-center gap-1 rounded-full bg-text p-1.5 shadow-organic-lg">
         <TabButton active={view === 'map'} onClick={() => setView('map')}>
           {t('tabMap', lang)}
         </TabButton>

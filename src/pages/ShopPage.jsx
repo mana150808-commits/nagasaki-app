@@ -70,7 +70,7 @@ export default function ShopPage() {
   return (
     <main className="page-enter min-h-dvh bg-[#f5f3ee] pb-12">
       {/* 戻るボタン（写真の上に重ならないよう帯で配置）とお気に入りボタン */}
-      <div className="flex items-center justify-between px-4 pt-4 pb-3">
+      <div className="safe-pt flex items-center justify-between px-4 pb-3">
         <button
           type="button"
           // 直前の画面（ホームまたはマップ）へ戻る。

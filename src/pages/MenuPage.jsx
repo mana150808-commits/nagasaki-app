@@ -54,7 +54,7 @@ export default function MenuPage() {
   return (
     <main className="page-enter min-h-dvh bg-[#f5f3ee] pb-12">
       {/* 戻るボタン（写真の上に重ならないよう帯で配置） */}
-      <div className="px-4 pt-4 pb-3">
+      <div className="safe-pt px-4 pb-3">
         <button
           type="button"
           // 通常は履歴を1つ戻る（＝この料理を開いた元の店舗ページ）。

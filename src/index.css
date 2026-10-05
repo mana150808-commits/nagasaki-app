@@ -54,6 +54,25 @@ body {
   filter: saturate(0.6) contrast(0.85) brightness(1.1) opacity(0.94);
 }
 
+/* ===== 画面端の安全領域（ホーム画面から起動したとき） =====
+   index.html で viewport-fit=cover と black-translucent を指定しているため、
+   ホーム画面のアイコンから起動（standalone）すると、ページが時計やノッチの下まで
+   広がる。その分の余白を足さないと、上端のボタン（Back / Save）が隠れて押せない。
+   ブラウザで開いたときは env(...) が 0 になるので、見た目は変わらない。 */
+.safe-pt {
+  padding-top: calc(env(safe-area-inset-top, 0px) + 1rem);
+}
+
+/* ホームのヘッダーは元々54pxの余白を取っているので、それより小さくならないようにする */
+.safe-pt-header {
+  padding-top: max(54px, calc(env(safe-area-inset-top, 0px) + 14px));
+}
+
+/* 下端のタブバーも、ホームインジケータに重ならない位置まで持ち上げる */
+.safe-bottom-tabs {
+  bottom: max(22px, calc(env(safe-area-inset-bottom, 0px) + 8px));
+}
+
 /* 地図上の店舗ピン（丸い写真バッジ）。MapLibreのMarkerに渡すDOM要素に直接付与するため、
    Tailwindのクラスではなく通常のCSSで定義している（--wr-ring はカテゴリーごとの色）。 */
 .wr-pin {
