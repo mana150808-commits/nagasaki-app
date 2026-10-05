@@ -77,14 +77,7 @@ export default function Home() {
       <div className="wr-anim-header safe-pt-header relative z-10 px-[22px]">
         <div className="flex items-center justify-between">
           <div className="leading-none">
-            {/* ホテルのロゴ。白地を透過させ、文字は夜景の上でも読めるよう白く抜いてある。 */}
-            <img
-              src="/dormy-inn-logo.png"
-              alt={placeName}
-              className="h-[46px] w-auto"
-              width="480"
-              height="288"
-            />
+            <div className="font-display text-[22px] leading-none tracking-tight text-white">{placeName}</div>
             <div className="mt-1 flex items-center gap-1 text-[10px] font-bold uppercase tracking-[0.18em] text-gold">
               <svg viewBox="0 0 24 24" width="10" height="10" fill="currentColor" aria-hidden="true">
                 <path d="M12 2C7.8 2 4.4 5.4 4.4 9.6c0 5.6 6.4 11.6 7.1 12.3a.7.7 0 0 0 1 0c.7-.7 7.1-6.7 7.1-12.3C19.6 5.4 16.2 2 12 2zm0 10.4a2.8 2.8 0 1 1 0-5.6 2.8 2.8 0 0 1 0 5.6z" />
