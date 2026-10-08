@@ -3281,6 +3281,210 @@ export const shops = [
       },
     ],
   },
+  {
+    id: "nidaime-sumizou",
+    name: "Nidaime Sumizou",
+    nameJa: "二代目炭蔵",
+    nameI18n: {
+      en: "Nidaime Sumizou",
+      zhCN: "二代目炭藏",
+      zhTW: "二代目炭藏",
+      ko: "니다이메 스미조",
+      ja: "二代目炭蔵",
+    },
+    heroDish: {
+      name: {
+        en: "Assorted Charcoal-Grilled Skewers",
+        zhCN: "炭烤串物拼盘",
+        zhTW: "炭烤串物拼盤",
+        ko: "숯불 꼬치 모둠",
+        ja: "串の盛り合わせ",
+      },
+      image: "menu1.jpg",
+    },
+    category: "Izakaya",
+    area: "Near Nagasaki Station",
+    areaJa: "長崎駅周辺",
+    areaI18n: {
+      en: "Near Nagasaki Station",
+      zhCN: "长崎站附近",
+      zhTW: "長崎站附近",
+      ko: "나가사키역 근처",
+      ja: "長崎駅周辺",
+    },
+
+    geo: { lat: 32.752342, lng: 129.872757 },
+    address: "〒850-0057 長崎県長崎市大黒町7-10 ワタナベビル 1F",
+    hours: {
+      sun: ["18:00–22:30"],
+      mon: ["18:00–22:30"],
+      tue: ["18:00–22:30"],
+      wed: ["18:00–22:30"],
+      thu: ["18:00–22:30"],
+      fri: ["18:00–22:30"],
+      sat: ["18:00–22:30"],
+    },
+
+    photoBase: "/shops/nidaime-sumizou",
+    exterior: "exterior.jpg",
+
+    description: {
+      en:
+        "Nidaime Sumizou is a top-tier charcoal-grill izakaya conveniently situated near Nagasaki " +
+        "Station. Famous for its authentic binchotan charcoal grilling techniques, the restaurant " +
+        "serves prime cuts of Nagasaki Wagyu beef, juicy yakitori skewers and comforting izakaya " +
+        "staples in a stylish, cosy setting. Offering an extensive drink selection alongside a warm " +
+        "and welcoming atmosphere, it is an ideal destination for international travelers looking to " +
+        "enjoy an exceptional charcoal-grilled dinner after a long day of sightseeing.",
+      ja:
+        "二代目炭蔵は、長崎駅の近くにある本格的な炭火焼きの居酒屋です。備長炭で丁寧に焼き上げる" +
+        "技が自慢で、長崎和牛の上質な部位や、ジューシーな焼き鳥の串、居酒屋らしい定番料理を" +
+        "楽しめます。落ち着いた雰囲気の店内と豊富なドリンクで、観光で歩き回った一日の締めくくりに" +
+        "ふさわしい一軒です。",
+      zhCN:
+        "二代目炭藏是位于长崎站附近的正宗炭火烧烤居酒屋。以备长炭精心炙烤的技艺著称，供应长崎和牛的" +
+        "上等部位、多汁的烤鸡肉串，以及各式居酒屋经典小菜。店内风格雅致舒适，酒水种类丰富，" +
+        "是观光一天后享用炭烤晚餐的理想选择。",
+      zhTW:
+        "二代目炭藏是位於長崎站附近的道地炭火燒烤居酒屋。以備長炭精心炙烤的技藝著稱，供應長崎和牛的" +
+        "上等部位、多汁的烤雞肉串，以及各式居酒屋經典小菜。店內風格雅致舒適，酒水種類豐富，" +
+        "是觀光一天後享用炭烤晚餐的理想選擇。",
+      ko:
+        "니다이메 스미조는 나가사키역 근처에 자리한 본격 숯불구이 이자카야입니다. 비장탄으로 " +
+        "정성껏 구워내는 솜씨가 자랑이며, 나가사키 와규의 상급 부위와 육즙 가득한 야키토리 꼬치, " +
+        "이자카야의 정통 메뉴를 즐길 수 있습니다. 차분한 분위기와 다양한 음료로, 관광으로 바빴던 " +
+        "하루를 마무리하기에 좋습니다.",
+    },
+
+    menu: [
+      {
+        id: "skewer-platter",
+        name: "Assorted Charcoal-Grilled Skewers",
+        nameJa: "串の盛り合わせ",
+        nameI18n: {
+          en: "Assorted Charcoal-Grilled Skewers",
+          zhCN: "炭烤串物拼盘",
+          zhTW: "炭烤串物拼盤",
+          ko: "숯불 꼬치 모둠",
+          ja: "串の盛り合わせ",
+        },
+        price: "¥1,518",
+        img: "menu1.jpg",
+        description: {
+          en:
+            "A chef's selection of assorted meat and vegetable skewers (yakitori and kushiyaki) " +
+            "grilled over red-hot charcoal until crisp outside and juicy inside. A perfect " +
+            "centrepiece to share alongside a cold draft beer or sake.",
+          ja:
+            "肉と野菜の串を、おまかせで盛り合わせた一皿。炭火で外は香ばしく、中はジューシーに" +
+            "焼き上げています。生ビールや日本酒と一緒に、みんなで分けて楽しめます。",
+          zhCN:
+            "由店家搭配的肉类与蔬菜串物拼盘。以炭火烤得外酥内嫩，适合搭配生啤酒或清酒一同分享。",
+          zhTW:
+            "由店家搭配的肉類與蔬菜串物拼盤。以炭火烤得外酥內嫩，適合搭配生啤酒或清酒一同分享。",
+          ko:
+            "고기와 채소 꼬치를 주방장이 알아서 담아내는 모둠. 숯불로 겉은 고소하고 속은 촉촉하게 " +
+            "구워냅니다. 생맥주나 사케와 함께 나눠 먹기 좋습니다.",
+        },
+      },
+      {
+        id: "wagyu-ribeye",
+        name: "Nagasaki Wagyu Ribeye Steak",
+        nameJa: "長崎和牛リブロースステーキ",
+        nameI18n: {
+          en: "Nagasaki Wagyu Ribeye Steak",
+          zhCN: "长崎和牛肋眼牛排",
+          zhTW: "長崎和牛肋眼牛排",
+          ko: "나가사키 와규 립아이 스테이크",
+          ja: "長崎和牛リブロースステーキ",
+        },
+        price: "¥2,640",
+        img: "menu2.jpg",
+        description: {
+          en:
+            "Premium Nagasaki Wagyu ribeye grilled over charcoal to lock in its rich juices and " +
+            "delicate marbling. Highly tender and bursting with savoury umami, it offers a luxurious " +
+            "taste of Nagasaki's award-winning beef.",
+          ja:
+            "長崎和牛のリブロースを炭火で焼き上げ、肉汁と霜降りの旨みを閉じ込めた一品。" +
+            "やわらかく、長崎が誇る和牛のおいしさを贅沢に味わえます。",
+          zhCN:
+            "以炭火炙烤长崎和牛肋眼，锁住丰富肉汁与细腻油花。口感柔嫩、鲜味十足，" +
+            "可奢华地品尝长崎引以为傲的和牛。",
+          zhTW:
+            "以炭火炙烤長崎和牛肋眼，鎖住豐富肉汁與細緻油花。口感柔嫩、鮮味十足，" +
+            "可奢華地品嚐長崎引以為傲的和牛。",
+          ko:
+            "나가사키 와규 립아이를 숯불에 구워 육즙과 섬세한 마블링의 풍미를 가두었습니다. " +
+            "부드럽고 감칠맛이 가득해 나가사키가 자랑하는 와규를 호화롭게 즐길 수 있습니다.",
+        },
+      },
+      {
+        id: "yamaimo-teppan",
+        name: "Soft-Boiled Egg & Cheese Yam Griddle Plate",
+        nameJa: "半熟卵とチーズの山芋鉄板",
+        nameI18n: {
+          en: "Soft-Boiled Egg & Cheese Yam Griddle Plate",
+          zhCN: "半熟蛋起司山药铁板烧",
+          zhTW: "半熟蛋起司山藥鐵板燒",
+          ko: "반숙 달걀 치즈 마 철판구이",
+          ja: "半熟卵とチーズの山芋鉄板",
+        },
+        price: "¥880",
+        img: "menu3.jpg",
+        description: {
+          en:
+            "A comforting, fluffy Japanese yam batter cooked on a sizzling iron skillet, topped with " +
+            "melted cheese and a soft-boiled egg. The creamy yolk, gooey cheese and savoury yam make " +
+            "it an irresistible crowd-pleaser.",
+          ja:
+            "ふわふわの山芋生地を熱々の鉄板で焼き、とろけるチーズと半熟卵をのせた一品。" +
+            "濃厚な黄身とチーズ、山芋の旨みが合わさった、みんなに好まれる味です。",
+          zhCN:
+            "将松软的山药面糊以滚烫铁板烧制，再铺上融化起司与半熟蛋。浓郁的蛋黄、" +
+            "牵丝起司与山药的鲜味交织，令人一试难忘。",
+          zhTW:
+            "將鬆軟的山藥麵糊以滾燙鐵板燒製，再鋪上融化起司與半熟蛋。濃郁的蛋黃、" +
+            "牽絲起司與山藥的鮮味交織，令人一試難忘。",
+          ko:
+            "폭신한 마 반죽을 뜨거운 철판에 구운 뒤 녹인 치즈와 반숙 달걀을 올렸습니다. " +
+            "진한 노른자와 쫀득한 치즈, 마의 감칠맛이 어우러져 누구나 좋아하는 메뉴입니다.",
+        },
+      },
+      {
+        id: "karaage-or-shrimp",
+        name: "Fried Chicken or Crispy Small Shrimp",
+        nameJa: "鶏の唐揚げ／小えびの唐揚げ",
+        nameI18n: {
+          en: "Fried Chicken or Crispy Small Shrimp",
+          zhCN: "炸鸡块／酥炸小虾",
+          zhTW: "炸雞塊／酥炸小蝦",
+          ko: "닭 가라아게 / 바삭한 새우 튀김",
+          ja: "鶏の唐揚げ／小えびの唐揚げ",
+        },
+        price: "Chicken ¥638 / Shrimp ¥528",
+        img: "menu4.jpg",
+        description: {
+          en:
+            "Classic, crispy Japanese finger foods. Choose between juicy marinated fried chicken " +
+            "(karaage) or crunchy, bite-sized whole small shrimp — both are addictive snacks to pair " +
+            "with cold drinks.",
+          ja:
+            "居酒屋らしい揚げ物の定番。下味をつけたジューシーな鶏の唐揚げか、丸ごと揚げた" +
+            "カリカリの小えびから選べます。どちらも冷たい飲み物によく合います。",
+          zhCN:
+            "居酒屋经典炸物。可选择腌制入味、多汁的炸鸡块，或整只酥炸的香脆小虾，" +
+            "两者都很适合搭配冰凉饮品。",
+          zhTW:
+            "居酒屋經典炸物。可選擇醃製入味、多汁的炸雞塊，或整隻酥炸的香脆小蝦，" +
+            "兩者都很適合搭配冰涼飲品。",
+          ko:
+            "이자카야의 대표 튀김 메뉴. 밑간한 촉촉한 닭 가라아게와 통째로 바삭하게 튀긴 작은 새우 " +
+            "중에서 고를 수 있습니다. 둘 다 시원한 음료와 잘 어울립니다.",
+        },
+      },
+    ],
+  },
 ]
 
 // id から店舗を取得
