@@ -2879,6 +2879,204 @@ export const shops = [
       },
     ],
   },
+  {
+    id: "taisho-suisan-ekimae",
+    name: "Taisho Suisan Nagasaki Ekimae",
+    nameJa: "大庄水産 長崎駅前店",
+    nameI18n: {
+      en: "Taisho Suisan Nagasaki Ekimae",
+      zhCN: "大庄水产 长崎站前店",
+      zhTW: "大庄水產 長崎站前店",
+      ko: "다이쇼 수산 나가사키역 앞점",
+      ja: "大庄水産 長崎駅前店",
+    },
+    heroDish: {
+      name: {
+        en: "Tabletop Seafood BBQ Set",
+        zhCN: "炉端海鲜烧烤套餐",
+        zhTW: "爐端海鮮燒烤套餐",
+        ko: "테이블 해산물 바비큐 세트",
+        ja: "浜焼きセット",
+      },
+      image: "menu2.jpg",
+    },
+    category: "Izakaya",
+    area: "Near Nagasaki Station",
+    areaJa: "長崎駅周辺",
+    areaI18n: {
+      en: "Near Nagasaki Station",
+      zhCN: "长崎站附近",
+      zhTW: "長崎站附近",
+      ko: "나가사키역 근처",
+      ja: "長崎駅周辺",
+    },
+
+    geo: { lat: 32.751389, lng: 129.87236 },
+    address: "〒850-0057 長崎県長崎市大黒町10-10 KoKoRoビル",
+    hours: {
+      sun: ["11:00–23:00"],
+      mon: ["11:00–23:00"],
+      tue: ["11:00–23:00"],
+      wed: ["11:00–23:00"],
+      thu: ["11:00–23:00"],
+      fri: ["11:00–23:00"],
+      sat: ["11:00–23:00"],
+    },
+
+    photoBase: "/shops/taisho-suisan-ekimae",
+    exterior: "exterior.jpg",
+
+    description: {
+      en:
+        "Taisho Suisan Nagasaki Ekimae is a lively, seafood-centric Japanese izakaya located just " +
+        "steps from Nagasaki Station. Designed like a bustling fish market, the restaurant features " +
+        "in-house fish tanks and tabletop grills, allowing guests to enjoy dynamic seafood BBQ " +
+        "alongside ultra-fresh sashimi. With its energetic atmosphere, extensive drink menu, and " +
+        "English menu available, it is an ideal and welcoming spot for international travelers to " +
+        "experience authentic Japanese seafood culture right upon arriving in Nagasaki.",
+      ja:
+        "大庄水産 長崎駅前店は、長崎駅からすぐの場所にある活気のある海鮮居酒屋です。魚市場を" +
+        "思わせる店内には生け簀があり、各テーブルのコンロで浜焼きを楽しめます。獲れたての刺身と" +
+        "合わせて、豪快な海鮮料理を味わえます。英語メニューもあり、長崎に着いてすぐに日本の" +
+        "海鮮文化を体験したい海外からのお客様にも入りやすい一軒です。",
+      zhCN:
+        "大庄水产长崎站前店是一家位于长崎站附近的热闹海鲜居酒屋。店内布置得如同鱼市场，设有活鱼池，" +
+        "每桌都配有烤炉，可享受海鲜烧烤与超新鲜的生鱼片。气氛热烈、酒水种类丰富，并备有英文菜单，" +
+        "是外国游客抵达长崎后体验日本海鲜文化的理想去处。",
+      zhTW:
+        "大庄水產長崎站前店是一家位於長崎站附近的熱鬧海鮮居酒屋。店內佈置得如同魚市場，設有活魚池，" +
+        "每桌都配有烤爐，可享受海鮮燒烤與超新鮮的生魚片。氣氛熱烈、酒水種類豐富，並備有英文菜單，" +
+        "是外國旅客抵達長崎後體驗日本海鮮文化的理想去處。",
+      ko:
+        "다이쇼 수산 나가사키 역앞점은 나가사키역에서 바로 가까운 활기 넘치는 해산물 이자카야입니다. " +
+        "어시장을 연상시키는 점내에는 수조가 있고, 각 테이블의 화로에서 해산물 바비큐를 즐길 수 " +
+        "있습니다. 갓 잡은 신선한 사시미와 함께 푸짐한 해산물 요리를 맛볼 수 있습니다. 영어 메뉴도 " +
+        "준비되어 있어, 나가사키에 도착하자마자 일본의 해산물 문화를 경험하고 싶은 해외 여행객에게 " +
+        "안성맞춤입니다.",
+    },
+
+    menu: [
+      {
+        id: "sashimi-10",
+        name: "10-Piece Sashimi Platter",
+        nameJa: "刺身十種盛り",
+        nameI18n: {
+          en: "10-Piece Sashimi Platter",
+          zhCN: "生鱼片十种拼盘",
+          zhTW: "生魚片十種拼盤",
+          ko: "모둠 사시미 10종",
+          ja: "刺身十種盛り",
+        },
+        price: "¥1,980",
+        img: "menu1.jpg",
+        description: {
+          en:
+            "A lavish and colourful seafood platter featuring ten different seasonal fish, served " +
+            "fresh on ice. Perfect for tasting a rich variety of Japan's freshest catch all in one " +
+            "luxurious order.",
+          ja:
+            "旬の魚を10種類、氷の上に美しく盛り付けた豪華な一皿。日本の新鮮な魚介を一度に" +
+            "食べ比べられます。",
+          zhCN:
+            "将十种时令鲜鱼漂亮地摆放在冰上的豪华拼盘。可一次品尝日本各式新鲜海产。",
+          zhTW:
+            "將十種時令鮮魚漂亮地擺放在冰上的豪華拼盤。可一次品嚐日本各式新鮮海產。",
+          ko:
+            "제철 생선 10종을 얼음 위에 아름답게 담아낸 호화로운 한 접시. 일본의 신선한 해산물을 " +
+            "한 번에 비교하며 즐길 수 있습니다.",
+        },
+      },
+      {
+        id: "hamayaki-set",
+        name: "Tabletop Seafood BBQ Set",
+        nameJa: "浜焼きセット",
+        nameI18n: {
+          en: "Tabletop Seafood BBQ Set",
+          zhCN: "炉端海鲜烧烤套餐",
+          zhTW: "爐端海鮮燒烤套餐",
+          ko: "테이블 해산물 바비큐 세트",
+          ja: "浜焼きセット",
+        },
+        price: "¥3,800",
+        img: "menu2.jpg",
+        description: {
+          en:
+            "An interactive dining experience where you grill fresh shellfish and seafood directly " +
+            "on a stovetop at your table. The irresistible aroma of sea salt and sizzling soy sauce " +
+            "makes for an unforgettable night.",
+          ja:
+            "新鮮な貝や魚介を、テーブルのコンロで自分で焼き上げる一品。潮の香りと醤油の焦げる" +
+            "香ばしさが広がり、忘れられない時間になります。",
+          zhCN:
+            "在餐桌上的烤炉亲手烧烤新鲜贝类与海鲜。海盐的香气与酱油烤焦的香味交织，令人难忘。",
+          zhTW:
+            "在餐桌上的烤爐親手燒烤新鮮貝類與海鮮。海鹽的香氣與醬油烤焦的香味交織，令人難忘。",
+          ko:
+            "신선한 조개와 해산물을 테이블 화로에서 직접 구워 먹는 메뉴. 바다 내음과 간장이 " +
+            "익는 고소한 향이 어우러져 잊지 못할 시간이 됩니다.",
+        },
+      },
+      {
+        id: "bukkake-sushi-roll",
+        name: '"Overflowing" Bukkake Sushi Roll',
+        nameJa: "こぼれ盛りぶっかけ寿司",
+        nameI18n: {
+          en: '"Overflowing" Bukkake Sushi Roll',
+          zhCN: "满溢海鲜寿司卷",
+          zhTW: "滿溢海鮮壽司卷",
+          ko: "넘치는 붓카케 초밥",
+          ja: "こぼれ盛りぶっかけ寿司",
+        },
+        price: "¥1,980",
+        img: "menu3.jpg",
+        description: {
+          en:
+            "Sushi rolls piled so high with fresh seafood — such as salmon roe, minced tuna and crab " +
+            "— that it literally overflows the plate. Highly photo-worthy and incredibly satisfying.",
+          ja:
+            "いくら、ねぎとろ、カニなどの魚介を、皿からこぼれるほど豪快に盛り付けた巻き寿司。" +
+            "写真映えもする満足感のある一品です。",
+          zhCN:
+            "鲑鱼子、葱花金枪鱼泥、蟹肉等海鲜堆得满到溢出盘子的寿司卷。既上镜又十分满足。",
+          zhTW:
+            "鮭魚卵、蔥花鮪魚泥、蟹肉等海鮮堆得滿到溢出盤子的壽司捲。既上鏡又十分滿足。",
+          ko:
+            "연어알과 네기토로, 게살 등 해산물을 접시에서 넘칠 만큼 푸짐하게 올린 김초밥. " +
+            "사진도 잘 나오고 든든합니다.",
+        },
+      },
+      {
+        id: "motsu-nikomi",
+        name: "Simmered Offal",
+        nameJa: "もつ煮込み",
+        nameI18n: {
+          en: "Simmered Offal",
+          zhCN: "味噌炖内脏",
+          zhTW: "味噌燉內臟",
+          ko: "모츠니코미",
+          ja: "もつ煮込み",
+        },
+        price: "¥450",
+        img: "menu4.jpg",
+        description: {
+          en:
+            "A classic Japanese izakaya comfort food featuring tender beef or pork offal slow-cooked " +
+            "in a savoury miso-based broth. Warm, hearty, and pairs effortlessly with a cold beer or " +
+            "highball.",
+          ja:
+            "牛や豚のもつを味噌だれでじっくり煮込んだ、居酒屋の定番。体が温まる一品で、" +
+            "冷えたビールやハイボールによく合います。",
+          zhCN:
+            "以味噌汤底慢炖的牛猪内脏，是居酒屋的经典下酒菜。暖身又实在，配冰啤酒或嗨棒都很对味。",
+          zhTW:
+            "以味噌湯底慢燉的牛豬內臟，是居酒屋的經典下酒菜。暖身又實在，配冰啤酒或嗨棒都很對味。",
+          ko:
+            "소·돼지 곱창을 된장 양념에 푹 끓여낸 이자카야의 단골 메뉴. 몸이 따뜻해지는 요리로 " +
+            "시원한 맥주나 하이볼과 잘 어울립니다.",
+        },
+      },
+    ],
+  },
 ]
 
 // id から店舗を取得
