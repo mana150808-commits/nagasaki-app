@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { useParams, useNavigate, useLocation, Link } from 'react-router-dom'
 import { setLastShopId } from '../mapState.js'
 import { getShopById, shopImageUrl } from '../data/shops.js'
@@ -67,6 +67,28 @@ export default function ShopPage() {
   const category = CATEGORY_LABEL[shop.category]?.[lang] || shop.category
   const area = shop.areaI18n?.[lang] || shop.area
 
+  // 店名が長いと写真の上で2行に折り返してしまうため、1行のまま入るところまで文字を縮める。
+  // 文字数からの概算だと言語やフォントで誤差が出るので、実際に描画した幅を測って調整する。
+  const titleRef = useRef(null)
+  const [titleScale, setTitleScale] = useState(1)
+  useLayoutEffect(() => {
+    const el = titleRef.current
+    if (!el) return
+    const fit = () => {
+      setTitleScale(1) // いったん等倍に戻してから測り直す
+      requestAnimationFrame(() => {
+        const available = el.parentElement?.clientWidth || 0
+        const needed = el.scrollWidth
+        if (available > 0 && needed > available) {
+          setTitleScale(Math.max(0.45, available / needed))
+        }
+      })
+    }
+    fit()
+    window.addEventListener('resize', fit)
+    return () => window.removeEventListener('resize', fit)
+  }, [name, shop.nameJa])
+
   return (
     <main className="page-enter min-h-dvh bg-[#f5f3ee] pb-12">
       {/* 戻るボタン（写真の上に重ならないよう帯で配置）とお気に入りボタン */}
@@ -98,9 +120,15 @@ export default function ShopPage() {
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/45 via-black/0 to-transparent" />
 
         <div className="absolute bottom-3 left-5 right-5 text-white drop-shadow-[0_2px_6px_rgba(0,0,0,0.6)]">
-          <h1 className="font-display text-4xl leading-none">
+          <h1
+            ref={titleRef}
+            className="inline-block origin-left whitespace-nowrap font-display text-4xl leading-none"
+            style={{ transform: `scale(${titleScale})` }}
+          >
             {name}
-            <span className="ml-2 align-middle text-2xl font-normal">{shop.nameJa}</span>
+            <span className="ml-2 align-middle font-normal" style={{ fontSize: '0.66em' }}>
+              {shop.nameJa}
+            </span>
           </h1>
         </div>
       </div>
