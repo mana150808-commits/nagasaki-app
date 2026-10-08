@@ -3077,6 +3077,210 @@ export const shops = [
       },
     ],
   },
+  {
+    id: "jinjuro",
+    name: "Ekimae Robata Jinjuro",
+    nameJa: "駅前炉ばた 甚十郎",
+    nameI18n: {
+      en: "Ekimae Robata Jinjuro",
+      zhCN: "站前炉端 甚十郎",
+      zhTW: "站前爐端 甚十郎",
+      ko: "에키마에 로바타 진주로",
+      ja: "駅前炉ばた 甚十郎",
+    },
+    heroDish: {
+      name: {
+        en: "Assorted Charcoal-Grilled Meat Platter",
+        zhCN: "炭烤肉类拼盘",
+        zhTW: "炭烤肉類拼盤",
+        ko: "숯불구이 고기 모둠",
+        ja: "炭火焼き肉盛り合わせ",
+      },
+      image: "menu1.jpg",
+    },
+    category: "Izakaya",
+    area: "Near Nagasaki Station",
+    areaJa: "長崎駅周辺",
+    areaI18n: {
+      en: "Near Nagasaki Station",
+      zhCN: "长崎站附近",
+      zhTW: "長崎站附近",
+      ko: "나가사키역 근처",
+      ja: "長崎駅周辺",
+    },
+
+    geo: { lat: 32.75264, lng: 129.872238 },
+    address: "〒850-0057 長崎県長崎市大黒町7-2",
+    hours: {
+      sun: ["15:00–23:00"],
+      mon: ["16:00–23:00"],
+      tue: ["16:00–23:00"],
+      wed: ["16:00–23:00"],
+      thu: ["16:00–23:00"],
+      fri: ["16:00–23:00"],
+      sat: ["15:00–23:00"],
+    },
+
+    photoBase: "/shops/jinjuro",
+    exterior: "exterior.jpg",
+
+    description: {
+      en:
+        "Ekimae Robata Jinjuro is a stylish and vibrant Japanese robatayaki (hearth-side grilling) " +
+        "izakaya conveniently located right across from Nagasaki Station. Specializing in " +
+        "high-quality charcoal-grilled meats, fresh local ingredients and regional spirits, it " +
+        "offers a warm and lively dining atmosphere. With its modern Japanese interior and counter " +
+        "seating where guests can watch the chefs cook over open flames, it provides an " +
+        "unforgettable, authentic Japanese pub experience for international travelers arriving in " +
+        "Nagasaki.",
+      ja:
+        "駅前炉ばた 甚十郎は、長崎駅の目の前にある、洗練された雰囲気の炉ばた焼き居酒屋です。" +
+        "質のよい炭火焼きの肉料理、地元の新鮮な食材、長崎の地酒を揃えています。和モダンな内装で、" +
+        "カウンター席では炭火で焼き上げる様子を間近に見られます。長崎に着いた海外からのお客様が、" +
+        "日本の居酒屋らしさを味わうのにふさわしい一軒です。",
+      zhCN:
+        "站前炉端甚十郎是一家位于长崎站对面、风格时尚的炉端烧居酒屋。主打优质炭火烤肉、" +
+        "当地新鲜食材与本地酒类，店内气氛热闹温馨。和风现代的装潢与吧台座位，让客人能近距离" +
+        "观看厨师以炭火烹调。是刚抵达长崎的外国旅客体验日式居酒屋的好去处。",
+      zhTW:
+        "站前爐端甚十郎是一家位於長崎站對面、風格時尚的爐端燒居酒屋。主打優質炭火烤肉、" +
+        "當地新鮮食材與本地酒類，店內氣氛熱鬧溫馨。和風現代的裝潢與吧台座位，讓客人能近距離" +
+        "觀看廚師以炭火烹調。是剛抵達長崎的外國旅客體驗日式居酒屋的好去處。",
+      ko:
+        "에키마에 로바타 진주로는 나가사키역 바로 앞에 자리한 세련된 분위기의 로바타야키 " +
+        "이자카야입니다. 질 좋은 숯불구이 고기 요리와 신선한 현지 식재료, 나가사키의 지역 술을 " +
+        "갖추고 있습니다. 모던한 일본식 인테리어와 카운터석에서는 숯불로 요리하는 모습을 가까이 " +
+        "볼 수 있습니다. 나가사키에 막 도착한 해외 여행객이 일본 이자카야를 체험하기에 좋습니다.",
+    },
+
+    menu: [
+      {
+        id: "grilled-meat-platter",
+        name: "Assorted Charcoal-Grilled Meat Platter",
+        nameJa: "炭火焼き肉盛り合わせ",
+        nameI18n: {
+          en: "Assorted Charcoal-Grilled Meat Platter",
+          zhCN: "炭烤肉类拼盘",
+          zhTW: "炭烤肉類拼盤",
+          ko: "숯불구이 고기 모둠",
+          ja: "炭火焼き肉盛り合わせ",
+        },
+        price: "¥7,000",
+        img: "menu1.jpg",
+        description: {
+          en:
+            "An ultimate meat feast featuring five options: two select cuts of beef, spicy jerk " +
+            "chicken, crispy pork, and Unzen Ham — an iconic Nagasaki specialty pork sausage. " +
+            "Perfect for groups to share alongside local beer or sake.",
+          ja:
+            "牛肉の2種類の部位、スパイシーなジャークチキン、カリッと焼いた豚肉、そして長崎名物の" +
+            "雲仙ハムを合わせた5種の盛り合わせ。地元のビールや日本酒と一緒に、みんなで分けて" +
+            "楽しめます。",
+          zhCN:
+            "包含两种牛肉部位、香辣烤鸡、香脆猪肉，以及长崎名产云仙火腿的五种拼盘。适合多人分享，" +
+            "搭配当地啤酒或清酒。",
+          zhTW:
+            "包含兩種牛肉部位、香辣烤雞、香脆豬肉，以及長崎名產雲仙火腿的五種拼盤。適合多人分享，" +
+            "搭配當地啤酒或清酒。",
+          ko:
+            "소고기 두 부위와 매콤한 저크 치킨, 바삭하게 구운 돼지고기, 그리고 나가사키 명물 " +
+            "운젠 햄까지 다섯 가지를 담은 모둠. 현지 맥주나 사케와 함께 여럿이 나눠 먹기 좋습니다.",
+        },
+      },
+      {
+        id: "wagyu-roast-beef",
+        name: "Nagasaki Kuroge Wagyu Roast Beef",
+        nameJa: "長崎黒毛和牛のローストビーフ",
+        nameI18n: {
+          en: "Nagasaki Kuroge Wagyu Roast Beef",
+          zhCN: "长崎黑毛和牛烤牛肉",
+          zhTW: "長崎黑毛和牛烤牛肉",
+          ko: "나가사키 흑모 와규 로스트비프",
+          ja: "長崎黒毛和牛のローストビーフ",
+        },
+        price: "¥1,350",
+        img: "menu2.jpg",
+        description: {
+          en:
+            "Tender, flavourful roast beef made from local Nagasaki Kuroge Wagyu, cooked to " +
+            "medium-rare perfection. Served with a savoury sauce that brings out the rich umami and " +
+            "juiciness of Nagasaki beef.",
+          ja:
+            "長崎産の黒毛和牛をミディアムレアに焼き上げた、やわらかいローストビーフ。" +
+            "長崎牛の旨みと肉汁を引き立てるソースを添えています。",
+          zhCN:
+            "选用长崎产黑毛和牛，烤至五分熟的柔嫩烤牛肉。佐以提升长崎牛鲜味与肉汁的酱汁。",
+          zhTW:
+            "選用長崎產黑毛和牛，烤至五分熟的柔嫩烤牛肉。佐以提升長崎牛鮮味與肉汁的醬汁。",
+          ko:
+            "나가사키산 흑모 와규를 미디엄 레어로 구워낸 부드러운 로스트비프. 나가사키 소고기의 " +
+            "감칠맛과 육즙을 살려 주는 소스를 곁들였습니다.",
+        },
+      },
+      {
+        id: "beef-tongue-steak",
+        name: "Thick-Cut Beef Tongue Steak",
+        nameJa: "厚切り牛タンステーキ",
+        nameI18n: {
+          en: "Thick-Cut Beef Tongue Steak",
+          zhCN: "厚切牛舌排",
+          zhTW: "厚切牛舌排",
+          ko: "두툼한 우설 스테이크",
+          ja: "厚切り牛タンステーキ",
+        },
+        price: "¥1,700",
+        img: "menu3.jpg",
+        description: {
+          en:
+            "Premium thick-cut beef tongue grilled over charcoal for a crisp outer layer while the " +
+            "inside stays juicy and tender. A flavourful classic that pairs exceptionally well with " +
+            "highballs or cold draft beer.",
+          ja:
+            "上質な牛タンを厚めに切り、炭火で表面は香ばしく、中はやわらかくジューシーに" +
+            "焼き上げた一品。ハイボールや生ビールとよく合います。",
+          zhCN:
+            "选用上等牛舌厚切，以炭火烤至外层焦香、内里多汁柔嫩。与嗨棒或生啤酒格外相配。",
+          zhTW:
+            "選用上等牛舌厚切，以炭火烤至外層焦香、內裡多汁柔嫩。與嗨棒或生啤酒格外相配。",
+          ko:
+            "두툼하게 썬 고급 우설을 숯불에 구워 겉은 고소하고 속은 촉촉하게 완성했습니다. " +
+            "하이볼이나 생맥주와 특히 잘 어울립니다.",
+        },
+      },
+      {
+        id: "caesar-salad",
+        name: "Caesar Salad with Soft-Boiled Egg",
+        nameJa: "温玉シーザーサラダ",
+        nameI18n: {
+          en: "Caesar Salad with Soft-Boiled Egg",
+          zhCN: "温泉蛋凯撒沙拉",
+          zhTW: "溫泉蛋凱撒沙拉",
+          ko: "수란 시저 샐러드",
+          ja: "温玉シーザーサラダ",
+        },
+        price: "¥1,300",
+        img: "menu4.jpg",
+        description: {
+          en:
+            "A crisp, refreshing salad loaded with fresh greens, crunchy croutons and savoury " +
+            "parmesan, topped with a soft-boiled egg (onsen tamago). Breaking the yolk creates a " +
+            "rich dressing that balances the grilled meat dishes.",
+          ja:
+            "新鮮な野菜に、カリッとしたクルトンとパルメザンチーズを合わせたサラダ。温泉卵を" +
+            "くずすと、濃厚なソースのように絡み、炭火焼きの肉料理の箸休めになります。",
+          zhCN:
+            "以新鲜蔬菜搭配酥脆面包丁与帕玛森起司的沙拉，顶上放温泉蛋。拌开蛋黄后如浓郁酱汁，" +
+            "适合搭配炭烤肉类。",
+          zhTW:
+            "以新鮮蔬菜搭配酥脆麵包丁與帕瑪森起司的沙拉，頂上放溫泉蛋。拌開蛋黃後如濃郁醬汁，" +
+            "適合搭配炭烤肉類。",
+          ko:
+            "신선한 채소에 바삭한 크루통과 파르메산 치즈를 더한 샐러드. 위에 올린 수란을 터뜨리면 " +
+            "진한 드레싱처럼 어우러져 숯불구이 요리와 균형을 이룹니다.",
+        },
+      },
+    ],
+  },
 ]
 
 // id から店舗を取得
